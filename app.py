@@ -1,3 +1,4 @@
+import os
 from flask import Flask, render_template
 import flask.ext.sqlalchemy
 import flask.ext.restless
@@ -5,7 +6,8 @@ import flask.ext.restless
 # Create the Flask application and the Flask-SQLAlchemy object.
 app = flask.Flask(__name__, template_folder='')
 app.config['DEBUG'] = True
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////scruminder/scruminder.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////scruminder/scruminder.db'
 db = flask.ext.sqlalchemy.SQLAlchemy(app)
 prefix = '/api'
 # Create your Flask-SQLALchemy models as usual but with the following two
@@ -33,7 +35,7 @@ class Person(db.Model):
 
 
 # Create the database tables.
-db.create_all()
+# db.create_all()
 
 # Create the Flask-Restless API manager.
 manager = flask.ext.restless.APIManager(app, flask_sqlalchemy_db=db)
@@ -64,5 +66,4 @@ def index():
     return render_template('index.html')
 
 if __name__ == '__main__':
-  app.debug = True
-  app.run(host='0.0.0.0')
+  app.run(host='0.0.0.0', debug=True)
