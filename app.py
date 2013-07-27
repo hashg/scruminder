@@ -1,4 +1,6 @@
 import os
+import psycopg2
+import urlparse
 from flask import Flask, render_template
 import flask.ext.sqlalchemy
 import flask.ext.restless
@@ -6,7 +8,7 @@ import flask.ext.restless
 # Create the Flask application and the Flask-SQLAlchemy object.
 app = flask.Flask(__name__, template_folder='')
 app.config['DEBUG'] = True
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['HEROKU_POSTGRESQL_ORANGE_URL']
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////scruminder/scruminder.db'
 db = flask.ext.sqlalchemy.SQLAlchemy(app)
 prefix = '/api'
