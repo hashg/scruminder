@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html>
    <head>
@@ -5,9 +6,9 @@
       <title>Scruminder</title>
 
       <!-- build:css styles/main.css -->
-      <link rel="icon" href="{{ url_for('static', filename='images/favicon.ico') }}" type="text/x-icon">
-      <link rel="stylesheet" href="{{ url_for('static', filename='styles/bootstrap.css') }}">
-      <link rel="stylesheet" href="{{ url_for('static', filename='styles/bootstrap-glyphicons.css') }}">     
+      <link rel="icon" href="/static/images/favicon.ico" type="text/x-icon">
+      <link rel="stylesheet" href="/static/styles/bootstrap.css">
+      <link rel="stylesheet" href="/static/styles/bootstrap-glyphicons.css">     
       <!-- endbuild -->
 
    </head>
@@ -15,6 +16,33 @@
       {% raw %}
       <script type="text/x-handlebars">
         {{outlet main}}
+      </script>
+
+      <script TYPE="text/x-handlebars" data-template-name="login">
+        <div class="container col-offset-3 col-lg-6">
+          <form class="form-signin" {{action login on="submit"}}>
+            <h2 class="form-signin-heading">Login</h2>
+            {{input type="text" placeholder="Login Id" valueBinding="username" autofocus=true}}
+            {{input type="password" placeholder="Password" valueBinding="password"}}
+            <label class="checkbox">
+              <input type="checkbox" value="remember-me"> Remember me
+            </label>
+            <button class="btn btn-primary btn-block" type="submit">Login</button>
+          </form>
+        </div> <!-- /container -->
+      </script>
+
+      <script TYPE="text/x-handlebars" data-template-name="register">
+        <div class="container col-offset-3 col-lg-6">
+          <form class="form-signin" {{action signup on="submit"}}>
+            <h2 class="form-signin-heading">Register</h2>
+            {{input type="text" placeholder="Login Id" valueBinding="username" autofocus=true}}
+            {{input type="password" placeholder="Password" valueBinding="password"}}
+            {{input type="password" placeholder="Confirm Password" valueBinding="repassword"}}
+            {{input type="text" placeholder="Email Address" valueBinding="email"}}
+            <button class="btn btn-primary btn-block" type="submit">Register</button>
+          </form>
+        </div> <!-- /container -->
       </script>
 
       <script TYPE="text/x-handlebars" data-template-name="persons">
@@ -247,7 +275,8 @@
                 <li><a href="#persons">People</a></li>
               </ul>
               <ul class="nav navbar-nav pull-right">
-                <li><a href="#">Login</a></li>
+                <li><a href="#login">Login</a></li>
+                <li><a href="#register">Register</a></li>
               </ul>
             </div><!--/.nav-collapse -->
           </div>
@@ -273,17 +302,18 @@
         <div class="container" id="ember-app">
           
         </div>
-      {% endraw %}
       
-      <script src="{{ url_for('static', filename='scripts/vendors/jquery-1.9.1.js') }}"></script>
-      <script src="{{ url_for('static', filename='scripts/vendors/bootstrap.js') }}"></script>
-      <script src="{{ url_for('static', filename='scripts/vendors/handlebars-1.0.0-rc.4.js') }}"></script>
-      <script src="{{ url_for('static', filename='scripts/vendors/ember-1.0.0-rc.6.js') }}"></script>
-      <script src="{{ url_for('static', filename='scripts/vendors/ember-model-latest.js') }}"></script>
-      <script src="{{ url_for('static', filename='scripts/vendors/moment.js') }}"></script>
-      <script src="{{ url_for('static', filename='scripts/app.js') }}"></script>
-      <script src="{{ url_for('static', filename='scripts/router.js') }}"></script>
-      <script src="{{ url_for('static', filename='scripts/model.js') }}"></script>
+      
+      <script src="/static/scripts/vendors/jquery-1.9.1.js"></script>
+      <script src="/static/scripts/vendors/bootstrap.js"></script>
+      <script src="/static/scripts/vendors/handlebars-1.0.0-rc.4.js"></script>
+      <script src="/static/scripts/vendors/ember-1.0.0-rc.6.1.js"></script>
+      <script src="/static/scripts/vendors/ember-model-latest.js"></script>
+      <script src="/static/scripts/vendors/moment.js"></script>
+      <script src="/static/scripts/app.js"></script>
+      <script src="/static/scripts/router.js"></script>
+      <script src="/static/scripts/model.js"></script>
+      {% endraw %}
    </body>
    
 </html>
