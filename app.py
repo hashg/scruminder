@@ -1,5 +1,5 @@
 import os
-# import psycopg2
+import psycopg2
 import urlparse
 import json
 import random
@@ -33,8 +33,8 @@ def valid_pw(name, password, h):
 # Create the Flask application and the Flask-SQLAlchemy object.
 app = flask.Flask(__name__, template_folder='')
 app.config['DEBUG'] = True
-# app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['HEROKU_POSTGRESQL_ORANGE_URL']
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////scruminder/scruminder.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['HEROKU_POSTGRESQL_ORANGE_URL']
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////scruminder/scruminder.db'
 db = flask.ext.sqlalchemy.SQLAlchemy(app)
 prefix = '/api'
 # Create your Flask-SQLALchemy models as usual but with the following two
