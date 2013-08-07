@@ -1,5 +1,5 @@
 import os
-import psycopg2
+# import psycopg2
 import urlparse
 import json
 import random
@@ -33,8 +33,16 @@ def valid_pw(name, password, h):
 # Create the Flask application and the Flask-SQLAlchemy object.
 app = flask.Flask(__name__, template_folder='')
 app.config['DEBUG'] = True
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['HEROKU_POSTGRESQL_ORANGE_URL']
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////scruminder/scruminder.db'
+# app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['HEROKU_POSTGRESQL_ORANGE_URL']
+#to reset db on heroku - HEROKU_POSTGRESQL_ORANGE_URL
+'''
+To setup db on heroku
+heroku run python
+>>> from app import db
+>>> db.create_all()
+'''
+
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////scruminder/scruminder.db'
 db = flask.ext.sqlalchemy.SQLAlchemy(app)
 prefix = '/api'
 # Create your Flask-SQLALchemy models as usual but with the following two
@@ -97,14 +105,21 @@ def login():
       if all(k in request.json for k in ("username", "password")):
         #TODO: check for duplicate login 
         #TODO: IMPORTANT Match password
-        per = Person.query.filter_by(username = 'harish' ).first()
+        username = request.json['username']
+        password = request.json['password']
+        per = Person.query.filter_by(username = username ).first()
+        if per and per.password:
+          if valid_pw(username, password, per.password):
+            return jsonify(token=per.password)
+          else:
+            return "401 Unauthorized", 401
         # per = Person.query.filter_by(username = request.json["username"] )
         # per = Person.select(Person.username == request.json["username"]).execute().first()
         # print per.password
-        return jsonify(token=per.password)
+        else:
+          return jsonify(message="Username does not exists."), 401
       else:
-        return "206 Partial Content", 206
-        #401 Unauthorized
+        return jsonify(message="206 Partial Content."), 206
     else:
       return "415 Unsupported Media Type", 415
 
@@ -118,11 +133,24 @@ def register():
     if not request.headers['Content-Type'].find('application/json'):
       if all(k in request.json for k in ("username", "password", "repassword", "email")):
         #TODO: check for duplicates and reject
-        pw_hash = make_pw_hash(request.json["username"], request.json["password"])
-        u = Person(pw_hash[:3]+pw_hash[-6:], request.json["username"], request.json["username"], pw_hash, request.json["email"])
-        session.add(u)
-        session.commit()
-        return jsonify(passwd=pw_hash)
+        username = request.json['username']
+        password = request.json['password']
+        repassword = request.json['repassword']
+        email = request.json["email"]
+        if password == repassword:
+          per = Person.query.filter_by(username = username ).first()
+          if not per:
+            pw_hash = make_pw_hash(username, password)
+            u = Person(pw_hash[:3]+pw_hash[-6:], username, username, pw_hash, email)
+            session.add(u)
+            session.commit()
+            return jsonify(passwd=pw_hash)
+          else:
+            return jsonify(message="Person already exists."), 401
+        else:
+          return jsonify(message="Password does not match."), 401
+      else:
+        return jsonify(message="206 Partial Content."), 206
   # if request and request.json['username'] and request
   return jsonify(register=True)
 
