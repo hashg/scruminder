@@ -22,8 +22,14 @@ heroku run python
 >>> from app import db
 >>> db.create_all()
 '''
-dbpath = os.path.join(os.getcwd(), 'scruminder.db')
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + dbpath
+debug_env = 1
+
+if( debug_env ):
+  dbpath = os.path.join(os.getcwd(), 'scruminder.db')
+  app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + dbpath
+else:
+  app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['HEROKU_POSTGRESQL_ORANGE_URL']
+
 db = flask.ext.sqlalchemy.SQLAlchemy(app)
 
 '''###############
@@ -44,9 +50,8 @@ def valid_pw(name, password, h):
   salt = h.split(',')[0]
   return h == make_pw_hash(name, password, salt)
 
-
-
 prefix = '/api'
+manager = flask.ext.restless.APIManager(app, flask_sqlalchemy_db=db)
 # Create your Flask-SQLALchemy models as usual but with the following two
 # (reasonable) restrictions:
 # 1. They must have an id column of type Integer.
@@ -54,48 +59,76 @@ prefix = '/api'
 # all columns (the constructor in flask.ext.sqlalchemy.SQLAlchemy.Model
 # supplies such a method, so you don't need to declare a new one).
 # {"name":"name03","id":4}
+
 class Person(db.Model):
-    id = db.Column(db.Unicode, primary_key=True)
-    name = db.Column(db.Unicode)
-    username = db.Column(db.Unicode)
-    password = db.Column(db.Unicode)
-    email = db.Column(db.Unicode)
+  id = db.Column(db.Unicode(50), primary_key=True)
+  name = db.Column(db.Unicode)
+  username = db.Column(db.Unicode)
+  bugdb_id = db.Column(db.Unicode)
+  password = db.Column(db.Unicode)
+  email = db.Column(db.Unicode)
+  country = db.Column(db.Unicode(85))
+  state = db.Column(db.Unicode(85))
+  city = db.Column(db.Unicode(85))
+  is_active = db.Column(db.Boolean)
+  created = db.Column(db.DateTime(timezone=True))
+  updated = db.Column(db.DateTime(timezone=True))
+  manager_id = db.Column(db.Unicode(50), db.ForeignKey('person.id'))
+  # projects = db.relationship('Project', backref=db.backref('person', lazy='select'), lazy='dynamic')
+  vacations = db.relationship('Vacation', backref=db.backref('person', lazy='select'), lazy='dynamic')
+  project_id = db.Column(db.Unicode(50), db.ForeignKey('project.id'))
 
-    def __init__(self, id=None, name=None, username=None, password=None, email=None):
-        self.id = id
-        self.name = name
-        self.username = username
-        self.password = password
-        self.email = email
+personExcludes = []
+manager.create_api(Person, url_prefix=prefix, collection_name='persons',  methods=['GET', 'POST', 'DELETE', 'PUT'], exclude_columns=personExcludes,results_per_page=-1)
 
+class Vacation(db.Model):
+  id = db.Column(db.Unicode(50), primary_key=True)
+  from_date = db.Column(db.DateTime(timezone=True))
+  to_date = db.Column(db.DateTime(timezone=True))
+  country = db.Column(db.Unicode(85))
+  state = db.Column(db.Unicode(85))
+  city = db.Column(db.Unicode(85))
+  comments = db.Column(db.Unicode)
+  created = db.Column(db.DateTime(timezone=True))
+  updated = db.Column(db.DateTime(timezone=True))
+  person_id = db.Column(db.String(50), db.ForeignKey('person.id'))
+
+vacationExcludes = []
+manager.create_api(Vacation, url_prefix=prefix, collection_name='vacations',  methods=['GET', 'POST', 'DELETE', 'PUT'], exclude_columns=personExcludes,results_per_page=-1)
+
+class Holiday(db.Model):
+  id = db.Column(db.Unicode(50), primary_key=True)
+  from_date = db.Column(db.DateTime(timezone=True))
+  to_date = db.Column(db.DateTime(timezone=True))
+  country = db.Column(db.Unicode(85))
+  state = db.Column(db.Unicode(85))
+  city = db.Column(db.Unicode(85))
+  comments = db.Column(db.Unicode)
+  desc = db.Column(db.Unicode)
+  created = db.Column(db.DateTime(timezone=True))
+  updated = db.Column(db.DateTime(timezone=True))
+
+holidayExcludes = []
+manager.create_api(Holiday, url_prefix=prefix, collection_name='holidays',  methods=['GET', 'POST', 'DELETE', 'PUT'], exclude_columns=holidayExcludes,results_per_page=-1)
+
+class Project(db.Model):
+  id = db.Column(db.Unicode(50), primary_key=True)
+  name = db.Column(db.Unicode, unique=True)
+  desc = db.Column(db.Text)
+  is_active = db.Column(db.Boolean)
+  created = db.Column(db.DateTime(timezone=True))
+  updated = db.Column(db.DateTime(timezone=True))
+  persons = db.relationship('Person', backref=db.backref('project', lazy='select'), lazy='dynamic')
+  # sprints = db.relationship('Sprint', backref=db.backref('project', lazy='select'), lazy='dynamic')
+
+projectExcludes = []
+manager.create_api(Project, url_prefix=prefix, collection_name='projects',  methods=['GET', 'POST', 'DELETE', 'PUT'], exclude_columns=projectExcludes,results_per_page=-1)
 
 # Create the database tables.
 # db.create_all()
 
-# Create the Flask-Restless API manager.
-manager = flask.ext.restless.APIManager(app, flask_sqlalchemy_db=db)
-
-# Create API endpoints, each at a different URL and with different allowed HTTP
-# methods, but which all affect the Person model.
-# def post_collection_formatter(result):
-#     return {'persons': result['objects']} if 'page' in result else result
-
-# def post_singlular_formatter(result):
-#     return {'person': result}
-
-# def pre_ember_formatter(data):
-#     pass
-#     # return result['person']
-
-# def pre_patch_ember_formatter(instid, data):
-#     return result['person']
-
-personExcludes = ['birth_date', 'computers.purchase_time']
-manager.create_api(Person, url_prefix=prefix, collection_name='persons',  methods=['GET', 'POST', 'DELETE', 'PUT'], exclude_columns=personExcludes,results_per_page=-1)
-
+#DB session for db tasks in register method
 session = getattr(db, 'session', None)
-
-
 @app.route('/')
 def index():
   return render_template('index.html')

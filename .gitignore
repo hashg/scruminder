@@ -11,6 +11,7 @@
 /db/*.sqlite3
 
 # Ignore all logfiles and tempfiles.
+*.log
 /log/*.log
 /bin
 /bundle
@@ -31,3 +32,8 @@
 
 #ignore sublime files
 *.sublime*
+
+#ignore db information
+/flask/*.pyc
+/flask/scruminder.db
+/flask/sqlite3.exe

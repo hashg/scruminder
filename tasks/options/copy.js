@@ -36,7 +36,7 @@ module.exports = {
     {
       expand: true,
       cwd: 'flask/',
-      src: ['**'],
+      src: ['**', '!*.pyc'],
       dest: 'tmp/public/'
     },
     {
@@ -54,7 +54,7 @@ module.exports = {
     files: [{
       expand: true,
       cwd: 'tmp/public',
-      src: ['**', '!coverage'],
+      src: ['**', '!coverage', '!*.pyc', '!*.exe', '!*.db'],
       dest: 'dist/'
     }]
   },

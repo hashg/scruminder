@@ -41,6 +41,7 @@ module.exports = function(grunt) {
                      'build',
                      'uglify',
                      'copy:dist',
+                     'sed:dist',
                      'rev',
                      'usemin' ]);
 
