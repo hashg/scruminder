@@ -1,0 +1,69 @@
+<!DOCTYPE html> 
+<html>
+<head>
+  <title>App</title>
+  <link rel="stylesheet" href="assets/vendor.css">
+  <link rel="stylesheet" href="assets/app.css">
+
+  <!-- build:js(.) assets/vendor.min.js -->
+  <script src="/vendor/jquery/jquery.js"></script>
+  <script src="/vendor/twbs/bootstrap.js"></script>
+  <script src="/vendor/handlebars/handlebars.js"></script>
+  <script src="/vendor/ember/ember.js"></script>
+  <script src="/vendor/ember-model/ember-model.js"></script>
+  <script src="/vendor/utils/jquery.cookie.js"></script>
+  <script src="/vendor/loader.js"></script>
+  <!-- endbuild -->
+
+  <!-- build:js(tmp/public) assets/app.min.js -->
+  <script src="/assets/app.js"></script>
+  <script src="/assets/templates.js"></script>
+  <!-- endbuild -->
+</head>
+<body>
+    <!-- for more details visit: https://github.com/yeoman/grunt-usemin -->
+  <div class="navbar navbar-static-top">
+    <div class="container">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Scruminder</a>
+      <div class="nav-collapse collapse">
+        <ul class="nav navbar-nav">
+          <li><a href="#projects">Project</a></li>
+          <li><a href="#persons">People</a></li>
+        </ul>
+        <ul class="nav navbar-nav pull-right">
+          <li><a href="#login">Login</a></li>
+          <li><a href="#register">Register</a></li>
+        </ul>
+      </div><!--/.nav-collapse -->
+    </div>
+  </div>
+  <!-- Static navbar -->
+  <div class="container">
+    <!-- Alert Box -->
+    <div class="alert alert-danger">
+      <button type="button" class="close" data-dismiss="alert">×</button>
+      <strong>Error!</strong> Placeholder for messages....
+    </div>
+    <!-- Alert Box -->
+
+    <!-- Breadcrumbs -->
+    <ul class="breadcrumb">
+      <li><a href="#">Projects</a></li>
+      <li><a href="#">Sprints</a></li>
+      <li><a href="#">Stories</a></li>
+      <li class="active">Tasks</li>
+    </ul>
+    <!-- Breadcrumbs -->
+  </div>
+  <div class="container" id="ember-app"></div>
+  
+  <script>
+    window.App = requireModule('appkit/app');
+  </script>
+</body>
+</html>

@@ -1,0 +1,207 @@
+<div class="container">
+  <!-- Button toolbar -->
+    <div class="btn-toolbar">
+      <p>
+        <button type="button" class="btn btn-default btn-success">Create Task</button>            
+        <button type="button" class="btn btn-default ">Move</button>
+        <button type="button" class="btn btn-default">Continue</button>
+      </p>
+    </div>
+    <!-- Button toolbar -->
+
+    <!-- List all  -->
+    <table class="table table-condensed table-bordered table-hover">
+      <thead>
+        <tr class="success">
+          <th>#</th>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Priority</th>
+          <th>Active</th>
+          <th>Acceptor</th>
+          <th>Start</th>
+          <th>End</th>
+          <th>Estimate</th>
+          <th width="120px">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>CSRF</td>
+          <td>Verification</td>
+          <td>High</td>
+          <td><span class="glyphicon glyphicon-remove"></span></td>
+          <td>Jeffrey Bez</td>
+          <td>2/28/2013</td>
+          <td>3/14/2013</td>
+          <td>12hrs</td>
+          <td>
+            <p>
+              <button type="button" class="btn btn-default btn-small">Edit</button>
+              <button type="button" class="btn btn-default btn-small btn-danger">Delete</button>  
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>CSRF</td>
+          <td>Verification</td>
+          <td>High</td>
+          <td><span class="glyphicon glyphicon-remove"></span></td>
+          <td>Jeffrey Bez</td>
+          <td>2/28/2013</td>
+          <td>3/14/2013</td>
+          <td>12hrs</td>
+          <td>
+            <p>
+              <button type="button" class="btn btn-default btn-small">Edit</button>
+              <button type="button" class="btn btn-default btn-small btn-danger">Delete</button>  
+            </p>
+          </td>
+        </tr>
+        <tr class="success">
+          <td>3</td>
+          <td>CSRF</td>
+          <td>Verification</td>
+          <td>High</td>
+          <td><span class="glyphicon glyphicon-ok"></span></td>
+          <td>Jeffrey Bez</td>
+          <td>2/28/2013</td>
+          <td>3/14/2013</td>
+          <td>12hrs</td>
+          <td>
+            <p>
+              <button type="button" class="btn btn-default btn-small">Edit</button>
+              <button type="button" class="btn btn-default btn-small btn-danger">Delete</button>  
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>CSRF</td>
+          <td>Verification</td>
+          <td>High</td>
+          <td><span class="glyphicon glyphicon-remove"></span></td>
+          <td>Jeffrey Bez</td>
+          <td>2/28/2013</td>
+          <td>3/14/2013</td>
+          <td>12hrs</td>
+          <td>
+            <p>
+              <button type="button" class="btn btn-default btn-small">Edit</button>
+              <button type="button" class="btn btn-default btn-small btn-danger">Delete</button>  
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>CSRF</td>
+          <td>Verification</td>
+          <td>High</td>
+          <td><span class="glyphicon glyphicon-remove"></span></td>
+          <td>Jeffrey Bez</td>
+          <td>2/28/2013</td>
+          <td>3/14/2013</td>
+          <td>12hrs</td>
+          <td>
+            <p>
+              <button type="button" class="btn btn-default btn-small">Edit</button>
+              <button type="button" class="btn btn-default btn-small btn-danger">Delete</button>  
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td>CSRF</td>
+          <td>Verification</td>
+          <td>High</td>
+          <td><span class="glyphicon glyphicon-remove"></span></td>
+          <td>Jeffrey Bez</td>
+          <td>2/28/2013</td>
+          <td>3/14/2013</td>
+          <td>12hrs</td>
+          <td>
+            <p>
+              <button type="button" class="btn btn-default btn-small">Edit</button>
+              <button type="button" class="btn btn-default btn-small btn-danger">Delete</button>  
+            </p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <!-- List all  -->
+
+  <!-- Edit/Graph Panel  -->
+  <div class="container">
+    <div class="row">
+      <div class='col-lg-6'>
+        <div class="panel panel-primary">
+          <div class="panel-heading">Edit</div>
+            <form class="bs-example form-horizontal">
+              <div class="row">
+                <div class="input-group col-lg-12">
+                  <span class="input-group-addon">Task</span>
+                  <input type="text" placeholder="Task">
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-group col-lg-12">
+                  <span class="input-group-addon">Type</span>
+                  <input type="text" placeholder="Type">
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-group col-lg-12">
+                  <span class="input-group-addon">Priority</span>
+                  <select>
+                    <option>Low</option>
+                    <option>Medium</option>
+                    <option>High</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-group col-lg-12">
+                  <span class="input-group-addon">Acceptor</span>
+                  <input type="text" placeholder="Acceptor">
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-group col-lg-6">
+                  <span class="input-group-addon">Start</span>
+                  <input type="text" placeholder="Start Date">
+                </div>
+                <div class="input-group col-lg-6">
+                  <span class="input-group-addon">End</span>
+                  <input type="text" placeholder="End Data">
+                </div>
+              </div>
+              
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox"> Active
+                    </label>
+                  </div>
+                </div>
+                <div class="col-lg-12 ">
+                  <button type="submit" class="btn btn-default">Save</button>
+                  <button type="submit" class="btn btn-default btn-danger">Cancel</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class='col-lg-6'>
+          <div class="panel panel-primary">
+            <div class="panel-heading">Graph</div>
+            <img src="static/images/pie-chart.png" class="img-circle">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Edit/Graph Panel  -->
+</div>
