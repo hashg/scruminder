@@ -26,6 +26,7 @@ debug_env = 1
 
 if( debug_env ):
   dbpath = os.path.join(os.getcwd(), 'scruminder.db')
+  print dbpath
   app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + dbpath
 else:
   app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['HEROKU_POSTGRESQL_ORANGE_URL']
@@ -176,7 +177,7 @@ def register():
           per = Person.query.filter_by(username = username ).first()
           if not per:
             pw_hash = make_pw_hash(username, password)
-            u = Person(pw_hash[:3]+pw_hash[-6:], username, username, pw_hash, email)
+            u = Person(id=pw_hash[:3]+pw_hash[-6:], name=username, username=username, password=pw_hash, email=email)
             session.add(u)
             session.commit()
             return jsonify(passwd=pw_hash)

@@ -1,5 +1,3 @@
-import Register from 'appkit/models/Register';
-
 var RegisterController = Ember.ObjectController.extend({
   content: [],
   signup: function(){
@@ -8,13 +6,39 @@ var RegisterController = Ember.ObjectController.extend({
     Ember.Logger.info(this.get('repassword'));
     Ember.Logger.info(this.get('email'));
 
-    var newRegister = Register.create({
-      username: this.get('username'),
-      password: this.get('password'),
-      repassword: this.get('repassword'),
-      email: this.get('email')
+    var self = this;
+    var url = '/api/register';
+    var data = this.getProperties('username', 'password', 'repassword', 'email');   
+    $.ajax({
+      contentType: "application/json",
+      dataType: 'json',
+      type: 'post', 
+      url: url, 
+      cache: false,
+      data: JSON.stringify(data)
+    })
+    .done(function(response){
+      // $.cookie('token', response.token, { path: '/' });
+      // self.set('token', response.token);
+      var attemptedTransition = self.get('attemptedTransition');
+      if(attemptedTransition) {
+        attemptedTransition.retry();
+        self.set('attemptedTransition', null);
+      } else {
+        self.transitionToRoute('login');
+      }
+    })
+    .fail(function(response) {
+      Ember.Logger.error(response.message);
     });
-    newRegister.save();
+
+    // var newRegister = Register.create({
+    //   username: this.get('username'),
+    //   password: this.get('password'),
+    //   repassword: this.get('repassword'),
+    //   email: this.get('email')
+    // });
+    // newRegister.save();
   }
 });
 

@@ -10,12 +10,13 @@ var LoginController = Ember.ObjectController.extend({
   },
   login: function(){
     var self = this;
+    var url = '/api/login';
     var data = this.getProperties('username', 'password');   
     $.ajax({
       contentType: "application/json",
       dataType: 'json',
       type: 'post', 
-      url: '/api/login', 
+      url: url, 
       cache: false,
       data: JSON.stringify(data)
     })
@@ -31,7 +32,7 @@ var LoginController = Ember.ObjectController.extend({
       }
     })
     .fail(function(response){
-      Ember.Logger.error("failed!");
+      Ember.Logger.error("Login failed!");
     });
     
 

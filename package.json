@@ -40,7 +40,8 @@
     "karma-qunit": "~0.0.3",
     "karma-coverage": "~0.0.3",
     "karma-phantomjs-launcher": "~0.0.2",
-    "karma-safari-launcher": "~0.0.3",
+    "grunt-exec": "~0.4.2",
+    "grunt-concurrent":"~0.3.0",
     "lockfile": "~>0.3.0"
   }
 }

@@ -1,6 +1,6 @@
 import CustomAdapter from 'appkit/model';
-import Project from 'appkit/models/Project';
-import Vacation from 'appkit/models/Vacation';
+import Project from 'appkit/models/project';
+import Vacation from 'appkit/models/vacation';
 
 var Person = Ember.Model.extend({
   id: Ember.attr(),

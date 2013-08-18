@@ -1,10 +1,21 @@
-<div class="container col-offset-3 col-lg-6">
-  <form class="form-signin" {{action signup on="submit"}}>
+<div class="container col-lg-offset-3 col-lg-6">
+  <form class="form-horizontal" role="form" {{action signup on="submit"}}>
     <h2 class="form-signin-heading">Register</h2>
-    {{input type="text" placeholder="Login Id" valueBinding="username" autofocus=true}}
-    {{input type="password" placeholder="Password" valueBinding="password"}}
-    {{input type="password" placeholder="Confirm Password" valueBinding="repassword"}}
-    {{input type="text" placeholder="Email Address" valueBinding="email"}}
-    <button class="btn btn-primary btn-block" type="submit">Register</button>
+    <div class="form-group">
+      {{input type="text" placeholder="Login Id" valueBinding="username" autofocus=true class="form-control"}}
+    </div>
+    <div class="form-group">
+      {{input type="password" placeholder="Password" valueBinding="password" class="form-control"}}
+    </div>
+    <div class="form-group">
+      {{input type="password" placeholder="Confirm Password" valueBinding="repassword" class="form-control"}}
+    </div>
+    <div class="form-group">
+      {{input type="text" placeholder="Email Address" valueBinding="email" class="form-control"}}
+    </div>
+    <div class="form-group">
+      <button class="btn btn-primary" type="submit">Register</button>
+      <button class="btn btn-danger" >Cancel</button>
+    </div>
   </form>
 </div> <!-- /container -->
