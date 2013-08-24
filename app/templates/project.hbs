@@ -1,1 +1,17 @@
-project
+<div class="container">
+  <div class="panel panel-default">
+    <div class="panel-heading">{{name}}
+      <div class="container pull-right">
+        <button class="btn btn-primary btn-xs">Edit</button>
+        <button class="btn btn-danger btn-xs">Delete</button>
+      </div>
+    </div>
+    <div class="panel-body">
+        <span class="label label-default pull-right">{{id}}</span>
+      <p>{{desc}}</p>
+    </div><!-- panel-body -->
+  </div><!-- panel -->
+  <div class="container">
+    {{outlet}}
+  </div>
+</div><!-- container -->

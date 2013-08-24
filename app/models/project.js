@@ -8,7 +8,7 @@ var Project = Ember.Model.extend({
   isActive: Ember.attr(),
   created: Ember.attr(),
   updated: Ember.attr(),
-  // persons: Ember.hasMany('Person', {key: 'persons', embedded: true})
+  persons: Ember.hasMany(Person, {key: 'persons', embedded: true})
 });
 Project.adapter = CustomAdapter.create();
 Project.url = "/api/projects";

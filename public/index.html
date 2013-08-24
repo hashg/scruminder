@@ -1,7 +1,7 @@
 <!DOCTYPE html> 
 <html>
 <head>
-  <title>App</title>
+  <title>Scruminder</title>
   <link rel="stylesheet" href="assets/vendor.css">
   <link rel="stylesheet" href="assets/app.css">
 
@@ -33,39 +33,65 @@
       </button>
       <a class="navbar-brand" href="#">Scruminder</a>
     </div>
-
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse navbar-ex1-collapse">
-      <ul class="nav navbar-nav">
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#persons">Persons</a></li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="#login">Login</a></li>
-        <li><a href="#register">Register</a></li>
-      </ul>
-    </div><!-- /.navbar-collapse -->
   </nav>
 
-  <!-- Static navbar -->
   <div class="container">
-    <!-- Alert Box -->
-    <div class="alert alert-danger">
-      <button type="button" class="close" data-dismiss="alert">×</button>
-      <strong>Error!</strong> Placeholder for messages....
-    </div>
-    <!-- Alert Box -->
+    <div class="row">
+      <div class="col-md-2">
+        <div class="bs-sidebar hidden-print affix-top" role="complementary">
+          <ul class="nav bs-sidenav">
+            <li>
+              <a href="#/projects"><h4><span class="glyphicon glyphicon-tasks"></span> Projects</h4></a>
+            </li>
+            <li>
+              <a href="#/persons"><h4><span class="glyphicon glyphicon-user"></span> Persons</h4></a>
+            </li>
+            <li>
+              <a href="#/holidays"><h4><span class="glyphicon glyphicon-gift"></span> Holidays</h4></a>
+            </li>
+            <hr>
+            <li>
+              <a href="#/settings"><h4><span class="glyphicon glyphicon-cog"></span> Settings</h4></a>
+            </li>
+            <li>
+              <a href="#/login"><h4><span class="glyphicon glyphicon-lock"></span> Login</h4></a>
+            </li>
+            <li>
+              <a href="#/register"><h4><span class="glyphicon glyphicon-book"></span> Register</h4></a>
+            </li>
+            <li>
+              <a href="#/help"><h4><span class="glyphicon glyphicon-question-sign"></span> Help</h4></a>
+            </li>
+          </ul>
+        </div>
+      </div><!-- col-md-3 -->
+      <div class="col-md-10">
+        <div class="container">
+          <!-- Alert Box -->
+          <!-- <div class="alert alert-danger">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            <strong>Error!</strong> Placeholder for messages....
+          </div> -->
+          <!-- Alert Box -->
 
-    <!-- Breadcrumbs -->
-    <ul class="breadcrumb">
-      <li><a href="#">Projects</a></li>
-      <li><a href="#">Sprints</a></li>
-      <li><a href="#">Stories</a></li>
-      <li class="active">Tasks</li>
-    </ul>
-    <!-- Breadcrumbs -->
-  </div>
-  <div class="container" id="ember-app"></div>
+          <!-- Breadcrumbs -->
+          <ul class="breadcrumb">
+            <li><a href="#">Projects</a></li>
+            <li><a href="#">Sprints</a></li>
+            <li><a href="#">Stories</a></li>
+            <li class="active">Tasks</li>
+          </ul>
+          <!-- Breadcrumbs -->
+          
+          <div class="container" id="ember-app"></div>
+        </div><!-- container -->
+      </div><!-- col-md-6 -->
+    </div> <!-- row -->
+  </div> <!-- container -->
+
+
+
+  
   
   <script>
     window.App = requireModule('appkit/app');

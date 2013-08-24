@@ -1,21 +1,23 @@
-<div class="container col-lg-offset-3 col-lg-6">
-  <form class="form-horizontal" role="form" {{action signup on="submit"}}>
-    <h2 class="form-signin-heading">Register</h2>
-    <div class="form-group">
-      {{input type="text" placeholder="Login Id" valueBinding="username" autofocus=true class="form-control"}}
-    </div>
-    <div class="form-group">
-      {{input type="password" placeholder="Password" valueBinding="password" class="form-control"}}
-    </div>
-    <div class="form-group">
-      {{input type="password" placeholder="Confirm Password" valueBinding="repassword" class="form-control"}}
-    </div>
-    <div class="form-group">
-      {{input type="text" placeholder="Email Address" valueBinding="email" class="form-control"}}
-    </div>
-    <div class="form-group">
-      <button class="btn btn-primary" type="submit">Register</button>
-      <button class="btn btn-danger" >Cancel</button>
-    </div>
-  </form>
-</div> <!-- /container -->
+<div class="container col-md-5 col-md-offset-4">
+  <div class="panel panel-primary">
+    <div class="panel-heading">Register</div>
+    <div class="panel-body">
+      <form class="form-vertical" role="form" {{action signup on="submit"}}>
+        <div class="form-group">
+          {{input type="text" placeholder="Login Id" valueBinding="username" autofocus=true class="form-control"}}
+        </div>
+        <div class="form-group">
+          {{input type="password" placeholder="Password" valueBinding="password" class="form-control"}}
+        </div>
+        <div class="form-group">
+          {{input type="password" placeholder="Confirm Password" valueBinding="repassword" class="form-control"}}
+        </div>
+        <div class="form-group">
+          {{input type="email" placeholder="Email Address" valueBinding="email" class="form-control"}}
+        </div>
+        <button class="btn btn-primary" type="submit">Register</button>
+        <button class="btn btn-danger">Cancel</button>
+      </form>
+    </div><!-- panel-body -->
+  </div><!-- panel -->
+</div><!-- container -->

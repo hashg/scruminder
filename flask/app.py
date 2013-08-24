@@ -92,7 +92,7 @@ class Vacation(db.Model):
   comments = db.Column(db.Unicode)
   created = db.Column(db.DateTime(timezone=True))
   updated = db.Column(db.DateTime(timezone=True))
-  person_id = db.Column(db.String(50), db.ForeignKey('person.id'))
+  person_id = db.Column(db.Unicode(50), db.ForeignKey('person.id'))
 
 vacationExcludes = []
 manager.create_api(Vacation, url_prefix=prefix, collection_name='vacations',  methods=['GET', 'POST', 'DELETE', 'PUT'], exclude_columns=personExcludes,results_per_page=-1)
@@ -112,6 +112,32 @@ class Holiday(db.Model):
 holidayExcludes = []
 manager.create_api(Holiday, url_prefix=prefix, collection_name='holidays',  methods=['GET', 'POST', 'DELETE', 'PUT'], exclude_columns=holidayExcludes,results_per_page=-1)
 
+class Backlog(db.Model):
+  id = db.Column(db.Unicode(50), primary_key=True)
+  name = db.Column(db.Unicode, unique=True)
+  desc = db.Column(db.Text)
+  is_active = db.Column(db.Boolean)
+  created = db.Column(db.DateTime(timezone=True))
+  updated = db.Column(db.DateTime(timezone=True))
+  project_id = db.Column(db.Unicode(50), db.ForeignKey('project.id'))
+  
+backlogExcludes = []
+manager.create_api(Backlog, url_prefix=prefix, collection_name='backlogs',  methods=['GET', 'POST', 'DELETE', 'PUT'], exclude_columns=backlogExcludes,results_per_page=-1)
+
+class comment(db.Model):
+  id = db.Column(db.Unicode(50), primary_key=True)
+  desc = db.Column(db.Text)  
+  is_active = db.Column(db.Boolean)
+  created = db.Column(db.DateTime(timezone=True))
+  updated = db.Column(db.DateTime(timezone=True))
+  parent_id = db.Column(db.Unicode(50))
+  oparent_id = db.Column(db.Unicode(50))
+  person_id = db.Column(db.Unicode(50), db.ForeignKey('person.id'))
+
+commentExcludes = []
+manager.create_api(comment, url_prefix=prefix, collection_name='comments',  methods=['GET', 'POST', 'DELETE', 'PUT'], exclude_columns=commentExcludes,results_per_page=-1)
+
+
 class Project(db.Model):
   id = db.Column(db.Unicode(50), primary_key=True)
   name = db.Column(db.Unicode, unique=True)
@@ -120,10 +146,26 @@ class Project(db.Model):
   created = db.Column(db.DateTime(timezone=True))
   updated = db.Column(db.DateTime(timezone=True))
   persons = db.relationship('Person', backref=db.backref('project', lazy='select'), lazy='dynamic')
+  backlogs = db.relationship('Backlog', backref=db.backref('project', lazy='select'), lazy='dynamic')
+  # comments = db.relationship('Comment', backref=db.backref('project', lazy='select'), lazy='dynamic')
   # sprints = db.relationship('Sprint', backref=db.backref('project', lazy='select'), lazy='dynamic')
 
 projectExcludes = []
 manager.create_api(Project, url_prefix=prefix, collection_name='projects',  methods=['GET', 'POST', 'DELETE', 'PUT'], exclude_columns=projectExcludes,results_per_page=-1)
+
+class Attachment(db.Model):
+  id = db.Column(db.Unicode(50), primary_key=True)
+  name = db.Column(db.Unicode, unique=True)
+  desc = db.Column(db.Text)
+  data = db.Column(db.LargeBinary)
+  is_active = db.Column(db.Boolean)
+  created = db.Column(db.DateTime(timezone=True))
+  updated = db.Column(db.DateTime(timezone=True))
+  oparent_id = db.Column(db.Unicode(50))
+
+attachmentExcludes = []
+manager.create_api(Attachment, url_prefix=prefix, collection_name='attachments',  methods=['GET', 'POST', 'DELETE', 'PUT'], exclude_columns=attachmentExcludes,results_per_page=-1)
+
 
 # Create the database tables.
 # db.create_all()
