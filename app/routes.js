@@ -45,6 +45,16 @@ function Routes() {
   this.resource('vacation', {path: 'persons/:person_id/vacations/:vacation_id'}, function(){
     this.route('edit', {path: '/edit'});
   });
+
+  this.resource('holidays', {path: 'holidays'}, function(){
+    this.route('new', {path: '/new'});
+  });  
+  this.resource('holiday', {path: 'holidays/:holiday_id'}, function(){
+    this.route('edit', {path: '/edit'});
+  });
+
+  this.resource('settings', {path: 'settings'});  
+  this.resource('help', {path: 'help'});
 }
 
 export default Routes;

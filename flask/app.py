@@ -26,7 +26,7 @@ debug_env = 1
 
 if( debug_env ):
   dbpath = os.path.join(os.getcwd(), 'scruminder.db')
-  print dbpath
+  # print dbpath
   app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + dbpath
 else:
   app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['HEROKU_POSTGRESQL_ORANGE_URL']
