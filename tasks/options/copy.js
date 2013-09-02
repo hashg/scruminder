@@ -47,7 +47,7 @@ module.exports = {
     }]
   },
   "vendor": {
-    src: ['vendor/**/*.js'],
+    src: ['vendor/**/*.js', 'vendor/**/*.css'],
     dest: 'tmp/public/'
   },
   "dist": {

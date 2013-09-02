@@ -20,6 +20,7 @@ var Person = Ember.Model.extend({
 Person.adapter = CustomAdapter.create();
 Person.url = "/api/persons";
 Person.rootKey = "";
+Person.collectionKey = "objects";
 Person.camelizeKeys = true;
 
 export default Person;

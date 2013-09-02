@@ -16,6 +16,7 @@ var Vacation = Ember.Model.extend({
 Vacation.adapter = CustomAdapter.create();
 Vacation.url = "/api/vacations";
 Vacation.rootKey = "";
+Vacation.collectionKey = "objects";
 Vacation.camelizeKeys = true;
 
 export default Vacation;

@@ -8,13 +8,14 @@ module.exports = function(grunt) {
 
   grunt.initConfig(config);
 
-  require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
+  require('load-grunt-tasks')(grunt);
   grunt.loadTasks('tasks');
 
   grunt.registerTask('default', "Build (in debug mode) & test your application.", ['build:debug', 'test']);
   grunt.registerTask('build',   [
-                     'lock',
                      'clean:build',
+                     'clean:release',
+                     'lock',
                      // Uncomment this line  & `npm install --save-dev grunt-contrib-coffee` for CoffeeScript support.
                      // 'coffee',
                      'copy:prepare',
@@ -28,7 +29,7 @@ module.exports = function(grunt) {
                      // 'less:compile'
                      // Uncomment this line & `npm install --save-dev grunt-contrib-stylus` for stylus/nib support.
                      // 'stylus:compile'
-                     'concat',
+                     'concat_sourcemap',
                      'unlock' ]);
 
   grunt.registerTask('build:debug', "Build a development-friendly version of your app.", [
@@ -36,9 +37,9 @@ module.exports = function(grunt) {
                      'copy:vendor' ]);
 
   grunt.registerTask('build:dist', "Build a minified & production-ready version of your app.", [
-                     'clean:release',
                      'useminPrepare',
                      'build',
+                     'concat',
                      'uglify',
                      'copy:dist',
                      'sed:dist',
@@ -52,28 +53,27 @@ module.exports = function(grunt) {
                      'karma:ci' ]);
 
   grunt.registerTask('test:server', "Start a Karma test server. Automatically reruns your tests when files change and logs the results to the terminal.", [
-                     'build:debug', 'karma:server', 'connect', 'watch:test']);
+                     'build:debug', 'karma:server', 'connect:server', 'watch:test']);
 
   grunt.registerTask('server', "Run your server in development mode, auto-rebuilding when files change.",
-                     ['build:debug', 'watch:main']);
+                     ['build:debug', 'concurrent']); //['build:debug', 'connect:server', 'watch:main']
   grunt.registerTask('server:dist', "Preview production (minified) assets.",
-                     ['build:dist', 'connect:server:keepalive']);
+                     ['build:dist', 'connect:dist:keepalive']);
 };
 
 
 // TODO: extract this out
 function loadConfig(path) {
-  var string = require('string');
   var glob = require('glob');
   var object = {};
   var key;
 
   glob.sync('*', {cwd: path}).forEach(function(option) {
     key = option.replace(/\.js$/,'');
-    key = string(key).camelize().s;
     object[key] = require(path + option);
   });
 
   return object;
 }
+
 

@@ -2,19 +2,23 @@
   <div class="panel panel-primary">
     <div class="panel-heading">New Project</div>
     <div class="panel-body">
-      <form class="form-vertical" role="form" {{action save on="submit"}}>
-        <div class="form-group input-group has-error">
-          <span class="input-group-addon">Name</span>
-          {{input type="text" placeholder="Project Name" valueBinding="name" autofocus="true" class="form-control"}}
-          <span class="help-block hide">A block of help text that breaks onto a new line and may extend beyond one line.</span>
+      <form class="form-vertical" role="form" {{action addProject on="submit"}}>
+        <div {{bindAttr class=":form-group"}}>
+          <div class="input-group">
+            <span class="input-group-addon">Name</span>
+            {{input type="text" placeholder="Project Name" valueBinding="name" autofocus="true" required="true" class="form-control"}}
+          </div>
+          <code>errors.name{{errors.name}}</code>
         </div>
-        <div class="form-group input-group">
-          <span class="input-group-addon">Description</span>
-          {{input type="text" placeholder="Description" valueBinding="desc" class="form-control"}}
-          <span class="help-block hide">A block of help text that breaks onto a new line and may extend beyond one line.</span>
-        </div>        
+        <div {{bindAttr class=":form-group"}}>
+          <div class="input-group">
+            <span class="input-group-addon">Desc</span>
+            {{input type="text" placeholder="Project Description" valueBinding="desc" class="form-control"}}
+          </div>
+          <code>errors.desc{{errors.desc}}</code>
+        </div>
         <button class="btn btn-primary" type="submit">Add</button>
-        <button class="btn btn-danger">Cancel</button>
+        <button class="btn btn-danger" {{action cancelProject}}>Cancel</button>
       </form>
     </div><!-- panel-body -->
   </div><!-- panel -->

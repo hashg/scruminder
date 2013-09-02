@@ -1,14 +1,14 @@
 var RegisterController = Ember.ObjectController.extend({
   content: [],
   signup: function(){
-    Ember.Logger.info(this.get('username'));
-    Ember.Logger.info(this.get('password'));
-    Ember.Logger.info(this.get('repassword'));
-    Ember.Logger.info(this.get('email'));
+    // Ember.Logger.info(this.get('username'));
+    // Ember.Logger.info(this.get('password'));
+    // Ember.Logger.info(this.get('repassword'));
+    // Ember.Logger.info(this.get('email'));
 
     var self = this;
     var url = '/api/register';
-    var data = this.getProperties('username', 'password', 'repassword', 'email');   
+    var data = this.getProperties('username', 'password', 'repassword', 'email');
     $.ajax({
       contentType: "application/json",
       dataType: 'json',
@@ -25,6 +25,10 @@ var RegisterController = Ember.ObjectController.extend({
         attemptedTransition.retry();
         self.set('attemptedTransition', null);
       } else {
+        this.setProperties({'username': '', 
+                            'password': '', 
+                            'repassword': '', 
+                            'email': ''});
         self.transitionToRoute('login');
       }
     })

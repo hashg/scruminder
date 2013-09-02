@@ -8,7 +8,16 @@ var Project = Ember.Model.extend({
   isActive: Ember.attr(),
   created: Ember.attr(),
   updated: Ember.attr(),
-  persons: Ember.hasMany(Person, {key: 'persons', embedded: true})
+  persons: Ember.hasMany(Person, {key: 'persons', embedded: true}),
+  submit: function()
+  {
+    Ember.Logger.info('submit');
+    return this.save();
+  },
+  validate: function()
+  {
+    //TODO: Add validation here.
+  }
 });
 Project.adapter = CustomAdapter.create();
 Project.url = "/api/projects";

@@ -7,24 +7,25 @@
     <button type="button" class="btn btn-default active">All</button>
     <button type="button" class="btn btn-default">Starred</button>
   </div>
+  {{!-- {{#linkTo 'persons.new' class="btn btn-success btn-lg pull-right"}} <span class="glyphicon glyphicon-plus"></span>New{{/linkTo}} --}}</h1>
 </div>
 <div class="form-group input-group">
   <input type="search" class="form-control" placeholder="Search persons">
   <span class="input-group-addon glyphicon glyphicon-search"></span>
 </div>
 
-<ul class="list-group">
+<ul class="list-group list-group-hover">
   {{#each item in model}}
   <li class="list-group-item">
-    <h4 class="list-group-item-heading">{{#linkTo 'person' item }}{{item.name}}{{/linkTo}} 
+    <h4 class="list-group-item-heading">{{#linkTo 'person' item }}{{item.username}}{{/linkTo}} 
     <span class="container pull-right">
-      <span class="label label-default">{{item.id}}</span>
-      <button class="btn btn-default btn-sm">
+      <span class="label label-default-transparent pull-top-right">{{item.id}}</span>
+      <button class="btn btn-default btn-sm btn-xxs pull-bottom-right">
         <span class="glyphicon glyphicon-star-empty"></span>
       </button>
-    </span>      
+    </span>
     </h4>
-    {{!-- <p class="list-group-item-text">{{item.desc}}</p> --}}
+    <p class="list-group-item-text">{{item.email}}</p>
   </li>
   {{else}}
   <li class="list-group-item"> Nobody here. </li>

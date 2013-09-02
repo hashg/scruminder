@@ -1,6 +1,7 @@
 <!DOCTYPE html> 
-<html>
+<html lang="en">
 <head>
+  <meta charset=utf-8>
   <title>Scruminder</title>
   <link rel="stylesheet" href="assets/vendor.css">
   <link rel="stylesheet" href="assets/app.css">
@@ -8,8 +9,8 @@
   <!-- build:js(.) assets/vendor.min.js -->
   <script src="/vendor/jquery/jquery.js"></script>
   <script src="/vendor/twbs/bootstrap.js"></script>
-  <script src="/vendor/handlebars/handlebars.js"></script>
-  <script src="/vendor/ember/ember.js"></script>
+  <script src="/vendor/handlebars/handlebars.runtime.js"></script>
+  <script src="/vendor/ember/index.js"></script>
   <script src="/vendor/ember-model/ember-model.js"></script>
   <script src="/vendor/utils/jquery.cookie.js"></script>
   <script src="/vendor/loader.js"></script>
@@ -18,6 +19,11 @@
   <!-- build:js(tmp/public) assets/app.min.js -->
   <script src="/assets/app.js"></script>
   <script src="/assets/templates.js"></script>
+  <script>
+  Ember.TextField.reopen({
+    attributeBindings: ['accept', 'autocomplete', 'autofocus', 'name', 'required']
+  });
+  </script>
   <!-- endbuild -->
 </head>
 <body>

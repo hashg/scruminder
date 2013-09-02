@@ -1,6 +1,6 @@
 var CustomAdapter = Ember.RESTAdapter.extend({
   generateIdForRecord: function(record) {
-    var ch = "abcdefghiklmnopqrstuvwxyz"[Math.floor(25 * Math.random())];
+    var ch = "abcdefghiklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"[Math.floor(51 * Math.random())];
     return ch+'xxxyxxx'.replace(/[xy]/g, function(c) {
       var r, v;
       r = Math.random() * 16 | 0;

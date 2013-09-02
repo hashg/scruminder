@@ -6,7 +6,7 @@
 
 var IndexRoute = Ember.Route.extend({
   redirect: function(){
-    this.transitionTo('projects');
+    this.transitionToRoute('projects');
   }
 });
 
