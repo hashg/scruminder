@@ -29,9 +29,9 @@ form {
   border-radius: 0px;
 }
 
-.glyphicon:before {
+/*.glyphicon:before {
   line-height: -1px;
-}
+}*/
 
 .btn-default:hover, 
 .btn-default:focus, 

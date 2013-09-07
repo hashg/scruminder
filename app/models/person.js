@@ -14,8 +14,8 @@ var Person = Ember.Model.extend({
   isActive: Ember.attr(),
   created: Ember.attr(),
   updated: Ember.attr(),
-  vacations: Ember.hasMany('Vacation', {key: 'vacations', embedded: true}),
-  project: Ember.belongsTo('Project', {key: 'project', embedded: true})
+  vacations: Ember.hasMany(Vacation, {key: 'vacations', embedded: true}),
+  project: Ember.belongsTo(Project, {key: 'project_id'})
 });
 Person.adapter = CustomAdapter.create();
 Person.url = "/api/persons";

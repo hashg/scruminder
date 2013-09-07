@@ -26,7 +26,7 @@ debug_env = 1
 
 if( debug_env ):
   dbpath = os.path.join(os.getcwd(), 'scruminder.db')
-  # print dbpath
+  print dbpath
   app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + dbpath
 else:
   app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['HEROKU_POSTGRESQL_ORANGE_URL']
@@ -124,7 +124,7 @@ class Backlog(db.Model):
 backlogExcludes = []
 manager.create_api(Backlog, url_prefix=prefix, collection_name='backlogs',  methods=['GET', 'POST', 'DELETE', 'PUT'], exclude_columns=backlogExcludes,results_per_page=-1)
 
-class comment(db.Model):
+class Comment(db.Model):
   id = db.Column(db.Unicode(50), primary_key=True)
   desc = db.Column(db.Text)  
   is_active = db.Column(db.Boolean)
@@ -135,7 +135,7 @@ class comment(db.Model):
   person_id = db.Column(db.Unicode(50), db.ForeignKey('person.id'))
 
 commentExcludes = []
-manager.create_api(comment, url_prefix=prefix, collection_name='comments',  methods=['GET', 'POST', 'DELETE', 'PUT'], exclude_columns=commentExcludes,results_per_page=-1)
+manager.create_api(Comment, url_prefix=prefix, collection_name='comments',  methods=['GET', 'POST', 'DELETE', 'PUT'], exclude_columns=commentExcludes,results_per_page=-1)
 
 
 class Project(db.Model):

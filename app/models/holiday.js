@@ -14,6 +14,7 @@ var Holiday = Ember.Model.extend({
 });
 Holiday.adapter = CustomAdapter.create();
 Holiday.url = "/api/vacations";
+Holiday.collectionKey = "objects";
 Holiday.rootKey = "";
 Holiday.camelizeKeys = true;
 

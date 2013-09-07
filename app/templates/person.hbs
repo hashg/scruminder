@@ -1,10 +1,36 @@
 <div class="container">
-  <div class="panel panel-default">
+
+<div class="panel panel-default">
     <div class="panel-heading">
       <span class="lead">{{username}}</span>
     </div>
   </div><!-- panel -->
   <div class="container">
-    {{outlet}}
-  </div>
+    <div class="container">
+      {{outlet}}
+    </div>
+    <div class="page-header">
+      <h1 class="span">Vacations
+      {{#link-to 'person.new' class="btn btn-success btn-lg pull-right"}} <span class="glyphicon glyphicon-plus"></span>New{{/link-to}}</h1>
+    </div>
+    <div class="form-group input-group">
+      <input type="search" class="form-control" placeholder="Search vacations">
+      <span class="input-group-addon glyphicon glyphicon-search"></span>
+    </div>
+    {{log this.vacations}}
+    {{log vacations}}
+    <ul class="list-group list-group-hover">
+      {{#each item in vacations}}
+      <li class="list-group-item">
+        <h4 class="list-group-item-heading">{{#link-to 'vacation' item }}{{item.id}}{{/link-to}}</h4>
+        <p class="list-group-item-text">{{item.fromDate}}</p>
+        <p class="list-group-item-text">{{item.toDate}}</p>
+        <p class="list-group-item-text">{{item.comments}}</p>
+      </li>
+      {{else}}
+      <li class="list-group-item"> Go create some vacations. </li>
+      {{/each}}
+    </ul>
+
+  </div><!-- container -->
 </div><!-- container -->

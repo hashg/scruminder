@@ -35,3 +35,5 @@
 /flask/*.pyc
 /flask/scruminder.db
 /flask/sqlite3.exe
+/scruminder.db
+/sqlite3.exe
