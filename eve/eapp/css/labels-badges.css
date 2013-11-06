@@ -1,0 +1,12 @@
+.badge {
+	font-family: Helvetica, Arial, sans-serif;
+	font-size:11px;
+	font-weight: normal;
+	padding: 4px 8px;
+}
+.badge-primary {background-color:#285e8e;}
+.badge-info {background-color:#269abc;}
+.badge-success {background-color:#398439;}
+.badge-warning {background-color:#d58512;}
+.badge-danger {background-color:#ac2925;}
+.badge-inverse {background-color:#232323;}

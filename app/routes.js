@@ -34,8 +34,8 @@ function Routes() {
   this.resource('persons', {path: 'persons'});
   // persons/new  not required because "register" takes care of it
   this.resource('person', {path: 'persons/:person_id'}, function(){
-    this.route('edit');
-    this.route('new');
+    this.route('edit', {path: 'vacation/:vacation_id/edit'});
+    this.route('new', {path: 'vacations/new'});
   });
 
 

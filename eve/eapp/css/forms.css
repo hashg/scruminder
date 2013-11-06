@@ -1,0 +1,54 @@
+label {
+	font-family: Arial, sans-serif;
+	font-size:14px;
+}
+.form-control {border-radius: 0;}
+.form-control:hover,
+.form-control:focus {
+	border-color: #66afe9;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+}
+.has-warning .form-control:hover,
+.has-warning .form-control:focus {
+	border-color: #a47e3c;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+}
+.has-error .form-control:hover,
+.has-error .form-control:focus {
+	border-color: #953b39;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+}
+.has-success .form-control:hover,
+.has-success .form-control:focus {
+	border-color: #356635;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+}
+.form-control[disabled]:hover,
+.form-control[readonly]:hover,
+fieldset[disabled] .form-control:hover {
+	border-color: #ccc;
+}
+
+.help-block {
+	font-family: Arial, sans-serif;
+	font-size:11px;	
+}
+
+/** file input **/
+.fileWrapper{
+	position:relative;
+	padding:0;
+	margin-bottom:15px;
+	overflow:hidden;
+}	
+.input-group input[type="text"].fileInputText{ 
+	border-radius: 0!important;
+	background-color:rgba(255,255,255,0.6);
+	border-color: rgba(0,0,0,0.3);
+	color: rgba(0,0,0,0.8);
+}
+/** file input **/

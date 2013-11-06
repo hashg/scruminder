@@ -1,0 +1,30 @@
+<div class="page-heading">
+  <h2 class="page-title">
+    <i class="icon-user-7"></i> Profiles
+  </h2>
+</div>
+
+<div class="panel panel-default">  
+    <div class="panel-body">
+      {{#if errorMessage}}
+        <div class="alert alert-danger">
+          {{errorMessage}}
+        </div>
+      {{/if}}
+      {{#each}}
+      <form {{action newSprint on='submit'}}>
+        <div class="row">
+        <div class="col-sm-12 col-md-6">
+          {{input-text label="First Name" placeholder="First Name" value=firstname formController=controller required=true autofocus=true}}
+        </div>
+        <div class="col-sm-12 col-md-6">
+          {{input-text label="Last Name" placeholder="Last Name" value=lastname formController=controller}}
+        </div>
+        </div><!-- row -->
+      {{else}}
+        <h4 style="text-align: center;">Create a profile</h4>
+      {{/each}}
+
+    </div> <!-- panel-body -->
+  </form>
+</div><!-- panel -->

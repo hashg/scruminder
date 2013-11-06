@@ -1,18 +1,52 @@
-<div class="container">
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <span class="lead">{{name}}</span>
-      <div class="container pull-right">
-        {{#link-to 'project.edit' this class="btn btn-primary btn-xs"}}Edit{{/link-to}}
-        <a {{action deleteProject}} class="btn btn-danger btn-xs">Delete</a>
-      </div>
-    </div>
-    <div class="panel-body">
-        <span class="label label-default-transparent pull-right">{{id}}</span>
-      <p>{{desc}}</p>
-    </div><!-- panel-body -->
-  </div><!-- panel -->
-  <div class="container">
-    {{outlet}}
+<ol class="breadcrumb breadcrumb-main">
+  <li>{{#link-to 'projects'}}Projects{{/link-to}}</li>
+  <li>{{name}}</li>
+</ol>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <span class="panel-header-text">Project: <span class="text-success">{{name}}</span></span>
+    <span class="pull-right" style="margin-top: -5px;">
+      {{#link-to 'project.edit' class="btn btn-no-rc btn-primary"}}Edit{{/link-to}}
+      <a {{action deleteProject}} class="btn btn-no-rc btn-danger">Delete</a>
+    </span>
   </div>
-</div><!-- container -->
+  <div class="panel-body panel-body-nopad">
+    <ul class="list-group list-group-mp" style="margin: 0;">
+      <li class="list-group-item">
+        <p class="list-group-item-desc">Id: {{id}}</p>
+        <p class="list-group-item-desc">etag: {{etag}}</p>
+      </li>
+    </ul>
+  </div> <!-- panel-body -->
+</div><!-- panel -->
+{{outlet}}
+<div class="page-heading-x">
+  <h2 class="page-title">
+    <i class="icon-stack"></i> Sprints
+  </h2>
+  {{#link-to 'project.new' class="btn btn-circle btn-success pull-right"}} <i class="icon-plus"></i>{{/link-to}}
+</div>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <div class="input-group">
+      {{input type="search" value=search class="form-control" placeholder="Search sprints" autofocus=true}}
+      <span class="input-group-addon glyphicon icon-search-3" style="top: 0;border-radius: 0;"></span>
+    </div>
+  </div>
+  <div id="sm-sprint-list" class="panel-body panel-body-nopad">
+    <ul class="list-group list-group-mp" style="margin: 0;">
+      {{#each o in sprints}}
+      <li class="list-group-item">
+        <i class="indicator available icon-radio-checked pull-right"></i>
+        {{#link-to 'sprint' o}}<h4>{{o.name}}</h4>{{/link-to}}
+        <p class="list-group-item-desc">{{o.id}}</p>
+      </li>
+      {{else}}
+      <li class="list-group-item">
+        <h4 style="text-align: center;">Go create some sprints.</h4>
+      </li>
+      {{/each}}
+    </ul>
+  </div> <!-- panel-body -->
+</div><!-- panel -->
+</div>

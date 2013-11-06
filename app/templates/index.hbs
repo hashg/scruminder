@@ -1,7 +1,21 @@
-index
-{{#link-to 'projects'}}<h4><span class="glyphicon glyphicon-tasks"></span> Projects</h4>{{/link-to}}
-<ul>
-{{#each item in model}}
-  <li>{{item}}</li>
-{{/each}}
-</ul>
+<!-- <ul> -->
+{{!-- {{#each}}
+  <li>{{this}}</li>
+{{/each}} --}}
+<!-- </ul> -->
+
+<div class="page-heading">        
+  <h2 class="page-title">
+    <i class="icon-home-2"></i> Index
+  </h2>
+</div>
+{{#unless session.isAuthenticated}}
+  <div class="alert alert-info">
+    You can {{#link-to 'login' classNames='alert-link'}}log in{{/link-to}}
+  </div>
+{{else}} 
+  <div class="alert alert-warning">
+    This is Home.
+  </div>
+{{/unless}}
+{{outlet}}

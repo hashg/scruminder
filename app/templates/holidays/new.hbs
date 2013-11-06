@@ -1,0 +1,47 @@
+<div class="panel panel-default">
+  <div class="panel-heading"><div class="panel-header-text">New Holiday</div></div>
+    <div class="panel-body">
+      {{#if errorMessage}}
+        <div class="alert alert-danger">
+          {{errorMessage}}
+        </div>
+      {{/if}}
+      <form {{action newHoliday on='submit'}}>
+        {{input-text label="Name" placeholder="Enter holiday name" value=name formController=controller required=true autofocus=true}}
+        <div class="row">
+          <div class="col-sm-12 col-md-6 form-group">
+            <label class="control-label">From</label>
+            {{view App.CalendarDatePicker class="form-control input-lg" valueBinding="from_date"}}
+          </div><!-- col-sm-12 -->
+          <div class="col-sm-12 col-md-6 form-group">
+            <label class="control-label">To</label>
+            {{view App.CalendarDatePicker class="form-control input-lg" valueBinding="to_date"}}
+          </div><!-- col-sm-12 -->
+        </div><!-- row -->
+
+        {{!-- 
+        {{input-text label="From Date" placeholder="Enter from date" value=from_date formController=controller required=true}}
+        {{input-text label="To Date" placeholder="Enter to date" value=to_date formController=controller}}
+        --}}
+        <div class="row">
+          <div class="col-sm-12 col-md-4 form-group">
+          {{input-text label="City" placeholder="Enter work city name" value=city formController=controller}}
+          </div><!-- col-sm-12 -->
+          <div class="col-sm-12 col-md-4 form-group">
+          {{input-text label="State" placeholder="Enter work state name" value=state formController=controller}}
+          </div><!-- col-sm-12 -->
+          <div class="col-sm-12 col-md-4 form-group">
+          {{input-text label="Country" placeholder="Enter work country name" value=country formController=controller required=true}}
+          </div><!-- col-sm-12 -->
+        </div><!-- row -->
+        <div class="form-group">
+          <label class="control-label">Comments</label>
+          {{textarea value=comments rows=4 class="form-control input-lg" placeholder="Enter comments here.."}}
+        </div><!-- form-group -->
+    </div> <!-- panel-body -->
+  <div class="panel-footer" style="text-align:right">
+    {{#link-to 'holidays' class="btn btn-no-rc btn-danger"}}Cancel{{/link-to}}
+    {{#submit-button formController=controller tag="span"}}Save{{/submit-button}}
+  </div>
+  </form>
+</div><!-- panel -->

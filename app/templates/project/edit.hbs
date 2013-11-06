@@ -1,25 +1,17 @@
-<div class="container">
-  <div class="panel panel-primary">
-    <div class="panel-heading">Edit Project</div>
+<div class="panel panel-default">
+  <div class="panel-heading"><div class="panel-header-text">Edit Project</div></div>
     <div class="panel-body">
-      <form class="form-vertical" role="form" {{action updateProject on="submit"}}>
-        <div {{bindAttr class=":form-group"}}>
-          <div class="input-group">
-            <span class="input-group-addon">Name</span>
-            {{input type="text" placeholder="Project Name" valueBinding="name" autofocus="true" required="true" class="form-control"}}
-          </div>
-          <code>errors.name{{errors.name}}</code>
+      {{#if errorMessage}}
+        <div class="alert alert-danger">
+          {{errorMessage}}
         </div>
-        <div {{bindAttr class=":form-group"}}>
-          <div class="input-group">
-            <span class="input-group-addon">Desc</span>
-            {{input type="text" placeholder="Project Description" valueBinding="desc" class="form-control"}}
-          </div>
-          <code>errors.desc{{errors.desc}}</code>
-        </div>
-        <button class="btn btn-primary" type="submit">Update</button>
-        <button class="btn btn-danger" {{action cancelProject}}>Cancel</button>
-      </form>
-    </div><!-- panel-body -->
-  </div><!-- panel -->
-</div><!-- container -->
+      {{/if}}
+      <form {{action editProject on='submit'}}>
+        {{input-text label="Name" placeholder="Enter project name" value=name formController=controller required=true autofocus=true}}
+    </div> <!-- panel-body -->
+  <div class="panel-footer" style="text-align:right">
+    {{#link-to 'project' class="btn btn-no-rc btn-danger"}}Cancel{{/link-to}}
+    {{#submit-button formController=controller tag="span"}}Update{{/submit-button}}
+  </div>
+  </form>
+</div><!-- panel -->

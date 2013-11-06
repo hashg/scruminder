@@ -29,21 +29,36 @@ module.exports = {
     },
     {
       expand: true,
-      cwd: 'public/',
-      src: ['**'],
+      cwd: 'Eve/',
+      src: ['*.py', '*.txt', 'eapp/*.py', 'eapp/templates'],
       dest: 'tmp/public/'
     },
     {
       expand: true,
-      cwd: 'flask/',
-      src: ['**', '!*.pyc'],
-      dest: 'tmp/public/'
+      cwd: 'public/',
+      src: ['*.html'],
+      dest: 'tmp/public/eapp/templates'
     },
     {
       expand: true,
       cwd: 'vendor/',
-      src: ['fonts/**'],
-      dest: 'tmp/public/'
+      src: ['**'],
+      dest: 'tmp/public/eapp/vendor'
+    },
+    // {
+    //   expand: true,
+    //   cwd: 'public/',
+    //   src: ['**'],
+    //   dest: 'tmp/public/'
+    // }
+    ]
+  },
+  "assets":{
+    files: [{
+      expand: true,
+      cwd: 'tmp/public/assets',
+      src: ['**'],
+      dest: 'tmp/public/eapp/assets'
     }]
   },
   "vendor": {
@@ -54,7 +69,7 @@ module.exports = {
     files: [{
       expand: true,
       cwd: 'tmp/public',
-      src: ['**', '!coverage', '!*.pyc', '!*.exe', '!*.db'],
+      src: ['**', '!coverage', '!*.pyc'],
       dest: 'dist/'
     }]
   },

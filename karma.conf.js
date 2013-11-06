@@ -9,14 +9,16 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'vendor/loader.js',
-      'vendor/jquery/jquery.js',
-      'vendor/handlebars/handlebars.js',
-      'vendor/ember/index.js',
+      '../../vendor/almond.js',
+      '../../vendor/resolver.js',
+      '../../vendor/jquery/jquery.js',
+      '../../vendor/handlebars/handlebars.js',
+      '../../vendor/ember/ember.js',
+      '../../vendor/ember-data-shim/ember-data.js',
       'assets/templates.js',
       'assets/app.js',
+      '../transpiled/tests/**/*.js',
       'tests/test_helper.js',
-      'tests/tests.js',
       'tests/test_loader.js'
     ],
 
@@ -28,7 +30,7 @@ module.exports = function(config) {
       'karma-phantomjs-launcher',
       'karma-chrome-launcher',
       'karma-firefox-launcher',
-      'karma-safari-launcher'
+      //'karma-safari-launcher'  // npm install karma-safari-launcher
     ],
 
     preprocessors: {
@@ -48,7 +50,7 @@ module.exports = function(config) {
     },
 
     // web server port
-    port: 9876,
+    port: parseInt(process.env.PORT, 10) + 1 || 9876,
 
     // cli runner port
     runnerPort: 9100,

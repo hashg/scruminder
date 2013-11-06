@@ -1,9 +1,17 @@
 {
   "name": "ember-app-kit",
   "dependencies": {
-    "ember": "http://builds.emberjs.com.s3.amazonaws.com/ember-451cf2b8b241cbf67b6491532520e83b80b5df7a.js",
     "handlebars": "1.0.0",
     "jquery": "~1.9.1",
-    "qunit": "~1.12.0"
+    "qunit": "~1.12.0",
+    "ember": "1.2.0-beta.1",
+    "ember-data-shim": "1.0.0-beta.3",
+    "ember-simple-auth": "~0.0.3",
+    "ember-form-components": "~0.1.0",
+    "twitter": "~3.0.0",
+    "ember-model": "~0.0.10"
+  },
+  "resolutions": {
+    "ember": "1.2.0-beta.1"
   }
 }

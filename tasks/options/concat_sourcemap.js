@@ -13,10 +13,5 @@ module.exports = {
     options: {
       sourcesContent: true
     }
-  },
-  
-  vendorCss: {
-    src: ['vendor/**/*.css'],
-    dest: 'tmp/public/assets/vendor.css'
   }
 };

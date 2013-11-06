@@ -1,8 +1,6 @@
 module.exports = {
-    target:{
-      tasks: ['exec:python', 'watch:main'],
-      options: {
-        logConcurrentOutput: true
-      }
-    }
+  // Remaining configuration done in Gruntfile.js
+  options: {
+    logConcurrentOutput: true
+  }
 };

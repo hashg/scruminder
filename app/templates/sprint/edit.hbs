@@ -1,0 +1,17 @@
+<div class="panel panel-default">
+  <div class="panel-heading"><div class="panel-header-text">Edit Sprint</div></div>
+    <div class="panel-body">
+      {{#if errorMessage}}
+        <div class="alert alert-danger">
+          {{errorMessage}}
+        </div>
+      {{/if}}
+      <form {{action editSprint on='submit'}}>
+        {{input-text label="Name" placeholder="Enter sprint name" value=name formController=controller required=true autofocus=true}}
+    </div> <!-- panel-body -->
+  <div class="panel-footer" style="text-align:right">
+    {{#link-to 'sprint' class="btn btn-no-rc btn-danger"}}Cancel{{/link-to}}
+    {{#submit-button formController=controller tag="span"}}Update{{/submit-button}}
+  </div>
+  </form>
+</div><!-- panel -->

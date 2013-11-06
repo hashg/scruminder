@@ -1,5 +1,16 @@
 (function() {
 
+var VERSION = '0.0.10';
+
+if (Ember.libraries) {
+  Ember.libraries.register('Ember Model', VERSION);
+}
+
+
+})();
+
+(function() {
+
 function mustImplement(message) {
   var fn = function() {
     var className = this.constructor.toString();
@@ -484,6 +495,9 @@ Ember.Model = Ember.Object.extend(Ember.Evented, {
       reference = this.constructor._getOrCreateReferenceForId(id);
       reference.record = this;
       this._reference = reference;
+    } else if (reference.id !== id) {
+      reference.id = id;
+      this.constructor._cacheReference(reference);
     }
 
     if (!reference.id) {
@@ -1125,13 +1139,17 @@ Ember.Model.reopenClass({
       clientId: this._clientIdCounter++
     };
 
-    // if we're creating an item, this process will be done
-    // later, once the object has been persisted.
-    if (id) {
-      this._referenceCache[id] = reference;
-    }
+    this._cacheReference(reference);
 
     return reference;
+  },
+
+  _cacheReference: function(reference) {
+    // if we're creating an item, this process will be done
+    // later, once the object has been persisted.
+    if (reference.id) {
+      this._referenceCache[reference.id] = reference;
+    }
   }
 });
 
@@ -1302,6 +1320,15 @@ function deserialize(value, type) {
   }
 }
 
+function serialize(value, type) {
+  if (type && type.serialize) {
+    return type.serialize(value);
+  } else if (type && Ember.Model.dataTypes[type]) {
+    return Ember.Model.dataTypes[type].serialize(value);
+  } else {
+    return value;
+  }
+}
 
 Ember.attr = function(type, options) {
   return Ember.computed(function(key, value) {
@@ -1326,7 +1353,7 @@ Ember.attr = function(type, options) {
         dataValue = data[dataKey] = value;
       }
 
-      if (dataValue !== value) {
+      if (dataValue !== serialize(value, type)) {
         dirtyAttributes.pushObject(key);
       } else {
         dirtyAttributes.removeObject(key);
@@ -1449,8 +1476,8 @@ Ember.RESTAdapter = Ember.Adapter.extend({
     record.didDeleteRecord();
   },
 
-  ajax: function(url, params, method) {
-    return this._ajax(url, params, method || "GET");
+  ajax: function(url, params, method, settings) {
+    return this._ajax(url, params, (method || "GET"), settings);
   },
 
   buildURL: function(klass, id) {
@@ -1463,7 +1490,7 @@ Ember.RESTAdapter = Ember.Adapter.extend({
       return urlRoot + ".json";
     }
   },
-  
+
   ajaxSettings: function(url, method) {
     return {
       url: url,
@@ -1472,8 +1499,10 @@ Ember.RESTAdapter = Ember.Adapter.extend({
     };
   },
 
-  _ajax: function(url, params, method) {
-    var settings = this.ajaxSettings(url, method);
+  _ajax: function(url, params, method, settings) {
+    if (!settings) {
+      settings = this.ajaxSettings(url, method);
+    }
 
     return new Ember.RSVP.Promise(function(resolve, reject) {
       if (params) {
@@ -1494,7 +1523,7 @@ Ember.RESTAdapter = Ember.Adapter.extend({
         if (jqXHR) {
           jqXHR.then = null;
         }
-        
+
         Ember.run(null, reject, jqXHR);
       };
 

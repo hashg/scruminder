@@ -1,0 +1,18 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <span class="panel-header-text">Task: <span class="text-success">{{name}}</span></span>
+    <span class="pull-right" style="margin-top: -5px;">
+      {{#link-to 'task.edit' class="btn btn-no-rc btn-primary"}}Edit{{/link-to}}
+      <a {{action deleteTask}} class="btn btn-no-rc btn-danger">Delete</a>
+    </span>
+  </div>
+  <div class="panel-body panel-body-nopad">
+    <ul class="list-group list-group-mp" style="margin: 0;">
+      <li class="list-group-item">
+        <p class="list-group-item-desc">Id: {{id}}</p>
+        <p class="list-group-item-desc">etag: {{etag}}</p>
+      </li>
+    </ul>
+  </div> <!-- panel-body -->
+</div><!-- panel -->
+{{outlet}}

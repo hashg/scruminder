@@ -1,0 +1,48 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <span class="panel-header-text">Story: <span class="text-success">{{name}}</span></span>
+    <span class="pull-right" style="margin-top: -5px;">
+      {{#link-to 'story.edit' class="btn btn-no-rc btn-primary"}}Edit{{/link-to}}
+      <a {{action deleteStory}} class="btn btn-no-rc btn-danger">Delete</a>
+    </span>
+  </div>
+  <div class="panel-body panel-body-nopad">
+    <ul class="list-group list-group-mp" style="margin: 0;">
+      <li class="list-group-item">
+        <p class="list-group-item-desc">Id: {{id}}</p>
+        <p class="list-group-item-desc">etag: {{etag}}</p>
+      </li>
+    </ul>
+  </div> <!-- panel-body -->
+</div><!-- panel -->
+{{outlet}}
+<div class="page-heading-x">
+  <h2 class="page-title">
+    <i class="glyphicon glyphicon-tasks"></i> Tasks
+  </h2>
+  {{#link-to 'story.new' class="btn btn-circle btn-success pull-right"}} <i class="icon-plus"></i>{{/link-to}}
+</div>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <div class="input-group">
+      {{input type="search" value=search class="form-control" placeholder="Search tasks" autofocus=true}}
+      <span class="input-group-addon glyphicon icon-search-3" style="top: 0;border-radius: 0;"></span>
+    </div>
+  </div>
+  <div id="sm-task-list" class="panel-body panel-body-nopad">
+    <ul class="list-group list-group-mp" style="margin: 0;">
+      {{#each o in tasks}}
+      <li class="list-group-item">
+        <i class="indicator available icon-radio-checked pull-right"></i>
+        {{#link-to 'task' o}}<h4>{{o.name}}</h4>{{/link-to}}
+        <p class="list-group-item-desc">{{o.id}}</p>
+      </li>
+      {{else}}
+      <li class="list-group-item">
+        <h4 style="text-align: center;">Go create some tasks.</h4>
+      </li>
+      {{/each}}
+    </ul>
+  </div> <!-- panel-body -->
+</div><!-- panel -->
+</div>

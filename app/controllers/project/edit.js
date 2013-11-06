@@ -1,34 +1,30 @@
-import Project from 'appkit/models/project';
-import Person from 'appkit/models/person';
+import Projects from 'appkit/models/projects';
 
 var ProjectEditController = Ember.ObjectController.extend({
-  content: [],
+  content: null,
   needs: ['project'],
-  project: Ember.computed.alias('controllers.project'),
   id: Ember.computed.alias('controllers.project.id'),
   name: Ember.computed.alias('controllers.project.name'),
-  desc: Ember.computed.alias('controllers.project.desc'),
+  etag: Ember.computed.alias('controllers.project.etag'),
   actions: {
-    updateProject: function()
-    {
+    editProject: function() {
       var self = this;
       var id = self.get('id');
-      var prj = Project.find(id);
-      prj.setProperties({'name': self.get('name'), 'desc': self.get('desc')});
-      prj.submit().then(
+      var project = Projects.find(id);
+      project.setProperties({
+        'name': self.get('name')
+      });
+      project.save().then(
         function()
         {
-          console.log('Edit saved');
+          Ember.Logger.info('Edit saved');
           self.transitionToRoute('project');
         }, 
         function()
         {
-          console.log('Edit save failed!');
+          Ember.Logger.info('Edit save failed!');
         }
       );
-    },
-    cancelProject: function() {
-      this.transitionToRoute('project');
     }
   }
 });

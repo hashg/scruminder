@@ -1,19 +1,26 @@
-<div class="container col-md-5 col-md-offset-4">
-  <div class="panel panel-primary">
-    <div class="panel-heading">Login</div>
-    <div class="panel-body">
-      <form class="form-vertical" role="form" {{action login on="submit"}}>
-        <div class="form-group">
-          {{input type="text" placeholder="Login Id" valueBinding="username" autofocus="true" class="form-control"}}
-        </div>
-        <div class="form-group">
-          {{input type="password" placeholder="Password" valueBinding="password" class="form-control"}}
-        </div>
+{{! login form; the fields must be named "identification" and "password"; the controller action is "login" }}
+<div class="row">
+  <div class="col-sm-12 col-md-4 col-md-offset-4">
+    <div class="panel panel-default">
+      <div class="panel-heading"><div class="panel-header-text">Login</div></div>
+        <div class="panel-body">
+          {{#if errorMessage}}
+            <div class="alert alert-danger">
+              Login failed:  {{errorMessage}}
+            </div>
+          {{/if}}
+          <form {{action login on='submit'}}>
+            {{input-text id='identification' label="Username" placeholder="Enter Username" value=identification formController=controller  autofocus=true}}
+            {{input-text id='password' type='password' label="Password" placeholder="Enter Password" value=password formController=controller required=true}}
+            <div style="text-align:center">
+              <code>Don&apos;t have a login? {{#link-to 'register' }}Register Now{{/link-to}}</code>  
+              <code>Don&apos;t remember your password? {{#link-to 'forgot' }}Forgot{{/link-to}}</code>
+            </div>
+        </div> <!-- panel-body -->
+      <div class="panel-footer" style="text-align:right">
+        {{#submit-button formController=controller tag="span"}}Login{{/submit-button}}
+      </div>
       </form>
-    </div><!-- panel-body -->
-    <div class="panel-footer">
-      <button class="btn btn-primary" type="submit">Login</button>
-      <button class="btn btn-danger">Cancel</button>
-    </div><!-- panel-footer -->
-  </div><!-- panel -->
-</div><!-- container -->
+    </div><!-- panel -->
+  </div><!-- col-xx-nn -->
+</div><!-- row -->

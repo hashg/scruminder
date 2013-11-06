@@ -1,106 +1,43 @@
-<!DOCTYPE html> 
-<html lang="en">
+<!DOCTYPE html>
+<html>
 <head>
-  <meta charset=utf-8>
-  <title>Scruminder</title>
-  <link rel="stylesheet" href="assets/vendor.css">
-  <link rel="stylesheet" href="assets/app.css">
+  <title>App</title>
+  <link rel="stylesheet" href="eapp/vendor/twitter/dist/css/bootstrap.css">
+  <link rel="stylesheet" href="eapp/vendor/kuta-admin/css/styles.css">
+  <link rel="stylesheet" href="eapp/vendor/pikaday/pikaday.js">
+  <link rel="stylesheet" href="eapp/assets/app.css">
 
-  <!-- build:js(.) assets/vendor.min.js -->
-  <script src="/vendor/jquery/jquery.js"></script>
-  <script src="/vendor/twbs/bootstrap.js"></script>
-  <script src="/vendor/handlebars/handlebars.runtime.js"></script>
-  <script src="/vendor/ember/index.js"></script>
-  <script src="/vendor/ember-model/ember-model.js"></script>
-  <script src="/vendor/utils/jquery.cookie.js"></script>
-  <script src="/vendor/loader.js"></script>
+  <!-- for more details visit: https://github.com/yeoman/grunt-usemin -->
+
+  <!-- build:js(.) /assets/vendor.min.js -->
+  <script src="eapp/vendor/jquery/jquery.js"></script>
+  <script src="eapp/vendor/twitter/dist/js/bootstrap.js"></script>
+  <script src="eapp/vendor/handlebars/handlebars.js"></script>
+  <script src="eapp/vendor/ember/ember.js"></script>
+  <!-- <script src="eapp/vendor/ember-data-shim/ember-data.js"></script> -->
+  <script src="eapp/vendor/ember-model/ember-model.js"></script>
+  <script src="eapp/vendor/ember-form-components/build/ember-form-components.js"></script>
+  <script src="eapp/vendor/ember-simple-auth/ember-simple-auth.js"></script>
+  <script src="eapp/vendor/utils/moment.js"></script>
+  <script src="eapp/vendor/pikaday/pikaday.js"></script>
+  <script src="eapp/vendor/almond.js"></script>
+  <script src="eapp/vendor/resolver.js"></script>
   <!-- endbuild -->
 
-  <!-- build:js(tmp/public) assets/app.min.js -->
-  <script src="/assets/app.js"></script>
-  <script src="/assets/templates.js"></script>
-  <script>
-  Ember.TextField.reopen({
-    attributeBindings: ['accept', 'autocomplete', 'autofocus', 'name', 'required']
-  });
-  </script>
+  <!-- build:js(tmp/public) /assets/app.min.js -->
+  <script src="eapp/assets/app.js"></script>
+  <script src="eapp/assets/templates.js"></script>
   <!-- endbuild -->
 </head>
 <body>
-  <!-- for more details visit: https://github.com/yeoman/grunt-usemin -->
-  <nav class="navbar navbar-inverse" role="navigation">
-  <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="#">Scruminder</a>
+  <div id='my-body'>
+    <div id='ember-app'>
     </div>
-  </nav>
-
-  <div class="container">
-    <div class="row">
-      <div class="col-md-2">
-        <div class="bs-sidebar hidden-print affix-top" role="complementary">
-          <ul class="nav bs-sidenav">
-            <li>
-              <a href="#/projects"><h4><span class="glyphicon glyphicon-tasks"></span> Projects</h4></a>
-            </li>
-            <li>
-              <a href="#/persons"><h4><span class="glyphicon glyphicon-user"></span> Persons</h4></a>
-            </li>
-            <li>
-              <a href="#/holidays"><h4><span class="glyphicon glyphicon-gift"></span> Holidays</h4></a>
-            </li>
-            <hr>
-            <li>
-              <a href="#/settings"><h4><span class="glyphicon glyphicon-cog"></span> Settings</h4></a>
-            </li>
-            <li>
-              <a href="#/login"><h4><span class="glyphicon glyphicon-lock"></span> Login</h4></a>
-            </li>
-            <li>
-              <a href="#/register"><h4><span class="glyphicon glyphicon-book"></span> Register</h4></a>
-            </li>
-            <li>
-              <a href="#/help"><h4><span class="glyphicon glyphicon-question-sign"></span> Help</h4></a>
-            </li>
-          </ul>
-        </div>
-      </div><!-- col-md-3 -->
-      <div class="col-md-10">
-        <div class="container">
-          <!-- Alert Box -->
-          <!-- <div class="alert alert-danger">
-            <button type="button" class="close" data-dismiss="alert">×</button>
-            <strong>Error!</strong> Placeholder for messages....
-          </div> -->
-          <!-- Alert Box -->
-
-          <!-- Breadcrumbs -->
-          <ul class="breadcrumb">
-            <li><a href="#/projects">Projects</a></li>
-            <li><a href="#">Sprints</a></li>
-            <li><a href="#">Stories</a></li>
-            <li class="active">Tasks</li>
-          </ul>
-          <!-- Breadcrumbs -->
-          
-          <div class="container" id="ember-app"></div>
-        </div><!-- container -->
-      </div><!-- col-md-6 -->
-    </div> <!-- row -->
-  </div> <!-- container -->
-
-
-
-  
-  
+  </div>
+  {% raw %}
   <script>
-    window.App = requireModule('appkit/app');
+    window.App = require('appkit/app');
   </script>
+  {% endraw %}
 </body>
 </html>

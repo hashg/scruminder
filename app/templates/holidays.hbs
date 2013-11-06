@@ -1,13 +1,36 @@
-<div class="container">
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      Holidays
-    </div><!-- panel-heading -->
-    <div class="panel-body">
-      <p>Coming soon</p>
-    </div><!-- panel-body -->
-  </div><!-- panel -->
-  <div class="container">
-    {{outlet}}
+<div class="page-heading-x">
+  <h2 class="page-title">
+    <i class="icon-airplane"></i> Holidays
+  </h2>
+  {{#link-to 'holidays.new' class="btn btn-circle btn-success pull-right"}} <i class="icon-plus"></i>{{/link-to}}
+</div>
+
+{{outlet}}
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <div class="input-group">
+      {{input type="search" value=search class="form-control" placeholder="Search holidays" autofocus=true}}
+      <span class="input-group-addon glyphicon icon-search-3" style="top: 0;border-radius: 0;"></span>
+    </div>
   </div>
-</div><!-- container -->
+  <div id="sm-holidays-list" class="panel-body panel-body-nopad">
+    <ul class="list-group list-group-mp" style="margin: 0;">
+      {{#each}}
+      <li class="list-group-item">
+        <span class="pull-right" style=" margin-top: 5px; ">
+        {{#link-to 'holidays.edit' this class="btn btn-no-rc btn-primary"}}Edit{{/link-to}}
+        <a {{action deleteHoliday this}} class="btn btn-no-rc btn-danger">Delete</a>
+        </span>
+        <h4>{{name}}</h4>
+        <p class="list-group-item-desc">{{from_date}} - {{to_date}}</p>
+      </li>
+      {{else}}
+      <li class="list-group-item">
+        <h4 style="text-align: center;">Go create some holidays.</h4>
+      </li>
+      {{/each}}
+    </ul>
+  </div> <!-- panel-body -->
+</div><!-- panel -->
+</div>

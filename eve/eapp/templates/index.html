@@ -1,0 +1,316 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>EmberJS Scrums!</title>
+  <link rel="stylesheet" href="eapp/css/bootstrap.css">
+  <link href="eapp/css/styles.css" rel="stylesheet" media="screen">
+</head>
+<body>
+  <div id='my-body'>
+    <div id='ember-app'>
+    </div>
+  </div>
+  {% raw %}
+  <script type="text/x-handlebars">
+  
+  <!-- top header navbar -->
+  <nav class="navbar navbar-top-header x-hidden-xs" role="navigation">
+    <div class="navbar-header">
+      {{#link-to 'index'}}<img class="logo" src="eapp/images/logo.png">{{/link-to}}
+    </div>
+         
+    <ul class="nav navbar-nav navbar-left">
+      <li>
+        {{#link-to 'index' tagName='a'}}
+          <i class="icon-home-2"></i>
+        {{/link-to}}
+      </li>
+      <li>
+        {{#link-to 'protected' tagName='a'}}
+          <i class="icon-settings-2"></i>
+        {{/link-to}}
+      </li>
+      <li>
+        {{#link-to 'projects' tagName='a'}}
+        <i class="icon-earth"></i>
+        {{/link-to}}
+      </li>
+    </ul>
+    
+    <form class="navbar-form navbar-left" role="search">
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="">
+      </div>
+      <button type="submit" class="btn btn-no-rc btn-inverse">Search</button>
+    </form>
+
+    <form class="navbar-form navbar-right" role="form">
+      {{#if session.isAuthenticated}}
+        {{#link-to 'logout' classNames='btn  btn-no-rc btn-danger btn-flat'}}
+          Logout {{session.username}}
+        {{/link-to}}
+      {{else}}
+        {{#link-to 'login' classNames='btn  btn-no-rc btn-success btn-flat'}}
+          Login
+        {{/link-to}}
+      {{/if}}
+    </form>
+  </nav>
+  <!-- ./ top header navbar -->
+  <div id="main_wrapper">
+      <div id="main_content">
+        {{outlet}}
+      </div>
+      <!-- sidebar -->
+      <ul id="sidebar" class="nav nav-pills nav-stacked">
+        <li>
+          {{#link-to 'index' class='active'}}
+            <i class="icon-home-2"></i>
+            <span>Dashboard</span>
+          {{/link-to}}
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <i class="icon-params"></i>
+            <span>UI</span>
+          </a>
+          <ul class="dropdown-menu">
+            <li>
+              <a href="#">
+                <i class="icon-stack-3"></i> Typography
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <i class="icon-stack-3"></i> Tables
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a href="#">
+            <i class="icon-bars-3"></i>
+            <span>Charts</span>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <i class="icon-browser"></i>
+            <span>Forms</span>
+          </a>
+        </li>
+      </ul>
+      <!-- ./ sidebar -->
+  </div>
+  </script>
+  
+  <script type="text/x-handlebars" data-template-name="index">
+  <div class="page-heading">        
+    <h2 class="page-title">
+      <i class="icon-home-2"></i> Index
+    </h2>
+  </div>
+  {{#unless session.isAuthenticated}}
+    <div class="alert alert-info">
+      You can {{#link-to 'login' classNames='alert-link'}}log in{{/link-to}}
+    </div>
+  {{else}} 
+    <div class="alert alert-warning">
+      This is Home.
+    </div>
+  {{/unless}}
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="login">
+  <div class="page-heading">        
+      <h2 class="page-title">
+        <i class="icon-shield"></i> Login
+      </h2>
+  </div>
+
+  {{! login form; the fields must be named "identification" and "password"; the controller action is "login" }}
+  <div class="row">
+    <div class="col-sm-12 col-md-4 col-md-offset-4">
+      <div class="panel panel-default">
+        <div class="panel-heading">Login</div>
+          <div class="panel-body">
+            {{#if errorMessage}}
+              <div class="alert alert-danger">
+                Login failed:  {{errorMessage}}
+              </div>
+            {{/if}}
+            <form {{action login on='submit'}}>
+              {{input-text id='identification' label="Username" placeholder="Enter Username" value=identification formController=controller required=true autofocus=true}}
+              {{input-text id='password' type='password' label="Password" placeholder="Enter Password" value=password formController=controller required=true}}
+              <div style="text-align:center">
+                <code>Don&apos;t have a login? {{#link-to 'register' }}Register Now{{/link-to}}</code>  
+                <code>Don&apos;t remember your password? {{#link-to 'forgot' }}Forgot{{/link-to}}</code>
+              </div>
+          </div> <!-- panel-body -->
+        <div class="panel-footer" style="text-align:right">
+          {{#submit-button formController=controller}}Login{{/submit-button}}
+        </div>
+        </form>
+      </div><!-- panel -->
+    </div><!-- col-xx-nn -->
+  </div><!-- row -->
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="register">
+  <div class="page-heading">        
+      <h2 class="page-title">
+        <i class="icon-key"></i> Register
+      </h2>
+  </div>
+  <div class="row">
+    <div class="col-sm-12 col-md-4 col-md-offset-4">
+      <div class="panel panel-default">
+        <div class="panel-heading">Register</div>
+          <div class="panel-body">
+            {{#if errorMessage}}
+              <div class="alert alert-danger">
+                Registeration failed:  {{errorMessage}}
+              </div>
+            {{/if}}
+            <form {{action register on='submit'}}>
+              {{input-text id='reg-identification' label="Username" placeholder="Enter Username" value=username formController=controller required=true autofocus=true}}
+              {{input-email id='reg-email' placeholder="Enter e-mail" value=email formController=controller required=true customValidator=validateEmail}}
+              {{input-password value=password formController=controller required=true}}
+              <div style="text-align:center">
+                <code>Already registered? {{#link-to 'login' }}Goto Login{{/link-to}}</code>
+                <code>Don&apos;t remember your password? {{#link-to 'forgot' }}Forgot{{/link-to}}</code>
+              </div>
+          </div><!-- panel-body -->
+          <div class="panel-footer">{{#submit-button formController=controller}}Register{{/submit-button}}</div>
+        </form>
+      </div><!-- panel -->
+    </div><!-- col-xx-nn -->
+  </div><!-- row -->
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="forgot">
+  <div class="page-heading">        
+      <h2 class="page-title">
+        <i class="icon-key"></i> Forgot username/password
+      </h2>
+  </div>
+  <div class="row">
+    <div class="col-sm-12 col-md-4 col-md-offset-4">
+      <div class="panel panel-default">
+        <div class="panel-heading">Forgot</div>
+          <div class="panel-body">
+            {{#if errorMessage}}
+              <div class="alert alert-danger">
+                Failed:  {{errorMessage}}
+              </div>
+            {{/if}}
+            <form {{action forgot on='submit'}}>
+              {{input-email id='reg-email' placeholder="Enter e-mail" value=email formController=controller required=true customValidator=validateEmail}}
+              <div style="text-align:center">
+                <code>Already registered? {{#link-to 'login' }}Goto Login{{/link-to}}</code>
+                <code>Don&apos;t have a login? {{#link-to 'register' }}Register Now{{/link-to}}</code>
+              </div>
+          </div><!-- panel-body -->
+          <div class="panel-footer">{{#submit-button formController=controller}}Request Details{{/submit-button}}</div>
+        </form>
+      </div><!-- panel -->
+    </div><!-- col-xx-nn -->
+  </div><!-- row -->
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="protected">
+    <div class="page-heading">        
+      <h2 class="page-title">
+        <i class="icon-lock"></i> Protected
+      </h2>
+    </div>
+  <div class="alert alert-danger">
+    This is a protected page only visible to authenticated users!
+  </div>
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="projects">
+    <div class="page-heading">        
+      <h2 class="page-title">
+        <i class="icon-stack"></i> Projects
+      </h2>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">Project</div>
+        <div class="panel-body">
+          {{#each}}
+            <li> {{#link-to 'project' this}}{{_id}}{{/link-to}} - {{name}}</li>
+          {{/each}}
+        </div> <!-- panel-body -->
+    </div><!-- panel -->
+    {{outlet}}
+  </script>
+  
+  <script type="text/x-handlebars" data-template-name="project">
+    <div class="panel panel-default">
+      <div class="panel-heading">{{name}}</div>
+        <div class="panel-body">
+          {{#each s in sprints}}
+            <li> {{#link-to 'sprint' this.s}}{{s._id}}{{/link-to}}</li>
+          {{/each}}
+        </div> <!-- panel-body -->
+    </div><!-- panel -->
+    {{outlet}}
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="sprint">
+    <div class="page-heading">
+      <h2 class="page-title">
+        <i class="icon-stack"></i> Sprint
+      </h2>
+    </div>
+    <ol class="breadcrumb breadcrumb-dark">
+      <li>{{#link-to 'project' project tagName="a"}}{{project.name}}{{/link-to}}</li>
+      <li class="active">{{name}}</li>
+    </ol>
+    <div class="panel panel-default">
+      <div class="panel-heading">{{name}}</div>
+        <div class="panel-body">
+          {{#each s in stories}}
+            <li> {{#link-to 'story' s}}{{s._id}}{{/link-to}}</li>
+          {{/each}}
+        </div> <!-- panel-body -->
+    </div><!-- panel -->
+    {{outlet}}
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="story">
+    <div class="page-heading">
+      <h2 class="page-title">
+        <i class="icon-stack"></i> Story
+      </h2>
+    </div>
+    <ol class="breadcrumb breadcrumb-dark">
+      <li>{{#link-to 'project' sprint.project tagName="a"}}{{sprint.project.name}}{{/link-to}}</li>
+      <li>{{#link-to 'sprint' sprint tagName="a"}}{{sprint.name}}{{/link-to}}</li>
+      <li class="active">{{name}}</li>
+    </ol>
+    <div class="panel panel-default">
+      <div class="panel-heading"> {{name}}</div>
+        <div class="panel-body">
+          <li>Id: {{id}}</li>
+          <li>etag: {{etag}}</li>
+          <li>Parent: {{sprint.name}}</li>
+        </div> <!-- panel-body -->
+    </div><!-- panel -->
+  </script>
+
+  {% endraw %}
+  <script src="eapp/js/libs/jquery-1.10.2.js"></script>
+  <script src="eapp/js/libs/handlebars-1.0.0.js"></script>
+  <script src="eapp/js/libs/bootstrap.min.js"></script>
+  <script src="eapp/js/libs/ember-1.1.1.js"></script>
+  <script src="eapp/js/libs/ember-simple-auth.js"></script>
+  <script src="eapp/js/libs/ember-form-components.js"></script>
+  <script src="eapp/js/libs/ember-model.js"></script>
+  <script src="eapp/js/app.js"></script>
+
+</body>
+</html>
