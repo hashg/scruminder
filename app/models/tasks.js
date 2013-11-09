@@ -4,7 +4,8 @@ import Stories from 'appkit/models/stories';
 
 var Tasks = Eve.extend({
   name: Ember.attr(),
-  story: Ember.belongsTo(Stories, {key: 'story_id'}),
+  story_id: Ember.attr(),
+  // story: Ember.belongsTo(Stories, {key: 'story_id'}),
 });
 
 Tasks.adapter = ScrumAdapter.create();

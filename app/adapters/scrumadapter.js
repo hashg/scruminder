@@ -1,6 +1,8 @@
 var ScrumAdapter =  Ember.RESTAdapter.extend({
   buildURL: function() {
     return this._super.apply(this, arguments).replace(/\.json$/, '');
+    // return this._super.apply(this, arguments).replace(/\.json$/, '?sort=[("updated", 1)]');
+    
   },
   saveRecord: function(record) {
     var primaryKey = Ember.get(record.constructor, 'primaryKey'),

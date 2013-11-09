@@ -59,48 +59,96 @@ class AuthValidator(Validator):
 
 
 def sprints_callback(request, payload):
+    print 'sprints_callback - BEGIN'
     # This method make sure parent child relation ship is in sync by adding references of itself in parent
     #type(request) - <class 'werkzeug.local.LocalProxy'>
     #type(payload) - <class 'flask.wrappers.Response'>
     parent_id = request.json.get("project_id")
     sprint_id = request.json.get("_id")
+    print parent_id
+    print sprint_id
 
     # print type(payload.response) - <type 'str'>
-    print (payload.response)
+    # print (payload.response)
     myresponse = json.loads(payload.response[0])
     status = myresponse.get("status")
 
     projects = app.data.driver.db['projects']
     # project = projects.find_one({'_id': ObjectId(p_id)})
     # print projects.update({"_id" : ObjectId(p_id)}, {"$push": {"sprints": {"$each":["a","b","c"]}}})
-    if status.encode('utf8') == 'OK':
+    if projects and status.encode('utf8') == 'OK':
         projects.update({"_id" : ObjectId(parent_id)}, {"$push": {"sprints": sprint_id}})
 
-    # print 'A POST on "sprints" was just performed!'
+    print 'sprints_callback - END'
+
+def sprints_delete_callback(request, payload):
+    print 'sprints_delete_callback - BEGIN'
+    parent_id = request.json.get('project_id')
+    sprint_id = request.json.get('id')
+    print parent_id
+    print sprint_id
+
+    projects = app.data.driver.db['projects']
+    if projects:
+        projects.update({"_id" : ObjectId(parent_id)}, {"$pull": {"sprints": ObjectId(sprint_id)}})
+    print 'sprints_delete_callback - END'
 
 def stories_callback(request, payload): 
     parent_id = request.json.get("sprint_id")
     story_id = request.json.get("_id")
+    print parent_id
+    print story_id
 
     myresponse = json.loads(payload.response[0])
     status = myresponse.get("status")
 
     sprints = app.data.driver.db['sprints']
     
-    if status.encode('utf8') == 'OK':
+    if sprints and status.encode('utf8') == 'OK':
         sprints.update({"_id" : ObjectId(parent_id)}, {"$push": {"stories": story_id}})
+
+def stories_delete_callback(request, payload):
+    print 'stories_delete_callback - BEGIN'
+    parent_id = request.json.get('sprint_id')
+    story_id = request.json.get('id')
+    print parent_id
+    print story_id
+
+    sprints = app.data.driver.db['sprints']
+    if sprints:
+        sprints.update({"_id" : ObjectId(parent_id)}, {"$pull": {"stories": ObjectId(story_id)}})
+    print 'stories_delete_callback - END'
+
 
 def tasks_callback(request, payload): 
     parent_id = request.json.get("story_id")
     task_id = request.json.get("_id")
+    print parent_id
+    print task_id
 
     myresponse = json.loads(payload.response[0])
     status = myresponse.get("status")
 
     stories = app.data.driver.db['stories']
     
-    if status.encode('utf8') == 'OK':
+    if stories and status.encode('utf8') == 'OK':
         stories.update({"_id" : ObjectId(parent_id)}, {"$push": {"tasks": task_id}})
+
+def tasks_delete_callback(request, payload):
+    print 'tasks_delete_callback - BEGIN'
+    # print request.json
+    # print payload.response
+    parent_id = request.json.get('story_id')
+    task_id = request.json.get('id')
+    print parent_id
+    print task_id
+
+    stories = app.data.driver.db['stories']
+    if stories:
+        stories.update({"_id" : ObjectId(parent_id)}, {"$pull": {"tasks":  ObjectId(task_id)}})
+
+    print 'tasks_delete_callback - END'
+
     
 
 # def session_callback(request, payload):
@@ -173,6 +221,9 @@ if __name__ == '__main__':
     app.on_POST_sprints += sprints_callback
     app.on_POST_stories += stories_callback
     app.on_POST_tasks += tasks_callback
+    app.on_DELETE_sprints += sprints_delete_callback
+    app.on_DELETE_stories += stories_delete_callback
+    app.on_DELETE_tasks += tasks_delete_callback
 
     app.register_blueprint(eapp, url_prefix='/eapp')
     app.run(host='0.0.0.0', port=port, debug=True)

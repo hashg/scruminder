@@ -63,6 +63,9 @@ HATEOAS = False
 # Enable EMBEDDING
 EMBEDDING = True
 
+# Enable SORTING
+SORTING = True
+
 #ID Field
 # ID_FIELD = 'id'
 
@@ -94,12 +97,12 @@ profiles = {
     'firstname': {
       'type': 'string',
       'minlength': 1,
-      'maxlength': 10,
+      'maxlength': 25,
     },
     'lastname': {
       'type': 'string',
       'minlength': 1,
-      'maxlength': 15,
+      'maxlength': 25,
       'required': True,
       # talk about hard constraints! For the purpose of the demo
       # 'lastname' is an API entry-point, so we need it to be unique.
@@ -131,6 +134,7 @@ projects = {
   'extra_response_fields': ['name'],
   'public_methods' : ['GET'],
   'public_item_methods' : ['GET'],
+  'embeddable ' : True,
 
   'additional_lookup': {
     'url': '[\w]+',
@@ -140,8 +144,8 @@ projects = {
   'schema': {
     'name': {
       'type': 'string',
-      'minlength': 1,
-      'maxlength': 10,
+      'minlength': 5,
+      'maxlength': 25,
     },
     'sprints': {
      'type': 'list',
@@ -150,6 +154,8 @@ projects = {
         'data_relation': {
           'resource': 'sprints',
           'field': '_id',
+          'embeddable': True
+
         }
       }
     }
@@ -159,9 +165,10 @@ projects = {
 sprints = {
   # 'title' tag used in item links.
   'item_title': 'sprints',
-  'extra_response_fields': ['name'],
+  'extra_response_fields': ['name', 'project_id'],
   'public_methods' : ['GET'],
   'public_item_methods' : ['GET'],
+  'embeddable ' : True,
   
   'additional_lookup': {
     'url': '[\w]+',
@@ -171,21 +178,26 @@ sprints = {
   'schema': {
     'name': {
       'type': 'string',
-      'minlength': 1,
-      'maxlength': 10,
+      'minlength': 5,
+      'maxlength': 25,
     },
     'project_id': {
       'type': 'objectid',
       'data_relation': {
         'resource': 'projects',
-        'field': '_id'
+        'field': '_id',
+        'embeddable': True
       }
     },
     'stories': {
-      'type': 'list',
-      'schema' : {
-        'resource': 'stories',
-        'field': '_id',
+     'type': 'list',
+     'schema': {
+        'type': 'objectid',
+        'data_relation': {
+          'resource': 'stories',
+          'field': '_id',
+          'embeddable': True
+        }
       }
     }
   }
@@ -195,7 +207,7 @@ sprints = {
 stories = {
   # 'title' tag used in item links.
   'item_title': 'stories',
-  'extra_response_fields': ['name'],
+  'extra_response_fields': ['name', 'sprint_id'],
   'public_methods' : ['GET'],
   'public_item_methods' : ['GET'],
   
@@ -207,8 +219,8 @@ stories = {
   'schema': {
     'name': {
       'type': 'string',
-      'minlength': 1,
-      'maxlength': 10,
+      'minlength': 5,
+      'maxlength': 25,
     },
     'sprint_id': {
       'type': 'objectid',
@@ -218,10 +230,13 @@ stories = {
       }
     },
     'tasks': {
-      'type': 'list',
-      'schema' : {
-        'resource': 'tasks',
-        'field': '_id',
+     'type': 'list',
+     'schema': {
+        'type': 'objectid',
+        'data_relation': {
+          'resource': 'tasks',
+          'field': '_id',
+        }
       }
     }
   }
@@ -230,7 +245,7 @@ stories = {
 tasks = {
   # 'title' tag used in item links.
   'item_title': 'tasks',
-  'extra_response_fields': ['name'],
+  'extra_response_fields': ['name', 'story_id'],
   'public_methods' : ['GET'],
   'public_item_methods' : ['GET'],
   
@@ -242,8 +257,8 @@ tasks = {
   'schema': {
     'name': {
       'type': 'string',
-      'minlength': 1,
-      'maxlength': 10,
+      'minlength': 5,
+      'maxlength': 25,
     },
     'story_id': {
       'type': 'objectid',

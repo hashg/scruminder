@@ -11,23 +11,22 @@
 <div class="panel panel-default">
   <div class="panel-heading">
     <div class="input-group">
-      {{input type="search" value=search class="form-control" placeholder="Search projects" autofocus=true}}
+      {{input type="search" value=filterText class="form-control" placeholder="Filter projects" autofocus=true}}
       <span class="input-group-addon glyphicon icon-search-3" style="top: 0;border-radius: 0;"></span>
     </div>
   </div>
-  <div id="sm-projects-list" class="panel-body panel-body-nopad">
+  <div id="sm-projects-list1" class="panel-body panel-body-nopad">
     <ul class="list-group list-group-mp" style="margin: 0;">
-      {{#if isLoading}}
-        <li class="list-group-item"> Go create some projects. </li>
-      {{/if}}
-      {{#each}}
+      {{#each item in filteredContent}}
       <li class="list-group-item">
-        <i class="indicator available icon-radio-checked pull-right"></i>
-        {{#link-to 'project' this}}<h4>{{name}}</h4>{{/link-to}}
-        <p class="list-group-item-desc">{{id}}</p>
+        <i class="indicator available glyphicon glyphicon-chevron-right pull-right"></i>
+        {{#link-to 'project' item}}<h4>{{item.name}}</h4>{{/link-to}}
+        <p class="list-group-item-desc">{{item.id}}</p>
       </li>
       {{else}}
-      <h4 style="text-align: center;">Go create some projects.</h4>
+      <li class="list-group-item">
+        <h4 style="text-align: center;">Go create some projects.</h4>
+      </li>
       {{/each}}
     </ul>
   </div> <!-- panel-body -->

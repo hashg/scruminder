@@ -1,16 +1,26 @@
-import filter from 'appkit/utils/filter';
 import Projects from 'appkit/models/projects';
 
 var ProjectController = Ember.ObjectController.extend({
   content: null,
-  search: '',
+  filterText: '',
+  filteredContent: function() {
+    var self = this;
+    var filter = this.get('filterText');
+    if (Ember.isEmpty(filter)) {
+      return this.get('content').get('sprints');
+    } else {
+      return this.get('content').get('sprints').filter(function(item, index, enumerable){
+        var regx = new RegExp(filter, "ig");
+        var name = item.get('name');
+        var tmp = name + "/" + filter + "/" + regx.test(name);
+        if (regx.test(name)===true)
+          var t = 'truthy';
 
-  contentChanged: function(){
-    Ember.run.next(this, function(){
-      var srch = this.get('search');
-      filter("sm-sprint-list", srch);
-    });
-  }.observes('search'),
+        return regx.test(name);
+      });
+    }
+  }.property('filterText'),
+
   actions: {
     deleteProject: function() {
       var self = this;

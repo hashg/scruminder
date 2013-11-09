@@ -29,17 +29,17 @@
 <div class="panel panel-default">
   <div class="panel-heading">
     <div class="input-group">
-      {{input type="search" value=search class="form-control" placeholder="Search sprints" autofocus=true}}
+      {{input type="search" value=filterText class="form-control" placeholder="Filter sprints" autofocus=true}}
       <span class="input-group-addon glyphicon icon-search-3" style="top: 0;border-radius: 0;"></span>
     </div>
   </div>
-  <div id="sm-sprint-list" class="panel-body panel-body-nopad">
+  <div class="panel-body panel-body-nopad">
     <ul class="list-group list-group-mp" style="margin: 0;">
-      {{#each o in sprints}}
+      {{#each item in filteredContent}}
       <li class="list-group-item">
-        <i class="indicator available icon-radio-checked pull-right"></i>
-        {{#link-to 'sprint' o}}<h4>{{o.name}}</h4>{{/link-to}}
-        <p class="list-group-item-desc">{{o.id}}</p>
+        <i class="indicator available glyphicon glyphicon-chevron-right pull-right"></i>
+        {{#link-to 'sprint' item}}<h4>{{item.name}}</h4>{{/link-to}}
+        <p class="list-group-item-desc">{{item.id}}</p>
       </li>
       {{else}}
       <li class="list-group-item">

@@ -1,5 +1,5 @@
 <ol class="breadcrumb breadcrumb-main">
-  <li>{{#link-to 'projects'}}Projects{{/link-to}}</li>
+  <li>{{#link-to 'projects'}}Project{{/link-to}}</li>
   <li>{{name}}</li>
 </ol>
 <div class="panel panel-default">
@@ -29,17 +29,17 @@
 <div class="panel panel-default">
   <div class="panel-heading">
     <div class="input-group">
-      {{input type="search" value=search class="form-control" placeholder="Search stories" autofocus=true}}
+      {{input type="search" value=filterText class="form-control" placeholder="Filter stories" autofocus=true}}
       <span class="input-group-addon glyphicon icon-search-3" style="top: 0;border-radius: 0;"></span>
     </div>
   </div>
-  <div id="sm-story-list" class="panel-body panel-body-nopad">
+  <div class="panel-body panel-body-nopad">
     <ul class="list-group list-group-mp" style="margin: 0;">
-      {{#each o in stories}}
+      {{#each item in filteredContent}}
       <li class="list-group-item">
-        <i class="indicator available icon-radio-checked pull-right"></i>
-        {{#link-to 'story' o}}<h4>{{o.name}}</h4>{{/link-to}}
-        <p class="list-group-item-desc">{{o.id}}</p>
+        <i class="indicator available glyphicon glyphicon-chevron-right pull-right"></i>
+        {{#link-to 'story' item}}<h4>{{item.name}}</h4>{{/link-to}}
+        <p class="list-group-item-desc">{{item.id}}</p>
       </li>
       {{else}}
       <li class="list-group-item">
