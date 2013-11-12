@@ -71,6 +71,7 @@ def sprints_callback(request, payload):
     # print type(payload.response) - <type 'str'>
     # print (payload.response)
     myresponse = json.loads(payload.response[0])
+    #try this myresponse1 = payload.get_data()
     status = myresponse.get("status")
 
     projects = app.data.driver.db['projects']

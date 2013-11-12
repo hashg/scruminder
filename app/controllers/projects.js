@@ -11,17 +11,11 @@ var ProjectsController = Ember.ArrayController.extend({
     if (Ember.isEmpty(filter)) {
       return this.get('content');
     } else {
-      return this.get('content').filter(function(item, index, enumerable){
+      return this.get('content').filter(function(item, index, enumerable) {
         var regx = new RegExp(filter, "ig");
         var name = item.get('name');
-        var tmp = name + "/" + filter + "/" + regx.test(name);
-
-        if (regx.test(name)===true)
-          var t = 'truthy';
-          
-        return regx.test(name);
+        return regx.match(name);
       });
-      // .filterProperty('name', filter.toLowerCase()); // did not work
     }
   }.property('filterText')
 });

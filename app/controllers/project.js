@@ -12,11 +12,7 @@ var ProjectController = Ember.ObjectController.extend({
       return this.get('content').get('sprints').filter(function(item, index, enumerable){
         var regx = new RegExp(filter, "ig");
         var name = item.get('name');
-        var tmp = name + "/" + filter + "/" + regx.test(name);
-        if (regx.test(name)===true)
-          var t = 'truthy';
-
-        return regx.test(name);
+        return regx.match(name);
       });
     }
   }.property('filterText'),
@@ -26,8 +22,17 @@ var ProjectController = Ember.ObjectController.extend({
       var self = this;
       if (window.confirm("Are you sure you want to delete this project?")) {
         var id = self.get('id');
-        var project = Projects.find(id);
-        project.deleteRecord().then(
+        debugger;
+        var prj = this.get('model');        
+        var project = Projects.unload(prj);
+        project = Projects.find(id);
+        var p = Projects.fetch(id).then(
+            function(response){
+              debugger;
+            },
+            null
+          );
+        /*project.deleteRecord().then(
           function()
           {
             Ember.Logger.info('Deleted');
@@ -37,7 +42,7 @@ var ProjectController = Ember.ObjectController.extend({
           {
             Ember.Logger.info('Delete failed!');
           }
-        );
+        );*/
       }
     }
   }

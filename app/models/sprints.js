@@ -5,8 +5,8 @@ import Stories from 'appkit/models/stories';
 
 var Sprints = Eve.extend({
   name: Ember.attr(),
-  project_id: Ember.attr(),
-  // project: Ember.belongsTo(Projects, {key: 'project_id'}),
+  // project_id: Ember.attr(),
+  project: Ember.belongsTo(Projects, {key: 'project_id'}),
   stories: Ember.hasMany(Stories, {key: 'stories'}),
 });
 
