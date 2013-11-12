@@ -1,5 +1,5 @@
 function filter(selector, val) {
-  var s = new RegExp(val, "ig");
+  var s = new RegExp(val, "i");
   var container = $('#'+ selector +'>ul>li');
   container.each(function() {
     if(s.test(this.innerHTML)) 

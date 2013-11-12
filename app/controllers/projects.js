@@ -1,23 +1,15 @@
+import filter from 'appkit/utils/filter';
 
 var ProjectsController = Ember.ArrayController.extend({
-  content: [],
-  sortProperties: ['updated'],
-  sortAscending: false,
-  
-  filterText: '',
-  filteredContent: function() {
-    var self = this;
-    var filter = this.get('filterText');
-    if (Ember.isEmpty(filter)) {
-      return this.get('content');
-    } else {
-      return this.get('content').filter(function(item, index, enumerable) {
-        var regx = new RegExp(filter, "ig");
-        var name = item.get('name');
-        return regx.match(name);
-      });
-    }
-  }.property('filterText')
+  content: null,
+  search: '',
+
+  contentChanged: function(){
+    Ember.run.next(this, function(){
+      var srch = this.get('search');
+      filter("sm-projects-list", srch);
+    });
+  }.observes('search')
 });
 
 export default ProjectsController;

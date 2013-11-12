@@ -13,7 +13,7 @@ var ProjectNewController = Ember.ObjectController.extend({
       var self = this;
       // var parent_id = this.get('project_id');
       // var parent = Projects.find(parent_id);
-      var parent = self.get('controllers.project');
+      var parent = self.get('controllers.project.content');
       // var sprint = Sprints.create({name: self.get('name'), project: parent}); 
       var sprint = Sprints.create({name: self.get('name'), project: parent}); 
       sprint.save();
