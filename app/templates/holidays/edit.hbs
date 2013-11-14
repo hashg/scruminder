@@ -11,18 +11,17 @@
         <div class="row">
           <div class="col-sm-12 col-md-6 form-group">
             <label class="control-label">From</label>
-            {{view App.CalendarDatePicker class="form-control input-lg" valueBinding="from_date"}}
+            {{view App.CalendarDatePicker class="form-control input-lg" valueBinding="from_dt"}}
           </div><!-- col-sm-12 -->
           <div class="col-sm-12 col-md-6 form-group">
             <label class="control-label">To</label>
-            {{view App.CalendarDatePicker class="form-control input-lg" valueBinding="to_date"}}
+            {{view App.CalendarDatePicker class="form-control input-lg" valueBinding="to_dt"}}
           </div><!-- col-sm-12 -->
         </div><!-- row -->
-
-        {{!-- 
-        {{input-text label="From Date" placeholder="Enter from date" value=from_date formController=controller required=true}}
-        {{input-text label="To Date" placeholder="Enter to date" value=to_date formController=controller}}
-        --}}
+        <div class="form-group">
+          <label class="control-label">Comments</label>
+          {{textarea value=comments rows=4 class="form-control input-lg" placeholder="Enter comments here.."}}
+        </div><!-- form-group -->
         <div class="row">
           <div class="col-sm-12 col-md-4 form-group">
           {{input-text label="City" placeholder="Enter work city name" value=city formController=controller}}
@@ -34,10 +33,6 @@
           {{input-text label="Country" placeholder="Enter work country name" value=country formController=controller required=true}}
           </div><!-- col-sm-12 -->
         </div><!-- row -->
-        <div class="form-group">
-          <label class="control-label">Comments</label>
-          {{textarea value=comments rows=4 class="form-control input-lg" placeholder="Enter comments here.."}}
-        </div><!-- form-group -->
     </div> <!-- panel-body -->
   <div class="panel-footer" style="text-align:right">
     {{#link-to 'holidays' class="btn btn-no-rc btn-danger"}}Cancel{{/link-to}}

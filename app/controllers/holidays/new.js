@@ -5,8 +5,8 @@ var HolidaysNewController = Ember.ObjectController.extend({
   needs: ['holidays'],
   content: null,
   name: '',
-  from_date: '',
-  to_date: '',
+  from_dt: '',
+  to_dt: '',
   city: '',
   state: '',
   country: '',
@@ -16,8 +16,8 @@ var HolidaysNewController = Ember.ObjectController.extend({
       var self = this;
       var holiday = Holidays.create({
         name : self.get('name'),
-        from_date : self.get('from_date'),
-        to_date : self.get('to_date'),
+        from_dt : self.get('from_dt'),
+        to_dt : self.get('to_dt'),
         city : self.get('city'),
         state : self.get('state'),
         country : self.get('country'),
@@ -27,12 +27,20 @@ var HolidaysNewController = Ember.ObjectController.extend({
         self.resetProperties();
         self.transitionToRoute('holidays');
       }, function(){
-        self.set('errorMessage', "save failed");
+        self.set('errorMessage', "HolidaysNewController:save failed");
       });
     }
   },
   resetProperties: function() {
-    this.set('name', null);
+    this.setProperties({
+      name: null,
+      from_dt: null,
+      to_dt: null,
+      city: null,
+      state: null,
+      country: null,
+      comments: null
+    });
   }
 });
 
