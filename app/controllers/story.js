@@ -16,17 +16,14 @@ var StoryController = Ember.ObjectController.extend({
     deleteStory: function() {
       var self = this;
       if (window.confirm("Are you sure you want to delete this story?")) {
-        var id = self.get('id');
-        var story = Stories.find(id);
-        story.deleteRecord().then(
-          function()
-          {
+        var model = self.get('model');
+        model.deleteRecord().then(
+          function() {
             Ember.Logger.info('deleteStory: Deleted');
             self.transitionToRoute('sprint');
           }, 
-          function()
-          {
-            Ember.Logger.info('deleteStory: Delete failed!');
+          function() {
+            self.set('errorMessage', 'StoryController: Delete failed!');
           }
         );
       }

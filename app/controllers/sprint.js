@@ -16,20 +16,17 @@ var SprintController = Ember.ObjectController.extend({
     deleteSprint: function() {
       var self = this;
       if (window.confirm("Are you sure you want to delete this sprint?")) {
-        var id = self.get('id');
-        var sprint = Sprints.find(id);
-        sprint.deleteRecord().then(
-          function()
-          {
+        var model = self.get('model');
+        model.deleteRecord().then(
+          function() {
             Ember.Logger.info('deleteSprint: Deleted');
             self.transitionToRoute('project');
           }, 
-          function()
-          {
-            Ember.Logger.info('deleteSprint: Delete failed!');
+          function() {
+            self.set('errorMessage', 'SprintController: Delete failed!');
           }
         );
-      }
+      }/*if*/
     }
   }
 });

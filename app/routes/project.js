@@ -6,7 +6,6 @@ var ProjectRoute = Ember.Route.extend({
   },
   model:function(params) {
     Ember.Logger.info("ProjectRoute:Model");
-    Ember.Logger.info(params);
     return Projects.find(params.project_id);
   },
   // setupController: function(controller, model){

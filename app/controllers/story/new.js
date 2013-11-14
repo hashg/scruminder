@@ -5,30 +5,56 @@ var StoryNewController = Ember.ObjectController.extend({
   needs: ['story'],
   content: null,
   name: '',
+  type: '',
+  disposition: '',
+  acceptor: '',
+  estimate: '',
+  description: '',
+  types: ['feature', 'defect', 'testing', 'others'],
+  dispositions: ['planned', 'added', 'carried over', 'discovered'],
+  acceptors: ['dev', 'qa', 'docs'],
+  estimates: ['2.0','4.0','6.0','8.0','10.0'],
   story_id: Ember.computed.alias('controllers.story.id'),
   actions: {
     newTask: function() {
       var self = this;
-      var parent_id = this.get('story_id');
-      var task = Tasks.create({name: self.get('name'), story_id: parent_id});
-      task.save().then(function(){
-        var parent = self.get('controllers.story');
-        Ember.Logger.info(parent.get('etag'));
-        debugger;
-        parent.set('isDirty', true);
-        var parent1 = Stories.find(parent_id);
-        parent1.reload();
-        Ember.Logger.info(parent1.get('etag'));
-        parent.get('tasks').pushObject(task);
-        self.resetProperties();
-        self.transitionToRoute('story');
-      }, function(){
-        self.set('errorMessage', "StoryNew: save failed");
+      var model = self.get('model');
+      var parent_id = self.get('story_id');
+
+      var task = model.setProperties({
+        name: self.get('name'),
+        type: self.get('type'),
+        disposition: self.get('disposition'),
+        acceptor: self.get('acceptor'),
+        estimate: self.get('estimate'),
+        description: self.get('description'),
+        story_id: parent_id
       });
+
+      task.save().then (
+        function() {
+          /*update parent's list*/
+          var parent = self.get('controllers.story.content');
+          parent.get('tasks').pushObject(task);
+          
+          self.resetProperties();
+          self.transitionToRoute('story');
+        }, 
+        function() {
+          self.set('errorMessage', "StoryNewController: save failed");
+        }
+      );
     }
   },
   resetProperties: function() {
-    this.set('name', null);
+    this.setProperties({
+      name: null,
+      type: null,
+      disposition: null,
+      acceptor: null,
+      estimate: null,
+      description: null
+    });
   }
 });
 

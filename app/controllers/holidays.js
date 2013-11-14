@@ -3,8 +3,8 @@ import Holidays from 'appkit/models/holidays';
 
 var HolidaysController = Ember.ArrayController.extend({
   content: null,
-  search: '',
 
+  search: '',
   contentChanged: function(){
     Ember.run.next(this, function(){
       var srch = this.get('search');
@@ -17,17 +17,15 @@ var HolidaysController = Ember.ArrayController.extend({
       var self = this;
       if (window.confirm("Are you sure you want to delete this holiday?")) {
         record.deleteRecord().then(
-          function()
-          {
+          function() {
             Ember.Logger.info('deleteHoliday:Deleted');
             self.transitionToRoute('holidays');
           }, 
-          function()
-          {
+          function() {
             Ember.Logger.info('deleteHoliday:Delete failed!');
           }
         );
-      }
+      }/*if*/
     }
   }
 });

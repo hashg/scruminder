@@ -4,7 +4,8 @@ import Sprints from 'appkit/models/sprints';
 
 var Projects = Eve.extend({
   name: Ember.attr(),
-  sprints: Ember.hasMany(Sprints, {key: 'sprints'})
+  sprints: Ember.hasMany(Sprints, {key: 'sprints'}),
+  current_sprint_id: Ember.attr()
 });
 
 Projects.adapter = ScrumAdapter.create();

@@ -8,11 +8,10 @@ var ForgotController = Ember.Controller.extend(EmberFormComponents.Form,{
   },
   actions: {
     forgot: function() {
-      if(this.get('isFormValid')){
+      if(this.get('isFormValid')) {
         this.resetProperties();
         this.transitionToRoute('index');
-      }
-      else{
+      } else {
         this.set('showFieldValidation', true);
       }
     }

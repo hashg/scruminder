@@ -3,26 +3,25 @@ import Sprints from 'appkit/models/sprints';
 var SprintEditController = Ember.ObjectController.extend({
   content: null,
   needs: ['sprint'],
-  id: Ember.computed.alias('controllers.sprint.id'),
-  name: Ember.computed.alias('controllers.sprint.name'),
-  etag: Ember.computed.alias('controllers.sprint.etag'),
   actions: {
     editSprint: function() {
       var self = this;
-      var id = self.get('id');
-      var sprint = Sprints.find(id);
-      sprint.setProperties({
-        'name': self.get('name')
+      var model = self.get('model');
+
+      var sprint = model.setProperties({
+        name: self.get('name'),
+        start_dt: self.get('start_dt'),
+        end_dt: self.get('end_dt'),
+        description: self.get('description')
       });
-      sprint.save().then(
-        function()
-        {
-          Ember.Logger.info('Edit saved');
+
+      sprint.save().then (
+        function() {
+          Ember.Logger.info('ProjectEditController: Edit saved');
           self.transitionToRoute('sprint');
         }, 
-        function()
-        {
-          Ember.Logger.info('SprintEditController: save failed!');
+        function() {
+          self.set('errorMessage', "SprintEditController: Edit failed");
         }
       );
     }

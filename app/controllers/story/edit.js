@@ -3,26 +3,35 @@ import Stories from 'appkit/models/stories';
 var SprintEditController = Ember.ObjectController.extend({
   content: null,
   needs: ['story'],
-  id: Ember.computed.alias('controllers.story.id'),
-  name: Ember.computed.alias('controllers.story.name'),
-  etag: Ember.computed.alias('controllers.story.etag'),
+  statuses: ['draft', 'defined', 'estimated', 'planned', 'implemented', 'verified', 'accepted'],
+  dispositions: ['planned', 'added', 'carried over'],
+  trackers: ['dev', 'qa'],
+  customers: ['product manager', 'product owner', 'dev manager', 'qa manager'],
+  priorities: [1,2,3,4],
+  estimates: ['2.0','4.0','6.0','8.0','10.0'],
   actions: {
     editStory: function() {
       var self = this;
-      var id = self.get('id');
-      var story = Stories.find(id);
-      story.setProperties({
-        'name': self.get('name')
+      var model = self.get('model');
+
+      var story = model.setProperties({
+        name: self.get('name'),
+        priority: self.get('priority'),
+        customer: self.get('customer'),
+        disposition: self.get('disposition'),
+        stat: self.get('stat'),
+        tracker: self.get('tracker'),
+        estimate: self.get('estimate'),
+        description: self.get('description'),
       });
-      story.save().then(
-        function()
-        {
-          Ember.Logger.info('Edit saved');
+
+      story.save().then (
+        function() {
+          Ember.Logger.info('SprintEditController: Edit saved');
           self.transitionToRoute('story');
         }, 
-        function()
-        {
-          Ember.Logger.info('SprintEditController: save failed!');
+        function() {
+          self.set('errorMessage', "SprintEditController: Edit failed");
         }
       );
     }

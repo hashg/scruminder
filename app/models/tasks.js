@@ -5,6 +5,11 @@ import Stories from 'appkit/models/stories';
 var Tasks = Eve.extend({
   name: Ember.attr(),
   story_id: Ember.attr(),
+  type: Ember.attr(),
+  disposition: Ember.attr(),  
+  acceptor: Ember.attr(),
+  estimate: Ember.attr(),
+  description: Ember.attr()
   // story: Ember.belongsTo(Stories, {key: 'story_id'}),
 });
 

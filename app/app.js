@@ -28,7 +28,7 @@ App.initializer({
         this.set('authToken', sessionStorage.authToken);
         this.set('username', sessionStorage.username);
         this.set('etag', sessionStorage.etag);
-        this.set('_id', sessionStorage.id);
+        this.set('_id', sessionStorage._id);
       },
       setup: function(serverSession) {
         var data = serverSession;
@@ -38,7 +38,7 @@ App.initializer({
             this.set('authToken', data.token);
             this.set('username', data.username);
             this.set('etag', data.etag);
-            this.set('_id', data.id);
+            this.set('_id', data._id);
           }
         }
       },
@@ -58,25 +58,29 @@ App.initializer({
           delete sessionStorage.authToken;
           delete sessionStorage.username;
           delete sessionStorage.etag;
-          delete sessionStorage.id;
+          delete sessionStorage._id;
         } else {
           sessionStorage.authToken = this.get('authToken');
           sessionStorage.username = this.get('username');
+          sessionStorage._id = this.get('_id');
           sessionStorage.etag = this.get('etag');
-          sessionStorage.id = this.get('_id');
         }
-      }, 'etag')
+      }, '_id')
     });
     //set a custom session endpoint
     Ember.SimpleAuth.setup(application, { serverSessionRoute: '/session' });
   }
 });
 
+import Profiles from 'appkit/models/profiles';
 Ember.SimpleAuth.LogoutRouteMixin.reopen({
   beforeModel: function() {
     var self = this;
-    Ember.$.ajax(Ember.SimpleAuth.serverSessionRoute + "/" + sessionStorage.id, {type: 'DELETE', headers:{ "If-Match": sessionStorage.etag} }).always(function(response) {
+    Ember.$.ajax(Ember.SimpleAuth.serverSessionRoute + "/" + sessionStorage._id, {type: 'DELETE', headers:{ "If-Match": sessionStorage.etag} }).always(function(response) {
       self.get('session').destroy();
+      /*TODO: 
+        Unload the profiles.
+      */
       self.transitionTo(Ember.SimpleAuth.routeAfterLogout);
     });
   }

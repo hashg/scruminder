@@ -1,41 +1,56 @@
 import Projects from 'appkit/models/projects';
 import Sprints from 'appkit/models/sprints';
 
-var get = Ember.get;
+Sprints.reopen({
+    project: Ember.belongsTo(Projects, {key: 'project_id'})
+});
 
 var ProjectNewController = Ember.ObjectController.extend({
   needs: ['project'],
   content: null,
   name: '',
+  start_dt: '',
+  end_dt: '',
+  description: '',
+  errorMessage: '',
   project_id: Ember.computed.alias('controllers.project.id'),
   actions: {
     newSprint: function() {
       var self = this;
-      // var parent_id = this.get('project_id');
-      // var parent = Projects.find(parent_id);
+      var model = self.get('model');
+      var parent_id = self.get('project_id');
       var parent = self.get('controllers.project.content');
-      // var sprint = Sprints.create({name: self.get('name'), project: parent}); 
-      var sprint = Sprints.create({name: self.get('name'), project: parent}); 
-      sprint.save();
 
-      // var parent_id = this.get('project_id');
-      // var parent = Projects.find(parent_id);
-      // var parent1 = self.get('controllers.project');
-      // var sprints = parent.get('sprints');
-      // var sprint = Sprints.create({name: self.get('name'), project_id: parent_id});
-      // sprint.set('project', parent);
-      sprint.save().then(function(){
-        var parent = self.get('controllers.project');
-        parent.get('sprints').pushObject(sprint);
-        self.resetProperties();
-        self.transitionToRoute('project');
-      }, function(){
-        self.set('errorMessage', "ProjectNew: save failed");
+      var sprint = model.setProperties({
+        name: self.get('name'),
+        start_dt: self.get('start_dt'),
+        end_dt: self.get('end_dt'),
+        description: self.get('description'),
+        project: parent
       });
+
+      sprint.save().then (
+        function() {
+          /*update parent's list*/
+          var parent = self.get('controllers.project.content');
+          parent.get('sprints').pushObject(sprint);
+          
+          self.resetProperties();
+          self.transitionToRoute('project');
+        }, 
+        function() {
+          self.set('errorMessage', "ProjectNewController: save failed");
+        }
+      );
     }
   },
   resetProperties: function() {
-    this.set('name', null);
+    this.setProperties({
+      name: null,
+      start_dt: null,
+      end_dt: null,
+      description: null
+    });
   }
 });
 

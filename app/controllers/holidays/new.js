@@ -15,13 +15,13 @@ var HolidaysNewController = Ember.ObjectController.extend({
     newHoliday: function() {
       var self = this;
       var holiday = Holidays.create({
-        'name': this.get('name'),
-        'from_date': this.get('from_date'),
-        'to_date': this.get('to_date'),
-        'city': this.get('city'),
-        'state': this.get('state'),
-        'country': this.get('country'),
-        'comments': this.get('comments')
+        name : self.get('name'),
+        from_date : self.get('from_date'),
+        to_date : self.get('to_date'),
+        city : self.get('city'),
+        state : self.get('state'),
+        country : self.get('country'),
+        comments : self.get('comments')
       });
       holiday.save().then(function(){
         self.resetProperties();

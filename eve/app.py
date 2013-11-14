@@ -69,7 +69,7 @@ def sprints_callback(request, payload):
     print sprint_id
 
     # print type(payload.response) - <type 'str'>
-    # print (payload.response)
+    print (payload.response)
     myresponse = json.loads(payload.response[0])
     #try this myresponse1 = payload.get_data()
     status = myresponse.get("status")
@@ -97,8 +97,6 @@ def sprints_delete_callback(request, payload):
 def stories_callback(request, payload): 
     parent_id = request.json.get("sprint_id")
     story_id = request.json.get("_id")
-    print parent_id
-    print story_id
 
     myresponse = json.loads(payload.response[0])
     status = myresponse.get("status")
@@ -133,6 +131,7 @@ def tasks_callback(request, payload):
     stories = app.data.driver.db['stories']
     
     if stories and status.encode('utf8') == 'OK':
+        print 'tasks'
         stories.update({"_id" : ObjectId(parent_id)}, {"$push": {"tasks": task_id}})
 
 def tasks_delete_callback(request, payload):

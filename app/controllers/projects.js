@@ -3,6 +3,9 @@ import filter from 'appkit/utils/filter';
 var ProjectsController = Ember.ArrayController.extend({
   content: null,
   search: '',
+  count:  function(){
+    return this.get('model.length');
+  }.property('@each'),
 
   contentChanged: function(){
     Ember.run.next(this, function(){

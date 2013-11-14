@@ -131,7 +131,7 @@ profiles = {
 projects = {
   # 'title' tag used in item links.
   'item_title': 'projects',
-  'extra_response_fields': ['name'],
+  'extra_response_fields': ['name', 'current_sprint_id', 'sprints'],
   'public_methods' : ['GET'],
   'public_item_methods' : ['GET'],
   'embeddable ' : True,
@@ -146,6 +146,14 @@ projects = {
       'type': 'string',
       'minlength': 5,
       'maxlength': 25,
+    },
+    'current_sprint_id': {
+      'type': 'objectid',
+      'data_relation': {
+        'resource': 'sprints',
+        'field': '_id',
+        'embeddable': True
+      }
     },
     'sprints': {
      'type': 'list',
@@ -165,7 +173,7 @@ projects = {
 sprints = {
   # 'title' tag used in item links.
   'item_title': 'sprints',
-  'extra_response_fields': ['name', 'project_id'],
+  'extra_response_fields': ['name', 'project_id', 'stories', 'start_dt', 'end_dt', 'description'],
   'public_methods' : ['GET'],
   'public_item_methods' : ['GET'],
   'embeddable ' : True,
@@ -199,6 +207,17 @@ sprints = {
           'embeddable': True
         }
       }
+    },
+    'start_dt': {
+      'required': True,
+      'type': 'datetime'
+    },
+    'end_dt': {
+      'required': True,
+      'type': 'datetime'
+    },
+    'description': {
+      'type': 'string'
     }
   }
 }
@@ -207,7 +226,7 @@ sprints = {
 stories = {
   # 'title' tag used in item links.
   'item_title': 'stories',
-  'extra_response_fields': ['name', 'sprint_id'],
+  'extra_response_fields': ['name', 'sprint_id', 'tasks', 'priority', 'customer', 'disposition', 'stat', 'tracker', 'estimate', 'description'],
   'public_methods' : ['GET'],
   'public_item_methods' : ['GET'],
   
@@ -238,6 +257,35 @@ stories = {
           'field': '_id',
         }
       }
+    },
+    'priority': {
+      'type': 'integer'
+    },
+    'customer': {
+      'type': 'string'
+    },
+    'disposition': {
+      'type': 'string',
+      'allowed': ["planned", "added", "carried over"],
+    },
+    'stat': {
+      'type': 'string',
+      'allowed': ["draft", "defined", "estimated", "planned", "implemented", "verified", "accepted"],
+    },
+    'tracker': {
+      'type': 'string'
+      # 'type': 'objectid',
+      # 'data_relation': {
+      #   'resource': 'accounts',
+      #   'field': '_id'
+      # }
+    },
+    'estimate': {
+      'type': 'string',
+      'required': 'true'
+    },
+    'description': {
+      'type': 'string'
     }
   }
 }
@@ -245,7 +293,7 @@ stories = {
 tasks = {
   # 'title' tag used in item links.
   'item_title': 'tasks',
-  'extra_response_fields': ['name', 'story_id'],
+  'extra_response_fields': ['name', 'story_id', 'type', 'disposition', 'acceptor', 'estimate', 'description'],
   'public_methods' : ['GET'],
   'public_item_methods' : ['GET'],
   
@@ -267,6 +315,29 @@ tasks = {
         'field': '_id'
       }
     },
+    'type': {
+      'type': 'string',
+      'allowed': ["feature", "defect", "testing", "others"],
+    },
+    'disposition': {
+      'type': 'string',
+      'allowed': ["planned", "discovered","added", "carried over"],
+    },
+    'acceptor': {
+      'type': 'string'
+      # 'type': 'objectid',
+      # 'data_relation': {
+      #   'resource': 'accounts',
+      #   'field': '_id'
+      # }
+    },
+    'estimate': {
+      'type': 'string',
+      'required': 'true'
+    },
+    'description': {
+      'type': 'string'
+    }
   }
 }
 
@@ -321,6 +392,52 @@ accounts = {
   }
 }
 
+teams = {
+  # 'title' tag used in item links.
+  'item_title': 'teams',
+  'extra_response_fields': ['name', 'current_sprint_id', 'sprints'],
+  'public_methods' : ['GET'],
+  'public_item_methods' : ['GET'],
+  'embeddable ' : True,
+
+  'additional_lookup': {
+    'url': '[\w]+',
+    'field': 'name'
+  },
+
+  'schema': {
+    'name': {
+      'type': 'string',
+      'minlength': 5,
+      'maxlength': 25,
+    },
+    'project_id': {
+      'type': 'objectid',
+      'data_relation': {
+        'resource': 'projects',
+        'field': '_id',
+        'embeddable': True
+      }
+    },
+    'persons': {
+     'type': 'list',
+     'schema': {
+        'type': 'objectid',
+        'data_relation': {
+          'resource': 'persons',
+          'field': '_id',
+          'embeddable': True
+        }
+      }
+    },
+    'role': {
+      'type': 'list',
+      'allowed': ['product owner', 'scrum master', 'manager', 'developer', 'qa'],
+      'required': True,
+    },
+  }
+}
+
 session = {
   'additional_lookup': {
     'url': '[\w]+',
@@ -359,15 +476,15 @@ session = {
 vacations = {
   'public_methods' : ['GET'],
   'public_item_methods' : ['GET'],
-  'extra_response_fields': ['from_date', 'to_date', 'comments', 'country', 'state', 'city', 'account_id'],
+  'extra_response_fields': ['from_dt', 'to_dt', 'comments', 'country', 'state', 'city', 'account_id'],
 
   # Finally, let's add the schema definition for this endpoint.
   'schema': {
-    'from_date' : {
+    'from_dt' : {
       'type': 'datetime',
       'required': True,
     },
-    'to_date' : {
+    'to_dt' : {
       'type': 'datetime',
       'required': False,
     },
@@ -400,7 +517,7 @@ vacations = {
 holidays = {
   'public_methods' : ['GET'],
   'public_item_methods' : ['GET'],
-  'extra_response_fields': ['name', 'from_date', 'to_date', 'comments', 'country', 'state', 'city'],
+  'extra_response_fields': ['name', 'from_dt', 'to_dt', 'comments', 'country', 'state', 'city'],
 
 
   # Finally, let's add the schema definition for this endpoint.
@@ -409,11 +526,11 @@ holidays = {
       'type': 'string',
       'required': True,
     },
-    'from_date' : {
+    'from_dt' : {
       'type': 'datetime',
       'required': True,
     },
-    'to_date' : {
+    'to_dt' : {
       'type': 'datetime',
       'required': False,
     },
@@ -447,5 +564,6 @@ DOMAIN = {
   'session': session,
   'profiles': profiles,
   'vacations': vacations,
-  'holidays': holidays
+  'holidays': holidays,
+  'teams': teams
 }

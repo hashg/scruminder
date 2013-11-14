@@ -8,6 +8,26 @@
       {{/if}}
       <form {{action newTask on='submit'}}>
         {{input-text label="Name" placeholder="Enter task name" value=name formController=controller required=true autofocus=true}}
+        <div class="form-group">
+          <label class="control-label">Description</label>
+          {{textarea value=description rows=4 class="form-control input-lg" placeholder="Enter description here.."}}
+        </div><!-- form-group -->
+        <div class="col-sm-12 col-md-2 form-group">
+          <label class="control-label">Type</label>
+          {{view Ember.Select class="form-control input-lg" content=types selection=type}}
+        </div><!-- col-sm-12 -->
+        <div class="col-sm-12 col-md-2 form-group">
+          <label class="control-label">Disposition</label>
+          {{view Ember.Select class="form-control input-lg" content=dispositions selection=disposition}}
+        </div><!-- col-sm-12 -->
+        <div class="col-sm-12 col-md-2 form-group">
+          <label class="control-label">Acceptor</label>
+          {{view Ember.Select class="form-control input-lg" content=acceptors selection=acceptor}}
+        </div><!-- col-sm-12 -->
+        <div class="col-sm-12 col-md-2 form-group">
+          <label class="control-label">Estimate</label>
+          {{view Ember.Select class="form-control input-lg" content=estimates selection=estimate}}
+        </div><!-- col-sm-12 -->
     </div> <!-- panel-body -->
   <div class="panel-footer" style="text-align:right">
     {{#link-to 'story' class="btn btn-no-rc btn-danger"}}Cancel{{/link-to}}

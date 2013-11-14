@@ -22,9 +22,9 @@ var RegisterController = Ember.Controller.extend(EmberFormComponents.Form,{
         this.set('showFieldValidation', true);
       }
       var register = Register.create({
-          'username': self.get('username'),
-          'password': self.get('password'),
-          'email': self.get('email'),
+          username : self.get('username'),
+          password : self.get('password'),
+          email : self.get('email'),
         });
       register.save().then(
         function(response){

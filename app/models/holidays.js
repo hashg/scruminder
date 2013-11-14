@@ -4,8 +4,8 @@ import datetime from 'appkit/utils/datetime';
 
 var Holidays = Eve.extend({
   name: Ember.attr(),
-  from_date: Ember.attr(datetime),
-  to_date: Ember.attr(datetime),
+  from_dt: Ember.attr(datetime),
+  to_dt: Ember.attr(datetime),
   comments: Ember.attr(),
   country: Ember.attr(),
   state: Ember.attr(),

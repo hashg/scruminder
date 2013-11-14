@@ -33,6 +33,8 @@ var ScrumAdapter =  Ember.RESTAdapter.extend({
         else if (method === "PUT" || method === "PATCH") {
           delete params['id'];
           delete params['etag'];
+          delete params['created'];
+          delete params['updated'];
           settings.data = JSON.stringify(params);
         }
         else {
