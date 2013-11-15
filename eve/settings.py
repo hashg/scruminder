@@ -123,10 +123,70 @@ profiles = {
     },
     'born': {
       'type': 'datetime',
-    }
+    },
+    'projects': {
+     'type': 'list',
+     'schema': {
+        'type': 'objectid',
+        'data_relation': {
+          'resource': 'projects',
+          'field': '_id',
+          'embeddable': True
+        }
+      }
+    },
+    'manager': {
+      'type': 'objectid',
+      'data_relation': {
+        'resource': 'profiles',
+        'field': '_id',
+        'embeddable': True
+      }
+    },
   }
 }
 
+
+people = {
+  'datasource': {
+    'source': 'profiles'
+  },
+  'public_methods' : ['GET'],
+  'public_item_methods' : ['GET'],
+  'schema': {
+    'firstname': {
+      'type': 'string',
+      'minlength': 1,
+      'maxlength': 25,
+    },
+    'lastname': {
+      'type': 'string',
+      'minlength': 1,
+      'maxlength': 25,
+      'required': True     
+    },
+    'projects': {
+     'type': 'list',
+     'schema': {
+        'type': 'objectid',
+        'data_relation': {
+          'resource': 'projects',
+          'field': '_id',
+          'unique': True,
+          'embeddable': True
+        }
+      }
+    },
+    'manager': {
+      'type': 'objectid',
+      'data_relation': {
+        'resource': 'people',
+        'field': '_id',
+        'embeddable': True
+      }
+    },
+  }
+}
 
 projects = {
   # 'title' tag used in item links.
@@ -163,7 +223,18 @@ projects = {
           'resource': 'sprints',
           'field': '_id',
           'embeddable': True
-
+        }
+      }
+    },
+    'people': {
+     'type': 'list',
+     'schema': {
+        'type': 'objectid',
+        'data_relation': {
+          'resource': 'people',
+          'field': '_id',
+          'unique': True,
+          'embeddable': True
         }
       }
     }
@@ -340,9 +411,6 @@ tasks = {
     }
   }
 }
-
-
-
 
 accounts = {
   # the standard account entry point is defined as
@@ -563,6 +631,7 @@ DOMAIN = {
   'accounts': accounts,
   'session': session,
   'profiles': profiles,
+  'people': people,
   'vacations': vacations,
   'holidays': holidays,
   'teams': teams

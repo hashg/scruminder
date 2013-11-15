@@ -1,0 +1,23 @@
+<div class="panel panel-default">
+  <div class="panel-heading"><div class="panel-header-text">Add Member</div></div>
+    <div class="panel-body">
+      {{#if errorMessage}}
+        <div class="alert alert-danger">
+          {{errorMessage}}
+        </div>
+      {{/if}}
+      <form {{action addMember on='submit'}}>
+        <div class="form-group">
+          <label class="control-label">Member Name</label>
+          {{!-- {{view Ember.Select class="form-control input-lg" prompt="Please select a name" content=members optionValuePath="content.id" optionLabelPath="content.firstname" value=member autofocus=true}} --}}
+          {{view App.Chosen content=members value=member optionLabelPath="content.firstname" optionValuePath="content.id" autofocus=true}}
+        </div><!-- col-sm-12 -->
+    </div> <!-- panel-body -->
+  <div class="panel-footer" style="text-align:right">
+    {{#link-to 'project' class="btn btn-no-rc btn-danger"}}Cancel{{/link-to}}
+    {{#submit-button formController=controller tag="span"}}Add{{/submit-button}}
+  </div>
+  </form>
+</div><!-- panel -->
+
+<option id="ember6688" class="ember-view" >""</option>

@@ -20,33 +20,71 @@
   </div> <!-- panel-body -->
 </div><!-- panel -->
 {{outlet}}
-<div class="page-heading-x">
-  <h2 class="page-title">
-    <i class="icon-stack"></i> Sprints ({{count}})
-  </h2>
-  {{#link-to 'project.new' class="btn btn-circle btn-success pull-right"}} <i class="icon-plus"></i>{{/link-to}}
-</div>
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <div class="input-group">
-      {{input type="search" value=search class="form-control" placeholder="Search sprints" autofocus=true}}
-      <span class="input-group-addon glyphicon icon-search-3" style="top: 0;border-radius: 0;"></span>
+
+<div class="row">
+  <div class="col-md-6 col-sm-12">
+    <div class="page-heading-x">
+      <h2 class="page-title">
+        <i class="icon-stack"></i> Sprints [{{count}}]
+      </h2>
+      {{#link-to 'project.new' class="btn btn-circle btn-success pull-right"}} <i class="icon-plus"></i>{{/link-to}}
     </div>
-  </div>
-  <div id="sm-sprint-list" class="panel-body panel-body-nopad">
-    <ul class="list-group list-group-mp" style="margin: 0;">
-      {{#each o in sprints}}
-      <li class="list-group-item">
-        <i class="indicator available icon-radio-checked pull-right"></i>
-        {{#link-to 'sprint' o}}<h4>{{o.name}}</h4>{{/link-to}}
-        <p class="list-group-item-desc">{{o.id}}</p>
-      </li>
-      {{else}}
-      <li class="list-group-item">
-        <h4 style="text-align: center;">Go create some sprints.</h4>
-      </li>
-      {{/each}}
-    </ul>
-  </div> <!-- panel-body -->
-</div><!-- panel -->
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <div class="input-group">
+          {{input type="search" value=search class="form-control" placeholder="Search sprints" autofocus=true}}
+          <span class="input-group-addon glyphicon icon-search-3" style="top: 0;border-radius: 0;"></span>
+        </div>
+      </div>
+      <div id="sm-sprint-list" class="panel-body panel-body-nopad">
+        <ul class="list-group list-group-mp" style="margin: 0;">
+          {{#each o in sprints}}
+          <li class="list-group-item">
+            <i class="indicator available icon-radio-checked pull-right"></i>
+            {{#link-to 'sprint' o}}<h4>{{o.name}}</h4>{{/link-to}}
+            <p class="list-group-item-desc">{{o.id}}</p>
+          </li>
+          {{else}}
+          <li class="list-group-item">
+            <h4 style="text-align: center;">Go create some sprints.</h4>
+          </li>
+          {{/each}}
+        </ul>
+      </div> <!-- panel-body -->
+    </div><!-- panel -->
+  </div><!-- col-md-6 -->
+  <div class="col-md-6 col-sm-12">
+    <div class="page-heading-x">
+      <h2 class="page-title">
+        <i class="icon-users-3"></i> Members [{{countMember}}]
+      </h2>
+      {{#link-to 'project.add' class="btn btn-circle btn-success pull-right"}} <i class="icon-plus"></i>{{/link-to}}
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <div class="input-group">
+          {{input type="search" value=searchMember class="form-control" placeholder="Search members" }}
+          <span class="input-group-addon glyphicon icon-search-3" style="top: 0;border-radius: 0;"></span>
+        </div>
+      </div>
+      <div id="sm-people-list" class="panel-body panel-body-nopad">
+        <ul class="list-group list-group-mp" style="margin: 0;">
+          {{#each o in people}}
+          <li class="list-group-item">
+            <div class="btn btn-danger btn-hidden pull-right" {{action removeMember o}}>Remove</div>
+            {{!-- {{#link-to 'sprint' o}}<h4>{{o.name}}</h4>{{/link-to}} --}}
+            <h4>{{o.firstname}} {{o.lastname}}</h4>
+            <p class="list-group-item-desc">{{o.id}}</p>
+          </li>
+          {{else}}
+          <li class="list-group-item">
+            <h4 style="text-align: center;">Go add some team members.</h4>
+          </li>
+          {{/each}}
+        </ul>
+      </div> <!-- panel-body -->
+    </div><!-- panel -->
+  </div><!-- col-md-6 -->
+</div>
+
 </div>

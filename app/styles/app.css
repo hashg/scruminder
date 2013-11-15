@@ -7,70 +7,6 @@
 @-webkit-keyframes domChanged { from { background: yellow; } }
 .ember-view { animation: domChanged 1s; -webkit-animation: domChanged 1s; }
 
-.radio, .checkbox {
-  padding: 0;
-}
-
-.radio label, .checkbox label {
-  margin-left: 5px;
-  font-weight: bold;
-}
-
-input[type="checkbox"],
-input[type="radio"] {
-    display:none;
-}
-input[type="checkbox"] + span,
-input[type="radio"] + span {
-  float:left;
-  padding: 0;
-  width: 22px;
-  height: 22px;
-  background: url(/eapp/vendor/kuta-admin/square/square.png) no-repeat;
-  border: none;
-  cursor: pointer;
-}
-
-
-.checkbox input[type="checkbox"] + span {
-  background-position: 0 0;
-}
-.checkbox:hover input[type="checkbox"] + span {
-  background-position: -24px 0;
-}
-.checkbox:hover input[type="checkbox"]:checked + span {
-  opacity: 0.85;
-}
-.checkbox input[type="checkbox"]:checked + span {
-  background-position: -48px 0;
-}
-.checkbox input[type="checkbox"]:disabled + span {
-  background-position: -72px 0;
-  cursor: default;
-}
-.checkbox input[type="checkbox"]:disabled:checked + span {
-  background-position: -96px 0;
-}
-
-.radio input[type="radio"] + span {
-  background-position: -120px 0;
-}
-.radio:hover input[type="radio"] + span {
-  background-position: -144px 0;
-}
-.radio:hover input[type="radio"]:checked + span {
-  opacity: 0.85;
-}
-.radio input[type="radio"]:checked + span {
-  background-position: -168px 0;
-}
-.radio input[type="radio"]:disabled + span {
-  background-position: -192px 0;
-  cursor: default;
-}
-.radio input[type="radio"]:disabled:checked + span {
-  background-position: -216px 0;
-}
 
 .panel-header-text {
   box-sizing: border-box;
@@ -109,38 +45,10 @@ input[type="radio"] + span {
   width: 100%;
 }
 
-/*
-.icheckbox_square {
-    background-position: 0 0;
-}
-.icheckbox_square.hover {
-    background-position: -24px 0;
-}
-.icheckbox_square.checked {
-    background-position: -48px 0;
-}
-.icheckbox_square.disabled {
-    background-position: -72px 0;
-    cursor: default;
-}
-.icheckbox_square.checked.disabled {
-    background-position: -96px 0;
+.list-group-item .btn-hidden {
+  display: none;
 }
 
-.iradio_square {
-    background-position: -120px 0;
+.list-group-item:hover .btn-hidden {
+  display: block;
 }
-.iradio_square.hover {
-    background-position: -144px 0;
-}
-.iradio_square.checked {
-    background-position: -168px 0;
-}
-.iradio_square.disabled {
-    background-position: -192px 0;
-    cursor: default;
-}
-.iradio_square.checked.disabled {
-    background-position: -216px 0;
-}
-*/
