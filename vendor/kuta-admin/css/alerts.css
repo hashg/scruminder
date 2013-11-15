@@ -1,0 +1,38 @@
+.alert {
+	border-radius: 0;
+	font-family:  Helvetica, Arial, sans-serif;
+	font-weight:normal;
+	font-size:16px;
+	margin-bottom:20px;
+}
+.alert-success {
+	color: #dff0d8;
+	background-color: #468847;
+	border-color: #468847;
+}
+.alert-success hr {border-top-color: #dff0d8;}
+.alert-success .alert-link {color: #f5fbf2;}
+
+.alert-info {
+	color: #d9edf7;
+	background-color: #3a87ad;
+	border-color: #3a87ad;
+}
+.alert-info hr {border-top-color: #d9edf7;}
+.alert-info .alert-link {color: #f2fafd;}
+
+.alert-warning {
+	color: #fcf8e3;
+	background-color: #f0ad4e;
+	border-color: #f0ad4e;
+}
+.alert-warning hr {border-top-color: #fcf8e3;}
+.alert-warning .alert-link {color: #fefef7;}
+
+.alert-danger {
+	color: #f2dede;
+	background-color: #b94a48;
+	border-color: #b94a48;
+}
+.alert-danger hr {border-top-color: #f2dede;}
+.alert-danger .alert-link {color: #fcf5f5;}

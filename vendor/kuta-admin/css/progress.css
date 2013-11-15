@@ -1,0 +1,12 @@
+/** progress bars **/
+.progress {background-color: #e5e5e5;}
+.progress.progress-sm {
+  height: 8px;
+  border-radius: 6px;
+  margin-bottom:10px;
+}
+.progress.progress-xs {
+  height: 4px;
+  border-radius: 6px;
+  margin-bottom:6px;
+}

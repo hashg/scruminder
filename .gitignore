@@ -7,9 +7,10 @@
 # dependencies
 /node_modules
 /vendor/*
-!/vendor/chosen/**
-!/vendor/kuta-admin/**
-!/vendor/utils/*
+!/vendor/chosen/
+!/vendor/kuta-admin/
+!/vendor/pikaday/
+!/vendor/utils/
 !/vendor/loader.js
 !/vendor/resolver.js
 
