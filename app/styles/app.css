@@ -52,3 +52,13 @@
 .list-group-item:hover .btn-hidden {
   display: block;
 }
+
+.btn-circle:after {
+  border: none;
+}
+
+dd {
+  padding-top: 20px;
+  font-size: 14px;
+  position: relative;
+}

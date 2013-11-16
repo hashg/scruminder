@@ -31,6 +31,11 @@ var ScrumAdapter =  Ember.RESTAdapter.extend({
           settings.data = params;
         } 
         else if (method === "PUT" || method === "PATCH") {
+          if ( settings.url.split('/')[1] === "profiles" )
+          {
+            delete params['email'];
+            delete params['username'];
+          }
           delete params['id'];
           delete params['etag'];
           delete params['created'];

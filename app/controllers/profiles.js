@@ -1,48 +1,35 @@
 import ScrumAdapter from 'appkit/adapters/scrumadapter';
 import Eve from 'appkit/models/eve';
 import Profiles from 'appkit/models/profiles';
+import People from 'appkit/models/people';
+
+Profiles.reopen({
+  manager: Ember.belongsTo(People, {key: 'manager'}),
+});
 
 var ProfilesController = Ember.ArrayController.extend({
   content: null,
-  firstname: '',
-  lastname: '',
+  managers: People.find(),
+  isEditing: false,
+
   actions: {
-    newProfile: function() {
-      var self = this;
-      //we did not create a empty record so we create it directly
-      var profiles = Profiles.create({
-        firstname: self.get('firstname'),
-        lastname: self.get('lastname'),
-      });
-
-      profiles.save().then(
-        function() {
-          self.set('errorMessage', "ProfilesController: saved");
-        }, 
-        function() {
-          self.set('errorMessage', "ProfilesController: save failed");
-        }
-      );
-      Ember.Logger.info("ProfilesController:newProfile");
+    edit: function() {
+      this.set('isEditing', true);
     },
-    updateProfile: function() {
+    cancel: function() {
+      this.set('isEditing', false);
+    },
+    updateProfile: function(record) {
       var self = this;
-      var model = self.get('model');
-      //we did not create a empty record so we create it directly
-      var profiles = model.setProperties({
-        firstname: self.get('firstname'),
-        lastname: self.get('lastname'),
-      });
-
-      profiles.save().then(
+      record.save().then(
         function() {
+          self.set('isEditing', false);
           self.set('errorMessage', "ProfilesController: saved");
         }, 
         function() {
           self.set('errorMessage', "ProfilesController: save failed");
         }
       );
-      Ember.Logger.info("ProfilesController:updateProfile");
     }
   }
 });

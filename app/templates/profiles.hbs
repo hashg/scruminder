@@ -1,48 +1,82 @@
-<div class="page-heading">
+<div class="page-heading-x">
   <h2 class="page-title">
-    <i class="icon-user-7"></i> Profiles
+    <i class="icon-user-6"></i> Profiles
   </h2>
 </div>
 
+{{#if errorMessage}}<div class="alert alert-danger">{{errorMessage}}</div>{{/if}}
 
-{{#each}}
-<div class="panel panel-default">
-  <form {{action updateProfile on='submit'}}>
-    <div class="panel-body">
-      {{#if errorMessage}}<div class="alert alert-danger">{{errorMessage}}</div>{{/if}}
+{{#if isEditing}}
+  {{#each o in controller}}
+    <div class="panel panel-default">
+      <div class="panel-body">
+          <form {{action updateProfile o on='submit'}}>
           <div class="row">
             <div class="col-sm-12 col-md-6">
-              {{input-text label="First Name" placeholder="First Name" value=firstname formController=controller required=true autofocus=true}}
+              {{input-text label="First Name" placeholder="First Name" value=o.firstname formController=controller required=true autofocus=true}}
             </div>
             <div class="col-sm-12 col-md-6">
-              {{input-text label="Last Name" placeholder="Last Name" value=lastname formController=controller}}
+              {{input-text label="Last Name" placeholder="Last Name" value=o.lastname formController=controller}}
             </div>
           </div><!-- row -->
-    </div> <!-- panel-body -->
-    <div class="panel-footer" style="text-align:right">
-      {{#link-to 'projects' class="btn btn-no-rc btn-danger"}}Cancel{{/link-to}}
-      {{#submit-button formController=controller tag="span"}}Update{{/submit-button}}
-    </div>
-  </form>
-</div><!-- panel -->
+          <div class="row">
+            <div class="col-sm-12 col-md-4 form-group">
+            <label class="control-label">Email</label>
+            {{input class="form-control input-lg" placeholder="Enter email address" value=o.email disabled=true}}
+            </div><!-- col-sm-12 -->
+            <div class="col-sm-12 col-md-4 form-group">
+            <label class="control-label">User Name</label>
+            {{input class="form-control input-lg" placeholder="Enter username" value=o.username  disabled=true}}
+            </div><!-- col-sm-12 -->
+            <div class="col-sm-12 col-md-4 form-group">
+            <label class="control-label">Manager</label>
+            {{view App.Chosen content=controller.managers value=o.manager optionLabelPath="content.firstname" optionValuePath="content.id"}}
+            </div><!-- col-sm-12 -->
+          </div><!-- row -->
+          <div class="row">
+            <div class="col-sm-12 col-md-4 form-group">
+            {{input-text label="City" placeholder="Enter work city name" value=o.city formController=controller}}
+            </div><!-- col-sm-12 -->
+            <div class="col-sm-12 col-md-4 form-group">
+            {{input-text label="State" placeholder="Enter work state name" value=o.state formController=controller}}
+            </div><!-- col-sm-12 -->
+            <div class="col-sm-12 col-md-4 form-group">
+            {{input-text label="Country" placeholder="Enter work country name" value=o.country formController=controller}}
+            </div><!-- col-sm-12 -->
+          </div><!-- row -->
+      </div> <!-- panel-body -->
+      <div class="panel-footer" style="text-align:right">
+        <a {{action cancel}} class="btn btn-no-rc btn-danger">Cancel</a>
+        {{#submit-button formController=controller tag="span"}}Update{{/submit-button}}
+      </div>
+          </form>
+    </div><!-- panel -->
+  {{/each}}
 {{else}}
-<div class="panel panel-default">
-  <form {{action updateProfile on='submit'}}>
-    <div class="panel-body">
-      {{#if errorMessage}}<div class="alert alert-danger">{{errorMessage}}</div>{{/if}}
-          <div class="row">
-            <div class="col-sm-12 col-md-6">
-              {{input-text label="First Name" placeholder="First Name" value=firstname formController=controller required=true autofocus=true}}
-            </div>
-            <div class="col-sm-12 col-md-6">
-              {{input-text label="Last Name" placeholder="Last Name" value=lastname formController=controller}}
-            </div>
-          </div><!-- row -->
-    </div> <!-- panel-body -->
-    <div class="panel-footer" style="text-align:right">
-      {{#link-to 'projects' class="btn btn-no-rc btn-danger"}}Cancel{{/link-to}}
-      {{#submit-button formController=controller tag="span"}}Save{{/submit-button}}
-    </div>
-  </form>
-</div><!-- panel -->
-{{/each}}
+  {{#each}}
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <span class="panel-header-text">{{firstname}} {{lastname}}</span>
+        <span class="pull-right" style="margin-top: -5px;">
+          <a {{action edit}} class="btn btn-no-rc btn-primary">Edit</a>
+        </span>
+      </div>
+      <div class="panel-body">
+        <dl class="dl-horizontal">
+          <dt>Manager</dt><dd>{{manager.firstname}} {{manager.lastname}}</dd>
+          <dt>username</dt><dd>{{username}}</dd>
+          <dt>email</dt><dd>{{email}}</dd>
+          <dt>city</dt><dd>{{city}}</dd>
+          <dt>state</dt><dd>{{state}}</dd>
+          <dt>country</dt><dd>{{country}}</dd>
+        </dl>
+      </div> <!-- panel-body -->
+    </div><!-- panel -->
+  {{/each}}
+{{/if}}
+
+
+  
+
+
+

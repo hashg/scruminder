@@ -88,12 +88,12 @@ Ember.SimpleAuth.LogoutRouteMixin.reopen({
 
 /*-- TEXTFIELD exra option --*/
 Ember.TextField.reopen({
-  attributeBindings: ['accept', 'autocomplete', 'autofocus', 'name', 'required']
+  attributeBindings: ['accept', 'autocomplete', 'autofocus', 'name', 'required', 'disabled']
 });
 
 /*-- SELECT exra option --*/
 Ember.Select.reopen({
-  attributeBindings: ['accept', 'autocomplete', 'autofocus', 'name', 'required']
+  attributeBindings: ['accept', 'autocomplete', 'autofocus', 'name', 'required', 'disabled']
 });
 
 App.CalendarDatePicker = Ember.TextField.extend({

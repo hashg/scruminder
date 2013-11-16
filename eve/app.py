@@ -174,7 +174,7 @@ def before_insert_session(documents):
             pw_4m_req = credentials[1]
 
         lookup = {'username': username}
-        account = accounts.find_one(lookup)        
+        account = accounts.find_one(lookup)
         
         if account:
             pw_hash = account.get("password")
@@ -192,6 +192,25 @@ def before_insert_accounts(documents):
     for document in documents:
         pw_4m_req = document.get("password")
         document["password"] = generate_password_hash(pw_4m_req, method='pbkdf2:sha224', salt_length=8)
+
+def accounts_callback(request, payload):
+    print 'accounts_callback - BEGIN'
+    username = request.json.get("username")
+    email = request.json.get("email")
+    print "%s / %s " % (username, email)
+
+    myresponse = json.loads(payload.response[0])
+    status = myresponse.get("status")
+    _id = myresponse.get("_id")
+    print "%s / %s " % (status, _id)
+
+    profiles = app.data.driver.db['profiles']
+    
+    if profiles and status.encode('utf8') == 'OK':
+        print 'inserting profiles'
+        profiles.insert({"created" : ObjectId(_id), "email" : email, "username": username })
+
+    print 'accounts_callback - END'
 
 
 class ScrumAuth(TokenAuth):
@@ -218,6 +237,7 @@ if __name__ == '__main__':
     
     app.on_insert_accounts += before_insert_accounts
     app.on_insert_session += before_insert_session
+    app.on_POST_accounts += accounts_callback
     app.on_POST_sprints += sprints_callback
     app.on_POST_stories += stories_callback
     app.on_POST_tasks += tasks_callback

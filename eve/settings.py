@@ -89,7 +89,7 @@ profiles = {
   'hateoas': False,
   'auth_field': 'created',
 
-  'extra_response_fields': ['firstname', 'lastname'],
+  'extra_response_fields': ['firstname', 'lastname', 'email', 'projects', 'manager', 'country', 'state', 'city'],
 
   # Schema definition, based on Cerberus grammar. Check the Cerberus project
   # (https://github.com/nicolaiarocci/cerberus) for details.
@@ -108,21 +108,15 @@ profiles = {
       # 'lastname' is an API entry-point, so we need it to be unique.
       # 'unique': True,
     },
-    # 'role' is a list, and can only contain values from 'allowed'.
-    'role': {
-      'type': 'list',
-      'allowed': ["author", "contributor", "copy"],
+    'email': {
+      'type': 'string',
+      'unique': True,
+      'required': True,
     },
-    # An embedded 'strongly-typed' dictionary.
-    'location': {
-      'type': 'dict',
-      'schema': {
-        'address': {'type': 'string'},
-        'city': {'type': 'string'}
-      },
-    },
-    'born': {
-      'type': 'datetime',
+    'username': {
+      'type': 'string',
+      'minlength': 3,
+      'readonly': True
     },
     'projects': {
      'type': 'list',
@@ -138,11 +132,23 @@ profiles = {
     'manager': {
       'type': 'objectid',
       'data_relation': {
-        'resource': 'profiles',
+        'resource': 'people',
         'field': '_id',
         'embeddable': True
       }
     },
+    'country' : {
+      'type': 'string',
+      'required': True,
+    },
+    'state' : {
+      'type': 'string',
+      'required': False,
+    },
+    'city': {
+      'type': 'string',
+      'required': False,
+    }
   }
 }
 
@@ -163,7 +169,19 @@ people = {
       'type': 'string',
       'minlength': 1,
       'maxlength': 25,
-      'required': True     
+      'required': True,
+      # talk about hard constraints! For the purpose of the demo
+      # 'lastname' is an API entry-point, so we need it to be unique.
+      # 'unique': True,
+    },
+    'email': {
+      'type': 'string',
+      'required': True,
+    },
+    'bugUser': {
+      'type': 'string',
+      'minlength': 3,
+      'readonly': True
     },
     'projects': {
      'type': 'list',
@@ -172,7 +190,6 @@ people = {
         'data_relation': {
           'resource': 'projects',
           'field': '_id',
-          'unique': True,
           'embeddable': True
         }
       }
@@ -185,6 +202,18 @@ people = {
         'embeddable': True
       }
     },
+    'country' : {
+      'type': 'string',
+      'required': True,
+    },
+    'state' : {
+      'type': 'string',
+      'required': False,
+    },
+    'city': {
+      'type': 'string',
+      'required': False,
+    }
   }
 }
 
@@ -431,7 +460,7 @@ accounts = {
   # 'allowed_roles': ['superuser', 'admin'],
 
   # Allow 'token' to be returned with POST responses
-   'extra_response_fields': ['token'],
+   'extra_response_fields': ['username'],
 
   # Finally, let's add the schema definition for this endpoint.
   'schema': {
@@ -448,15 +477,6 @@ accounts = {
       'type': 'string',
       'required': True,
     },
-    # 'roles': {
-    #   'type': 'list',
-    #   'allowed': ['user', 'superuser', 'admin'],
-    #   'required': True,
-    # },
-    #  'token': {
-    #   'type': 'string',
-    #   'required': True,
-    # }
   }
 }
 
