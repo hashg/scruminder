@@ -10,6 +10,7 @@ Profiles.reopen({
 var ProfilesController = Ember.ArrayController.extend({
   content: null,
   managers: People.find(),
+  manager: '',
   isEditing: false,
 
   actions: {
@@ -21,6 +22,11 @@ var ProfilesController = Ember.ArrayController.extend({
     },
     updateProfile: function(record) {
       var self = this;
+      var mgr = self.get('manager');
+      var manager = People.find(mgr);
+      record.setProperties({
+        manager: manager
+      });
       record.save().then(
         function() {
           self.set('isEditing', false);

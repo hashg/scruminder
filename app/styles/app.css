@@ -62,3 +62,12 @@ dd {
   font-size: 14px;
   position: relative;
 }
+
+.dropdown-menu {
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  margin-top: 0;
+  min-width: 150px;
+  cursor: pointer;
+}

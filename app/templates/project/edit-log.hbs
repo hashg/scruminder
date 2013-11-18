@@ -1,0 +1,33 @@
+<div class="panel panel-default">
+  <div class="panel-heading"><div class="panel-header-text">Add Backlog</div></div>
+    <div class="panel-body">
+      {{#if errorMessage}}
+        <div class="alert alert-danger">
+          {{errorMessage}}
+        </div>
+      {{/if}}
+      <form {{action editBacklog on='submit'}}>
+        <div class="row">
+          <div class="col-sm-12 col-md-9">
+            {{input-text label="Subject" placeholder="Enter Subject" value=name formController=controller required=true autofocus=true}}
+          </div>
+          <div class="col-sm-6 col-md-1">
+            <label class="control-label">Priority</label>
+            {{view Ember.Select class="form-control input-lg" content=priorities selection=priority}}
+          </div><!-- col-sm-12 -->
+          <div class="col-sm-6 col-md-2 form-group">
+            <label class="control-label">Type</label>
+            {{view Ember.Select class="form-control input-lg" content=types selection=type}}
+          </div><!-- col-sm-12 -->
+        </div><!-- row -->
+        <div class="form-group">
+          <label class="control-label">Description</label>
+          {{textarea value=description rows=4 class="form-control input-lg" placeholder="Enter description here.."}}
+        </div><!-- form-group -->
+    </div> <!-- panel-body -->
+  <div class="panel-footer" style="text-align:right">
+    {{#link-to 'project' class="btn btn-no-rc btn-danger"}}Cancel{{/link-to}}
+    {{#submit-button formController=controller tag="span"}}Add{{/submit-button}}
+  </div>
+  </form>
+</div><!-- panel -->

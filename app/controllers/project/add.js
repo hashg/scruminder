@@ -25,8 +25,9 @@ var ProjectAddController = Ember.ObjectController.extend({
       //Push people into project
       var mem = self.get('member');
       if( mem ) {
-        // Ember.Logger.info('ProjectAddController: New Member');
+        Ember.Logger.info('ProjectAddController: New Member');
         var people = People.find(mem); 
+        // if (people) //TODO
         model.get('people').pushObject(people);
       }
 

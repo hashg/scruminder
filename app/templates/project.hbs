@@ -56,6 +56,54 @@
   <div class="col-md-6 col-sm-12">
     <div class="page-heading-x">
       <h2 class="page-title">
+        <i class="icon-archive"></i> Backlogs ({{countBacklog}})
+      </h2>
+      {{#link-to 'project.log' class="btn btn-circle btn-success pull-right"}} <i class="icon-plus"></i>{{/link-to}}
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <div class="input-group">
+          {{input type="search" value=searchBacklog class="form-control" placeholder="Search backlog" tabindex=2 }}
+          <span class="input-group-addon glyphicon icon-search-3" style="top: 0;border-radius: 0;"></span>
+        </div>
+      </div>
+      <div id="sm-backlog-list" class="panel-body panel-body-nopad">
+        <ul class="list-group list-group-mp" style="margin: 0;">
+          {{#each o in controller.backlogs}}
+          <li class="list-group-item">
+            <div class="btn-group btn-no-rc btn-group-sm btn-hidden pull-right">
+              <div class="btn-group btn-group-sm">
+                <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+                  Add to
+                  <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                  {{#each sprint in controller.sprints}}
+                  <li><a {{action addToSprint o sprint}}>{{sprint.name}}</a></li>
+                  {{/each}}
+                </ul>
+              </div>
+              {{#link-to 'project.editLog' o class="btn btn-primary" }}Edit{{/link-to}}
+              {{!-- <a class="btn btn-primary" {{action editLog o}}>Edit</a> --}}
+              <a class="btn btn-danger" {{action deleteLog o}}>Delete</a>
+            </div>
+            <h4>{{o.name}}</h4>
+            <p class="list-group-item-desc">{{o.description}}</p>
+          </li>
+          {{else}}
+          <li class="list-group-item">
+            <h4 style="text-align: center;">Go add some backlog.</h4>
+          </li>
+          {{/each}}
+        </ul>
+      </div> <!-- panel-body -->
+    </div><!-- panel -->
+  </div><!-- col-md-6 -->
+</div><!-- row -->
+<div class="row">
+  <div class="col-md-6 col-sm-12">
+    <div class="page-heading-x">
+      <h2 class="page-title">
         <i class="icon-users-3"></i> Members ({{countMember}})
       </h2>
       {{#link-to 'project.add' class="btn btn-circle btn-success pull-right"}} <i class="icon-plus"></i>{{/link-to}}
@@ -63,7 +111,7 @@
     <div class="panel panel-default">
       <div class="panel-heading">
         <div class="input-group">
-          {{input type="search" value=searchMember class="form-control" placeholder="Search members" tabindex=2 }}
+          {{input type="search" value=searchMember class="form-control" placeholder="Search members" tabindex=3 }}
           <span class="input-group-addon glyphicon icon-search-3" style="top: 0;border-radius: 0;"></span>
         </div>
       </div>
@@ -85,6 +133,4 @@
       </div> <!-- panel-body -->
     </div><!-- panel -->
   </div><!-- col-md-6 -->
-</div>
-
 </div>

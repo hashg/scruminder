@@ -12,7 +12,16 @@ var ProjectsController = Ember.ArrayController.extend({
       var srch = this.get('search');
       filter("sm-projects-list", srch);
     });
-  }.observes('search')
+  }.observes('search'),
+  sortProperties: ['name'],
+  sortAscending: true
+  // actions: {
+  //   sortName: function(){
+  //     this.set('sortProperties', ['name']);
+  //     this.toggleProperty('sortAscending');
+  //   }  
+  // },
+  // sortAscending: false
 });
 
 export default ProjectsController;

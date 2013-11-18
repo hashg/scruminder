@@ -20,6 +20,8 @@ Router.map(function() {
     this.route('edit');
     this.route('new'); //New Sprint
     this.route('add'); //Add team members
+    this.route('log'); //Add backlog
+    this.route('editLog', {path: 'backlog/:backlog_id/edit'}); //Edit backlog
     //lists sprints
   });
 

@@ -170,9 +170,6 @@ people = {
       'minlength': 1,
       'maxlength': 25,
       'required': True,
-      # talk about hard constraints! For the purpose of the demo
-      # 'lastname' is an API entry-point, so we need it to be unique.
-      # 'unique': True,
     },
     'email': {
       'type': 'string',
@@ -266,7 +263,51 @@ projects = {
           'embeddable': True
         }
       }
+    },
+    'backlog': {
+     'type': 'list',
+     'schema': {
+        'type': 'objectid',
+        'data_relation': {
+          'resource': 'backlog',
+          'field': '_id',
+          'unique': True,
+          'embeddable': True
+        }
+      }
     }
+  }
+}
+
+backlog = {
+  # 'title' tag used in item links.
+  'item_title': 'backlog',
+  'extra_response_fields': ['name', 'description', 'priority', 'type', 'project'],
+  'public_methods' : ['GET'],
+  'public_item_methods' : ['GET'],
+  'embeddable ' : True,
+
+  'schema': {
+    'name': {
+      'type': 'string',
+    },
+    'description': {
+      'type': 'string',
+    },
+    'priority': {
+      'type': 'integer',
+    },
+    'type': {
+      'type': 'string',
+    },
+    'project': {
+      'type': 'objectid',
+      'data_relation': {
+        'resource': 'projects',
+        'field': '_id',
+        'embeddable': True
+      }
+    }    
   }
 }
 
@@ -318,6 +359,10 @@ sprints = {
     },
     'description': {
       'type': 'string'
+    },
+    'stat': {
+      'type': 'string',
+      'allowed': ["created", "started", "completed", 'abandoned'],
     }
   }
 }
@@ -480,52 +525,6 @@ accounts = {
   }
 }
 
-teams = {
-  # 'title' tag used in item links.
-  'item_title': 'teams',
-  'extra_response_fields': ['name', 'current_sprint_id', 'sprints'],
-  'public_methods' : ['GET'],
-  'public_item_methods' : ['GET'],
-  'embeddable ' : True,
-
-  'additional_lookup': {
-    'url': '[\w]+',
-    'field': 'name'
-  },
-
-  'schema': {
-    'name': {
-      'type': 'string',
-      'minlength': 5,
-      'maxlength': 25,
-    },
-    'project_id': {
-      'type': 'objectid',
-      'data_relation': {
-        'resource': 'projects',
-        'field': '_id',
-        'embeddable': True
-      }
-    },
-    'persons': {
-     'type': 'list',
-     'schema': {
-        'type': 'objectid',
-        'data_relation': {
-          'resource': 'persons',
-          'field': '_id',
-          'embeddable': True
-        }
-      }
-    },
-    'role': {
-      'type': 'list',
-      'allowed': ['product owner', 'scrum master', 'manager', 'developer', 'qa'],
-      'required': True,
-    },
-  }
-}
-
 session = {
   'additional_lookup': {
     'url': '[\w]+',
@@ -654,5 +653,5 @@ DOMAIN = {
   'people': people,
   'vacations': vacations,
   'holidays': holidays,
-  'teams': teams
+  'backlog': backlog
 }

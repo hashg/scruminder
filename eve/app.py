@@ -149,6 +149,35 @@ def tasks_delete_callback(request, payload):
 
     print 'tasks_delete_callback - END'
 
+def backlog_callback(request, payload):
+    print 'backlog_callback - BEGIN'
+    parent_id = request.json.get("project")
+    backlog_id = request.json.get("_id")
+    print parent_id
+    print backlog_id
+
+    myresponse = json.loads(payload.response[0])
+    status = myresponse.get("status")
+
+    projects = app.data.driver.db['projects']
+    if projects and status.encode('utf8') == 'OK':
+        projects.update({"_id" : ObjectId(parent_id)}, {"$push": {"backlog": backlog_id}})
+
+    print 'backlog_callback - END'
+
+def backlog_delete_callback(request, payload):
+    print 'backlog_delete_callback - BEGIN'
+    parent_id = request.json.get('project')
+    backlog_id = request.json.get('id')
+    print parent_id
+    print backlog_id
+
+    projects = app.data.driver.db['projects']
+    if projects:
+        projects.update({"_id" : ObjectId(parent_id)}, {"$pull": {"backlog": ObjectId(backlog_id)}})
+    print 'backlog_delete_callback - END'
+
+
     
 
 # def session_callback(request, payload):
@@ -244,6 +273,9 @@ if __name__ == '__main__':
     app.on_DELETE_sprints += sprints_delete_callback
     app.on_DELETE_stories += stories_delete_callback
     app.on_DELETE_tasks += tasks_delete_callback
+
+    app.on_POST_backlog += backlog_callback
+    app.on_DELETE_backlog += backlog_delete_callback
 
     app.register_blueprint(eapp, url_prefix='/eapp')
     app.run(host='0.0.0.0', port=port, debug=True)
