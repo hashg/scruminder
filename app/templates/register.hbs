@@ -12,28 +12,6 @@
             {{input-text id='reg-identification' label="Username" placeholder="Enter Username" value=username formController=controller required=true autofocus=true}}
             {{input-email id='reg-email' placeholder="Enter e-mail" value=email formController=controller required=true customValidator=validateEmail}}
             {{input-password value=password formController=controller required=true}}
-            <div class="input-control checkbox">
-              <label>
-                  {{view Ember.Checkbox valueBinding="Done" titleBinding="Password" name="r3" }}
-                  <span class="check"></span>
-                  Check me out
-              </label>
-            </div>
-            <div class="input-control radio">
-              <label>
-                Check me out
-                <input type="radio" name="r3" checked="">
-                <span class="check"></span>
-              </label>
-            </div>
-            <div class="input-control radio">
-              <label>
-                Check me out
-                <input type="radio" name="r3">
-                <span class="check"></span>
-              </label>
-            </div>
-            
             <div style="text-align:center">
               <code>Already registered? {{#link-to 'login' }}Goto Login{{/link-to}}</code>
               <code>Don&apos;t remember your password? {{#link-to 'forgot' }}Forgot{{/link-to}}</code>

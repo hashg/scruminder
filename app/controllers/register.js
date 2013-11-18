@@ -18,8 +18,8 @@ var RegisterController = Ember.Controller.extend(EmberFormComponents.Form,{
       //   this.resetProperties();
       //   this.transitionToRoute('index');
       // }
-      if(!this.get('isFormValid')){
-        this.set('showFieldValidation', true);
+      if(!self.get('isFormValid')){
+        self.set('showFieldValidation', true);
       }
       var register = Register.create({
           username : self.get('username'),
@@ -27,13 +27,13 @@ var RegisterController = Ember.Controller.extend(EmberFormComponents.Form,{
           email : self.get('email'),
         });
       register.save().then(
-        function(response){
+        function(){
           //success
           Ember.Logger.info("Register Successfull");
-          this.resetProperties();
-          this.transitionToRoute('index');
+          self.resetProperties();
+          self.transitionToRoute('login');
         }, 
-        function(response){
+        function(){
           //error
         }
       );
