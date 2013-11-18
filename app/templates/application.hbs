@@ -4,21 +4,6 @@
     {{#link-to 'index'}}<img class="logo" src="eapp/vendor/kuta-admin/images/logo.png">{{/link-to}}
   </div>
        
-  <!-- <ul class="nav navbar-nav navbar-left">
-    <li>
-      {{!-- {{#link-to 'index' tagName='a'}}
-        <i class="icon-home-2"></i>
-      {{/link-to}} --}}
-    </li>
-  </ul> -->
-  
-  <!-- <form class="navbar-form navbar-left" role="search">
-    <div class="form-group">
-      <input type="text" class="form-control" placeholder="">
-    </div>
-    <button type="submit" class="btn btn-no-rc btn-inverse">Search</button>
-  </form>
- -->
   <form class="navbar-form navbar-right" role="form">
     {{#if session.isAuthenticated}}
       {{#link-to 'logout' classNames='btn btn-no-rc btn-danger btn-flat'}}
