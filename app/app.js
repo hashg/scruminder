@@ -13,22 +13,24 @@ var App = Ember.Application.createWithMixins(EmberFormComponents.Register,{
 });
 
 App.initializer({
-  // name: 'Register Components',
-  // initialize: function(container, application) {
-  //   registerComponents(container);
-  // }
   name: 'authentication',
   initialize: function(container, application) {
     //customize the session so that it handles the custom payload as well as the additional authenticated account
+    
     Ember.SimpleAuth.Session.reopen({
       init: function() {
         this._super();
         //initializer the accountId from data potentially already present in the
         //sessionStorage (Ember.SimpleAuth.Session does this out of the box for authToken)
-        this.set('authToken', sessionStorage.authToken);
-        this.set('username', sessionStorage.username);
-        this.set('etag', sessionStorage.etag);
-        this.set('_id', sessionStorage._id);
+        // Ember.Logger.info("init");
+        var authToken = (document.cookie.match(/authToken=([^;]+)/) || [])[1];
+        this.set('authToken', authToken);
+        var username = (document.cookie.match(/username=([^;]+)/) || [])[1];
+        this.set('username', username);
+        var etag = (document.cookie.match(/etag=([^;]+)/) || [])[1];
+        this.set('etag', etag);
+        var _id = (document.cookie.match(/_id=([^;]+)/) || [])[1];
+        this.set('_id', _id);
       },
       setup: function(serverSession) {
         var data = serverSession;
@@ -44,45 +46,42 @@ App.initializer({
       },
       destroy: function() {
         this._super();
-        this.set('authToken', undefined);
-        this.set('username', undefined);
-        this.set('etag', undefined);
-        this.set('_id', undefined);
-
+        this.set('authToken', '');
+        this.set('username', '');
+        this.set('etag', '');
+        this.set('_id', '');
       },
-      authTokenObserver: Ember.observer(function() {
-        var authToken = this.get('authToken');
-        var username = this.get('username');
-        var etag = this.get('etag');
-        if (Ember.isEmpty(authToken) && Ember.isEmpty(username) && Ember.isEmpty(etag)) {
-          delete sessionStorage.authToken;
-          delete sessionStorage.username;
-          delete sessionStorage.etag;
-          delete sessionStorage._id;
+      /**
+        @method load
+        @private
+        ***HAD TO OVER RIDE because "undefined" was treated as string Ember.isEmpty() returned false****
+      */
+      load: function(property) {
+        var value = document.cookie.match(new RegExp(property + '=([^;]+)')) || [];
+        if (Ember.isEmpty(value)) {
+          return '';
         } else {
-          sessionStorage.authToken = this.get('authToken');
-          sessionStorage.username = this.get('username');
-          sessionStorage._id = this.get('_id');
-          sessionStorage.etag = this.get('etag');
+          return decodeURIComponent(value[1] || '');
         }
-      }, '_id')
+      },
+      authTokenChanged: function() {
+          //save authToken in a session cookie so it survives a page reload (Ember.SimpleAuth.Session
+          //does this out of the box for authToken)
+        Ember.Logger.info("authTokenChanged");
+        document.cookie = 'authToken=' + this.get('authToken');
+      }.observes('authToken'),
+      usernameChanged: function() {
+        document.cookie = 'username=' + this.get('username');
+      }.observes('username'),
+      etagChanged: function() {
+        document.cookie = 'etag=' + this.get('etag');
+      }.observes('etag'),
+      _idChanged: function() {
+        document.cookie = '_id=' + this.get('_id');
+      }.observes('_id'),
     });
     //set a custom session endpoint
-    Ember.SimpleAuth.setup(application, { serverSessionRoute: '/session' });
-  }
-});
-
-import Profiles from 'appkit/models/profiles';
-Ember.SimpleAuth.LogoutRouteMixin.reopen({
-  beforeModel: function() {
-    var self = this;
-    Ember.$.ajax(Ember.SimpleAuth.serverSessionRoute + "/" + sessionStorage._id, {type: 'DELETE', headers:{ "If-Match": sessionStorage.etag} }).always(function(response) {
-      self.get('session').destroy();
-      /*TODO: 
-        Unload the profiles.
-      */
-      self.transitionTo(Ember.SimpleAuth.routeAfterLogout);
-    });
+    Ember.SimpleAuth.setup(container, application, { serverTokenEndpoint: '/session' });
   }
 });
 
@@ -96,6 +95,7 @@ Ember.Select.reopen({
   attributeBindings: ['accept', 'autocomplete', 'autofocus', 'name', 'required', 'disabled']
 });
 
+/*-- Calendar component --*/
 App.CalendarDatePicker = Ember.TextField.extend({
   _picker: null,
   
@@ -127,8 +127,8 @@ App.CalendarDatePicker = Ember.TextField.extend({
 });
 
 
+/*-- HTML Select plugin - chosen component --*/
 App.Chosen = Ember.Select.extend({
-
   multiple: false,
   width: '100%',
   disableSearchThreshold: 1,

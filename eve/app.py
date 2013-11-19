@@ -244,6 +244,7 @@ def accounts_callback(request, payload):
 
 class ScrumAuth(TokenAuth):
     def check_auth(self, token,  allowed_roles, resource, method):
+        # print "ScrumAuth::check_auth Begin"
         sessions = app.data.driver.db['session']
         accounts = app.data.driver.db['accounts']
         lookup = {'token': token}
@@ -255,6 +256,7 @@ class ScrumAuth(TokenAuth):
             lookup_acct = {'username': uname}
             account = accounts.find_one(lookup_acct)
             self.request_auth_value = account["_id"]
+        # print "ScrumAuth::check_auth End"
         return session
 
 

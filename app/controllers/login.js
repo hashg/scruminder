@@ -11,7 +11,7 @@ var LoginController = Ember.Controller.extend(Ember.SimpleAuth.LoginControllerMi
       var data = this.getProperties('identification', 'password');
       if (!Ember.isEmpty(data.identification) && !Ember.isEmpty(data.password)) {
         var postData = JSON.stringify(self.serializeCredentials(data.identification, data.password));
-        Ember.$.ajax(Ember.SimpleAuth.serverSessionRoute, {
+        Ember.$.ajax(Ember.SimpleAuth.serverTokenEndpoint, {
           type:        'POST',
           data:        postData,
           contentType: 'application/json',

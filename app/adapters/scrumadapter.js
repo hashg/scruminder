@@ -24,7 +24,8 @@ var ScrumAdapter =  Ember.RESTAdapter.extend({
 
     return new Ember.RSVP.Promise(function(resolve, reject) {
       if (params) {
-        settings.headers = {"Authorization": "Basic " +  btoa(sessionStorage.authToken+":")};
+        var authToken = (document.cookie.match(/authToken=([^;]+)/) || [])[1];
+        settings.headers = {"Authorization": "Basic " +  btoa(authToken+":")};
         settings.headers["If-Match"] = params.etag;
         settings.contentType = "application/json; charset=utf-8";
         if (method === "GET") {

@@ -6,9 +6,7 @@
        
   <form class="navbar-form navbar-right" role="form">
     {{#if session.isAuthenticated}}
-      {{#link-to 'logout' classNames='btn btn-no-rc btn-danger btn-flat'}}
-        Logout {{session.username}}
-      {{/link-to}}
+      <a {{ action 'logout' }} class='btn btn-no-rc btn-danger btn-flat'>Logout {{session.username}}</a>
     {{else}}
       {{#link-to 'login' classNames='btn btn-no-rc btn-success btn-flat'}}
         Login
