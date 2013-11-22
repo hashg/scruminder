@@ -852,15 +852,16 @@ Ember.Model.reopenClass({
   _findFetchAll: function(isFetch) {
     var self = this;
 
-    if (this._findAllRecordArray) {
-      if (isFetch) {
-        return new Ember.RSVP.Promise(function(resolve) {
-          resolve(self._findAllRecordArray);
-        });
-      } else {
-        return this._findAllRecordArray;
-      }
-    }
+    // if (this._findAllRecordArray) {
+    //   if (isFetch) {
+    //     return new Ember.RSVP.Promise(function(resolve) {
+    //       resolve(self._findAllRecordArray);
+    //     });
+    //   } else {
+    //     return this._findAllRecordArray;
+    //   }
+    // }
+
 
     var records = this._findAllRecordArray = Ember.RecordArray.create({modelClass: this});
 
@@ -1069,11 +1070,14 @@ Ember.Model.reopenClass({
   // FIXME
   findFromCacheOrLoad: function(data) {
     var record;
+    record = this.create({isLoaded: false});
+
     if (!data[get(this, 'primaryKey')]) {
       record = this.create({isLoaded: false});
     } else {
       record = this.cachedRecordForId(data[get(this, 'primaryKey')]);
     }
+
     // set(record, 'data', data);
     record.load(data[get(this, 'primaryKey')], data);
     return record;

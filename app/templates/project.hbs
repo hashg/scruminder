@@ -9,8 +9,9 @@
   <div class="panel-body panel-body-nopad">
     <ul class="list-group list-group-mp" style="margin: 0;">
       <li class="list-group-item">
-        <p class="list-group-item-desc">Id: {{id}}</p>
-        <p class="list-group-item-desc">etag: {{etag}}</p>
+        <div class="text-muted">
+          {{format-markdown description}}
+        </div>
       </li>
     </ul>
   </div> <!-- panel-body -->
@@ -74,8 +75,10 @@
                   <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
-                  {{#each sprint in controller.sprints}}
+                  {{#each sprint in controller.transferableSprints}}
                   <li><a {{action addToSprint o sprint}}>{{sprint.name}}</a></li>
+                  {{else}}
+                  <li><code class="md">No sprints w/ created/started status</code></li>
                   {{/each}}
                 </ul>
               </div>

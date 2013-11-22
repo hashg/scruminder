@@ -2,8 +2,14 @@
   <div class="panel-heading">
     <span class="panel-header-text">Sprint: <span class="text-success">{{name}}</span></span>
     <span class="pull-right" style="margin-top: -5px;">
+      {{#if isCreated}}
+      <a {{action startSprint}} class="btn btn-no-rc btn-success">Start</a>
       {{#link-to 'sprint.edit' class="btn btn-no-rc btn-primary"}}Edit{{/link-to}}
       <a {{action deleteSprint}} class="btn btn-no-rc btn-danger">Delete</a>
+      {{/if}}
+      {{#if isStarted}}
+      <a {{action completeSprint}} class="btn btn-no-rc btn-warning">Complete</a>
+      {{/if}}
     </span>
   </div>
   <div class="panel-body panel-body-nopad">
@@ -31,9 +37,21 @@
   </div>
   <div id="sm-story-list" class="panel-body panel-body-nopad">
     <ul class="list-group list-group-mp" style="margin: 0;">
-      {{#each o in stories}}
+      {{#each o in controller.stories}}
       <li class="list-group-item">
-        <i class="indicator available icon-radio-checked pull-right"></i>
+        <div class="btn-group btn-group-sm btn-hidden pull-right">
+          <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+            Move to
+            <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu">
+            {{#each sprint in controller.createdSprints}}
+            <li><a {{action moveToSprint o sprint}}>{{sprint.name}}</a></li>
+            {{else}}
+            <li><code class="md">No sprints w/ created status</code></li>
+            {{/each}}
+          </ul>
+        </div>
         {{#link-to 'story' o}}<h4>{{o.name}}</h4>{{/link-to}}
         <p class="list-group-item-desc">{{o.id}}</p>
       </li>

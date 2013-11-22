@@ -3,21 +3,22 @@ import Projects from 'appkit/models/projects';
 
 var SprintRoute = Ember.Route.extend({
   serialize: function(model, params){
+    // Ember.Logger.info("SprintRoute:serialize");
     return {
-      project_id: this.modelFor('project').get('id'),
-      sprint_id: model.get('id')
+      sprint_id: model.get('id'),
+      project_id: this.modelFor('project').get('id')
     };
   },
   model:function(params) {
-    Ember.Logger("SprintRoute:Model");
-    Ember.Logger(params);
+    // Ember.Logger.info("SprintRoute:Model");
+    Ember.Logger.info(params);
     var sprint = Sprints.find(params.sprint_id);
     return sprint;
   },
-  // setupController: function(controller, model){
-  //   this._super(controller, model);
-  //   controller.set('content', model);
-  // }
+  setupController: function(controller, model){
+    this._super(controller, model);
+    controller.set('content', model);
+  }
 });
 
 export default SprintRoute;

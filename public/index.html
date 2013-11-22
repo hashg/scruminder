@@ -20,6 +20,7 @@
   <script src="eapp/vendor/ember-form-components/build/ember-form-components.js"></script>
   <script src="eapp/vendor/ember-simple-auth/ember-simple-auth.js"></script>
   <script src="eapp/vendor/utils/moment.js"></script>
+  <script src="eapp/vendor/utils/showdown.js"></script>
   <script src="eapp/vendor/pikaday/pikaday.js"></script>
   <script src="eapp/vendor/chosen/chosen.jquery.ember.js"></script>
   <script src="eapp/vendor/zeroclipboard/ZeroClipboard.js"></script>
@@ -30,6 +31,21 @@
   <!-- build:js(tmp/public) /assets/app.min.js -->
   <script src="eapp/assets/app.js"></script>
   <script src="eapp/assets/templates.js"></script>
+  <!-- endbuild -->
+
+  <!-- HELPER CLASS -->
+  <script>
+  Ember.Handlebars.helper('reverse-word', function(word) {
+    return word.split('').reverse().join('');
+  });
+
+  var showdown = new Showdown.converter();
+  Ember.Handlebars.helper('format-markdown', function(input) {
+    if(!input)
+      return "";
+    return new Handlebars.SafeString(showdown.makeHtml(input));
+  });
+  </script>
   <!-- endbuild -->
 </head>
 <body>

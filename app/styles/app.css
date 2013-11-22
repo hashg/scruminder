@@ -20,6 +20,7 @@
 }
 
 .panel-body-nopad {
+  overflow: auto;
   padding: 0;
 }
 
@@ -70,4 +71,25 @@ dd {
   margin-top: 0;
   min-width: 150px;
   cursor: pointer;
+}
+
+code.md {
+  font-size: 70%;
+  border-radius: 0;
+}
+
+.list-group-item h4 {
+  margin: 0;
+}
+
+.list-group-item a:hover{
+  text-decoration: none;
+}
+
+.list-group-item {
+  overflow: auto;
+}
+
+.list-group-item p {
+margin: 0;
 }

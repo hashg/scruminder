@@ -16,15 +16,16 @@
   </div>
   <div id="sm-projects-list" class="panel-body panel-body-nopad">
     <ul class="list-group list-group-mp" style="margin: 0;">
-      {{#if isLoading}}
-        <li class="list-group-item"> Go create some projects. </li>
-      {{/if}}
       {{#each}}
-      <li class="list-group-item">
-        <i class="indicator available icon-radio-checked pull-right"></i>
-        {{#link-to 'project' this}}<h4>{{name}}</h4>{{/link-to}}
-        <p class="list-group-item-desc">{{id}}</p>
-      </li>
+      <div class="list-group-item">
+        <i class="indicator glyphicon glyphicon-chevron-right pull-right"></i>
+        {{#link-to 'project' this}}
+          <h4>{{name}}</h4>
+          <div class="text-muted">
+            {{format-markdown description}}
+          </div>
+        {{/link-to}}
+      </div>
       {{else}}
       <h4 style="text-align: center;">Go create some projects.</h4>
       {{/each}}

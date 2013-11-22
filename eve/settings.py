@@ -87,6 +87,8 @@ profiles = {
   },
 
   'hateoas': False,
+  'cache_control': '',
+  'cache_expires': 0,
   'auth_field': 'created',
 
   'extra_response_fields': ['firstname', 'lastname', 'email', 'projects', 'manager', 'country', 'state', 'city'],
@@ -217,7 +219,7 @@ people = {
 projects = {
   # 'title' tag used in item links.
   'item_title': 'projects',
-  'extra_response_fields': ['name', 'current_sprint_id', 'sprints'],
+  'extra_response_fields': ['name', 'description', 'sprints', 'people', 'backlog'],
   'public_methods' : ['GET'],
   'public_item_methods' : ['GET'],
   'embeddable ' : True,
@@ -232,6 +234,9 @@ projects = {
       'type': 'string',
       'minlength': 5,
       'maxlength': 25,
+    },
+    'description': {
+      'type': 'string'
     },
     'current_sprint_id': {
       'type': 'objectid',
@@ -314,7 +319,7 @@ backlog = {
 sprints = {
   # 'title' tag used in item links.
   'item_title': 'sprints',
-  'extra_response_fields': ['name', 'project_id', 'stories', 'start_dt', 'end_dt', 'description'],
+  'extra_response_fields': ['name', 'project_id', 'stories', 'start_dt', 'end_dt', 'description', 'stat'],
   'public_methods' : ['GET'],
   'public_item_methods' : ['GET'],
   'embeddable ' : True,

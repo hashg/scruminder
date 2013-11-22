@@ -2,7 +2,8 @@ import Stories from 'appkit/models/stories';
 import Sprints from 'appkit/models/sprints';
 
 var StoryRoute = Ember.Route.extend({
-  serialize: function(model, params){
+  serialize: function(model, params) {
+    // Ember.Logger.info("StoryRoute:serialize");
     return {
       project_id: this.modelFor('project').get('id'),
       sprint_id: this.modelFor('sprint').get('id'),

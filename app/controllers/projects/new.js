@@ -5,6 +5,7 @@ var ProjectsNewController = Ember.ArrayController.extend({
   needs: ['projects'],
   content: null,
   name: '',
+  description: '',
   errorMessage: '',
   actions: {
     newProject: function() {
@@ -12,7 +13,8 @@ var ProjectsNewController = Ember.ArrayController.extend({
       /*Since this is a array controller. We need to create here instead 
       of in the route*/
       var project = Projects.create({
-        name: self.get('name')
+        name: self.get('name'),
+        description: self.get('description'),
       });
 
       project.save().then(

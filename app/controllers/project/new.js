@@ -26,6 +26,7 @@ var ProjectNewController = Ember.ObjectController.extend({
         start_dt: self.get('start_dt'),
         end_dt: self.get('end_dt'),
         description: self.get('description'),
+        stat: 'created',
         project: parent
       });
 

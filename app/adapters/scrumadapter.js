@@ -23,11 +23,12 @@ var ScrumAdapter =  Ember.RESTAdapter.extend({
     var settings = this.ajaxSettings(url, method);
 
     return new Ember.RSVP.Promise(function(resolve, reject) {
+      var authToken = (document.cookie.match(/authToken=([^;]+)/) || [])[1];
+      settings.headers = {"Authorization": "Basic " +  btoa(authToken+":")};
+      settings.headers["If-Modified-Since"] = '';
+      settings.contentType = "application/json; charset=utf-8";
       if (params) {
-        var authToken = (document.cookie.match(/authToken=([^;]+)/) || [])[1];
-        settings.headers = {"Authorization": "Basic " +  btoa(authToken+":")};
         settings.headers["If-Match"] = params.etag;
-        settings.contentType = "application/json; charset=utf-8";
         if (method === "GET") {
           settings.data = params;
         } 
@@ -44,7 +45,6 @@ var ScrumAdapter =  Ember.RESTAdapter.extend({
           settings.data = JSON.stringify(params);
         }
         else {
-          settings.contentType = "application/json; charset=utf-8";
           settings.data = JSON.stringify(params);
         }
       }

@@ -6,6 +6,7 @@ import Backlog from 'appkit/models/backlog';
 
 var Projects = Eve.extend({
   name: Ember.attr(),
+  description: Ember.attr(),
   sprints: Ember.hasMany(Sprints, {key: 'sprints'}),
   people: Ember.hasMany(People, {key: 'people'}), /*TODO: Add role to people*/
   backlogs: Ember.hasMany(Backlog, {key: 'backlog'}), 

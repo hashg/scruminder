@@ -17,6 +17,17 @@ var ProjectController = Ember.ObjectController.extend({
     return this.get('model.people.length');
   }.property('people.@each'),
 
+  transferableSprints: function() {
+    var ret = Ember.A();
+    this.get('model.sprints').forEach(function(sprint, idx, i) {
+      var stat = sprint.get('stat');
+      Ember.Logger.info(stat);
+      if (stat && (stat.toLowerCase() !== 'completed'))
+        ret.push(sprint);
+    });
+    return ret ;
+  }.property('sprints.@each.stat'),
+
   search: '',
   contentChanged: function() {
     Ember.run.next(this, function() {

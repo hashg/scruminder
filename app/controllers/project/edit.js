@@ -9,7 +9,8 @@ var ProjectEditController = Ember.ObjectController.extend({
       var model = self.get('model');
 
       var project = model.setProperties({
-        name: self.get('name')
+        name: self.get('name'),
+        description: self.get('description')
       });
       
       project.save().then (

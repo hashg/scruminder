@@ -8,6 +8,10 @@
       {{/if}}
       <form {{action editProject on='submit'}}>
         {{input-text label="Name" placeholder="Enter project name" value=name formController=controller required=true autofocus=true}}
+        <div class="form-group">
+          <label class="control-label">Description</label>
+          {{textarea value=description rows=4 class="form-control input-lg" placeholder="Enter description here.."}}
+        </div><!-- form-group -->
     </div> <!-- panel-body -->
   <div class="panel-footer" style="text-align:right">
     {{#link-to 'project' class="btn btn-no-rc btn-danger"}}Cancel{{/link-to}}
