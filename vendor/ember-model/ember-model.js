@@ -342,7 +342,7 @@ Ember.HasManyArray = Ember.ManyArray.extend({
         content = get(this, 'content'),
         reference = content.objectAt(idx),
         record;
-
+    /*hashg*/
     if (reference.record) {
       record = reference.record;
     } else {
@@ -851,7 +851,7 @@ Ember.Model.reopenClass({
 
   _findFetchAll: function(isFetch) {
     var self = this;
-
+    /*hashg*/
     // if (this._findAllRecordArray) {
     //   if (isFetch) {
     //     return new Ember.RSVP.Promise(function(resolve) {
@@ -920,7 +920,7 @@ Ember.Model.reopenClass({
   _fetchById: function(record, id) {
     var adapter = get(this, 'adapter'),
         deferred;
-
+    /*hashg*/
     if (adapter.findMany && !adapter.findMany.isUnimplemented) {
       if (this._currentBatchIds) {
         if (!contains(this._currentBatchIds, id)) { this._currentBatchIds.push(id); }

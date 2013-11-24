@@ -14,6 +14,11 @@ var ProjectRoute = Ember.Route.extend({
   setupController: function(controller, model){
     this._super(controller, model);
     controller.set('content', model);
+  },
+  deactivate: function() {
+    this.controllerFor('project').set('search', '');
+    this.controllerFor('project').set('searchBacklog', '');
+    this.controllerFor('project').set('searchMember', '');
   }
 });
 

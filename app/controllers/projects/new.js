@@ -29,7 +29,10 @@ var ProjectsNewController = Ember.ArrayController.extend({
     }
   },
   resetProperties: function() {
-    this.set('name', null);
+    this.setProperties({
+      name: null,
+      description: null
+    });
   }
 });
 

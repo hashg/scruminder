@@ -1,12 +1,24 @@
 import filter from 'appkit/utils/filter';
 import Sprints from 'appkit/models/sprints';
+import Stories from 'appkit/models/stories';
+import Projects from 'appkit/models/projects';
 
 var SprintController = Ember.ObjectController.extend({
   needs: ['project'],
   content: null,
 
+  errorMessage: '',
+  clearMessage: function() {
+    Ember.Logger.info('SprintController:clearMessage');
+    var self = this;
+    var errorMessage = self.get('errorMessage');
+    if( errorMessage ) {
+      Ember.Logger.info('SprintController:clearMessage:errorMessage');
+      Ember.run.debounce(self, function() { self.set('errorMessage', ''); }, 2000);
+    }
+  }.observes('errorMessage'),
+
   sprints: Ember.computed.alias('controllers.project.sprints'),
-  
   
   search: '',
   contentChanged: function(){
@@ -15,6 +27,10 @@ var SprintController = Ember.ObjectController.extend({
       filter("sm-story-list", srch);
     });
   }.observes('search'),
+
+  count:  function() {
+    return this.get('model.stories.length');
+  }.property('stories.@each'),
 
   isCreated: function() {
     var stat = this.get('stat');
@@ -44,11 +60,35 @@ var SprintController = Ember.ObjectController.extend({
   }.property('sprints.@each.stat'),
 
   actions: {
-    moveToSprint: function(story, sprint) {
+    move2sprint: function(story, sprint) {
       /*
       - first create story in another sprint
-      - delete this story from this sprint
+      - DO NOT delete this story from this sprint. We might need track of 
       */
+      var self = this;
+      var model = Stories.create();
+      var parent_id = sprint.get('id');
+      model.setProperties({
+        name: story.get('name'),
+        priority: story.get('priority'),
+        customer: story.get('customer'),
+        disposition: story.get('disposition'),
+        stat: story.get('stat'),
+        tracker: story.get('tracker'),
+        estimate: story.get('estimate'),
+        description: story.get('description'),
+        carried_over: story.get('sprint_id'),
+        sprint_id: parent_id
+      });
+      model.save().then(
+        function() {
+          self.set('errorMessage', "move2sprint: successfull");
+          sprint.get('stories').pushObject(model);
+        },
+        function() {
+          self.set('errorMessage', "move2sprint: save failed");
+        }
+      );
     },
     deleteSprint: function() {
       var self = this;
@@ -57,6 +97,8 @@ var SprintController = Ember.ObjectController.extend({
         model.deleteRecord().then(
           function() {
             Ember.Logger.info('deleteSprint: Deleted');
+            var parent = Projects.find(model.get('project_id'));
+            parent.get('sprints').removeObject(model);
             self.transitionToRoute('project');
           }, 
           function() {

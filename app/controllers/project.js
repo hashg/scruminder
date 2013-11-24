@@ -7,6 +7,7 @@ import Stories from 'appkit/models/stories';
 
 var ProjectController = Ember.ObjectController.extend({
   content: null,
+
   count:  function() {
     return this.get('model.sprints.length');
   }.property('sprints.@each'),
@@ -100,7 +101,7 @@ var ProjectController = Ember.ObjectController.extend({
         // Ember.Logger.info('ProjectController::deleteLog');
       }
     },
-    addToSprint: function(backlog, sprint) {
+    add2sprint: function(backlog, sprint) {
       var self = this;
       var parent = Sprints.find(sprint.get('id'));
       var story = Stories.create({
@@ -126,7 +127,7 @@ var ProjectController = Ember.ObjectController.extend({
         }
       );
 
-      Ember.Logger.info("ProjectController::addToSprint");
+      Ember.Logger.info("ProjectController::add2sprint");
     }
   }
 });

@@ -21,6 +21,8 @@ var TaskController = Ember.ObjectController.extend({
         model.deleteRecord().then(
           function() {
             Ember.Logger.info('deleteTask: Deleted');
+            var parent = Stories.find(model.get('story_id'));
+            parent.get('tasks').removeObject(model);
             self.transitionToRoute('story');
           }, 
           function() {

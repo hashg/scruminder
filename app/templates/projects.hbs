@@ -17,7 +17,7 @@
   <div id="sm-projects-list" class="panel-body panel-body-nopad">
     <ul class="list-group list-group-mp" style="margin: 0;">
       {{#each}}
-      <div class="list-group-item">
+      <li class="list-group-item">
         <i class="indicator glyphicon glyphicon-chevron-right pull-right"></i>
         {{#link-to 'project' this}}
           <h4>{{name}}</h4>
@@ -25,7 +25,7 @@
             {{format-markdown description}}
           </div>
         {{/link-to}}
-      </div>
+      </li>
       {{else}}
       <h4 style="text-align: center;">Go create some projects.</h4>
       {{/each}}

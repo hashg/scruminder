@@ -376,7 +376,7 @@ sprints = {
 stories = {
   # 'title' tag used in item links.
   'item_title': 'stories',
-  'extra_response_fields': ['name', 'sprint_id', 'tasks', 'priority', 'customer', 'disposition', 'stat', 'tracker', 'estimate', 'description'],
+  'extra_response_fields': ['name', 'sprint_id', 'carried_over', 'tasks', 'priority', 'customer', 'disposition', 'stat', 'tracker', 'estimate', 'description'],
   'public_methods' : ['GET'],
   'public_item_methods' : ['GET'],
   
@@ -392,6 +392,13 @@ stories = {
       'maxlength': 25,
     },
     'sprint_id': {
+      'type': 'objectid',
+      'data_relation': {
+        'resource': 'sprints',
+        'field': '_id'
+      }
+    },
+    'carried_over': {
       'type': 'objectid',
       'data_relation': {
         'resource': 'sprints',

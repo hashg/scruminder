@@ -76,7 +76,7 @@
                 </button>
                 <ul class="dropdown-menu">
                   {{#each sprint in controller.transferableSprints}}
-                  <li><a {{action addToSprint o sprint}}>{{sprint.name}}</a></li>
+                  <li><a {{action 'add2sprint' o sprint}}>{{sprint.name}}</a></li>
                   {{else}}
                   <li><code class="md">No sprints w/ created/started status</code></li>
                   {{/each}}

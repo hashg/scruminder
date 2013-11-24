@@ -94,10 +94,18 @@ def sprints_delete_callback(request, payload):
         projects.update({"_id" : ObjectId(parent_id)}, {"$pull": {"sprints": ObjectId(sprint_id)}})
     print 'sprints_delete_callback - END'
 
-def stories_callback(request, payload): 
+def stories_callback(request, payload):
+    print 'stories_callback - BEGIN'
     parent_id = request.json.get("sprint_id")
     story_id = request.json.get("_id")
+    # if not story_id:
+    #     story_id = request.url.split('/')[-1]
 
+
+    print story_id
+    print request.url
+    print request.json
+    print request.headers
     myresponse = json.loads(payload.response[0])
     status = myresponse.get("status")
 
@@ -105,6 +113,7 @@ def stories_callback(request, payload):
     
     if sprints and status.encode('utf8') == 'OK':
         sprints.update({"_id" : ObjectId(parent_id)}, {"$push": {"stories": story_id}})
+    print 'stories_callback - END'
 
 def stories_delete_callback(request, payload):
     print 'stories_delete_callback - BEGIN'

@@ -22,9 +22,14 @@
   </div> <!-- panel-body -->
 </div><!-- panel -->
 {{outlet}}
+{{#if errorMessage}}
+  <div class="alert alert-danger">
+    {{errorMessage}}
+  </div>
+{{/if}}
 <div class="page-heading-x">
   <h2 class="page-title">
-    <i class="icon-chat-3"></i> Stories
+    <i class="icon-chat-3"></i> Stories ({{count}})
   </h2>
   {{#link-to 'sprint.new' class="btn btn-circle btn-success pull-right"}} <i class="icon-plus"></i>{{/link-to}}
 </div>
@@ -46,7 +51,7 @@
           </button>
           <ul class="dropdown-menu">
             {{#each sprint in controller.createdSprints}}
-            <li><a {{action moveToSprint o sprint}}>{{sprint.name}}</a></li>
+            <li><a {{action 'move2sprint' o sprint}}>{{sprint.name}}</a></li>
             {{else}}
             <li><code class="md">No sprints w/ created status</code></li>
             {{/each}}

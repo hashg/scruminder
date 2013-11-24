@@ -20,7 +20,6 @@
 }
 
 .panel-body-nopad {
-  overflow: auto;
   padding: 0;
 }
 
@@ -69,7 +68,7 @@ dd {
   -moz-border-radius: 0;
   border-radius: 0;
   margin-top: 0;
-  min-width: 150px;
+  min-width: 50px;
   cursor: pointer;
 }
 
@@ -86,10 +85,6 @@ code.md {
   text-decoration: none;
 }
 
-.list-group-item {
-  overflow: auto;
-}
-
 .list-group-item p {
-margin: 0;
+  margin: 0;
 }

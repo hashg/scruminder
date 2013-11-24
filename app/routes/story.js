@@ -16,6 +16,9 @@ var StoryRoute = Ember.Route.extend({
   setupController: function(controller, model){
     this._super(controller, model);
     controller.set('content', model);
+  },
+  deactivate: function() {
+    this.controllerFor('story').set('search', '');
   }
 });
 

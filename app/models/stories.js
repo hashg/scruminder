@@ -7,6 +7,7 @@ import Float from 'appkit/utils/float';
 var Stories = Eve.extend({
   name: Ember.attr(),
   sprint_id: Ember.attr(),
+  carried_over: Ember.attr(),
   tasks: Ember.hasMany(Tasks, {key: 'tasks'}),
   priority: Ember.attr(Number),
   customer: Ember.attr(),
